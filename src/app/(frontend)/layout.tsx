@@ -3,6 +3,7 @@ import './styles.css'
 import ReactLenis from './lib/ReactLenis'
 import { Shantell_Sans } from 'next/font/google'
 import Footer from './footer/Footer'
+import Navbar from './navbar/Navbar'
 
 const shantellSans = Shantell_Sans({
   variable: '--font-shantell-sans',
@@ -25,13 +26,9 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang="pl">
       <body className={`${shantellSans.variable} antialiased`}>
-        {/* <Navbar /> */}
+        <Navbar />
         <main>
-          <div className="container mx-auto min-h-screen">
-            {/* <Template> */}
-            {children}
-            {/* </Template> */}
-          </div>
+          <div className="container mx-auto min-h-screen">{children}</div>
           <Footer />
         </main>
         <ReactLenis />
