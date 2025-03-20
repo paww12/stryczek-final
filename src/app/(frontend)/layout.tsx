@@ -1,18 +1,40 @@
 import React from 'react'
 import './styles.css'
+import ReactLenis from './lib/ReactLenis'
+import { Shantell_Sans } from 'next/font/google'
+import Footer from './footer/Footer'
+
+const shantellSans = Shantell_Sans({
+  variable: '--font-shantell-sans',
+  subsets: ['latin'],
+})
 
 export const metadata = {
-  description: 'A blank template using Payload in a Next.js app.',
-  title: 'Payload Blank Template',
+  title: 'Słodka Pętelka',
+  description: 'Słodka Pętelka - domowe ciasta i słodycze',
+  url: 'https://slodkapetelka.pl',
+  type: 'website',
+  siteName: 'Słodka Pętelka',
+  locale: 'pl_PL',
+  keywords: ['ciasta', 'słodycze', 'domowe ciasta', 'domowe słodycze'],
 }
 
 export default async function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
 
   return (
-    <html lang="en">
-      <body>
-        <main>{children}</main>
+    <html lang="pl">
+      <body className={`${shantellSans.variable} antialiased`}>
+        {/* <Navbar /> */}
+        <main>
+          <div className="container mx-auto min-h-screen">
+            {/* <Template> */}
+            {children}
+            {/* </Template> */}
+          </div>
+          <Footer />
+        </main>
+        <ReactLenis />
       </body>
     </html>
   )

@@ -12,7 +12,7 @@ export default async function HomePage() {
   const { user } = await payload.auth({ headers })
 
   return (
-    <div className="bg-slate-300">
+    <div className="">
       <h1>hello stryczek</h1>
       <pre>{JSON.stringify(user, null, 2)}</pre>
     </div>
