@@ -69,6 +69,8 @@ export interface Config {
     users: User;
     media: Media;
     logo: Logo;
+    'navbar-image': NavbarImage;
+    'navbar-text': NavbarText;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -78,6 +80,8 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     logo: LogoSelect<false> | LogoSelect<true>;
+    'navbar-image': NavbarImageSelect<false> | NavbarImageSelect<true>;
+    'navbar-text': NavbarTextSelect<false> | NavbarTextSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -163,6 +167,26 @@ export interface Logo {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "navbar-image".
+ */
+export interface NavbarImage {
+  id: number;
+  image: number | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "navbar-text".
+ */
+export interface NavbarText {
+  id: number;
+  text: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -179,6 +203,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'logo';
         value: number | Logo;
+      } | null)
+    | ({
+        relationTo: 'navbar-image';
+        value: number | NavbarImage;
+      } | null)
+    | ({
+        relationTo: 'navbar-text';
+        value: number | NavbarText;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -262,6 +294,24 @@ export interface MediaSelect<T extends boolean = true> {
 export interface LogoSelect<T extends boolean = true> {
   image?: T;
   alt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "navbar-image_select".
+ */
+export interface NavbarImageSelect<T extends boolean = true> {
+  image?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "navbar-text_select".
+ */
+export interface NavbarTextSelect<T extends boolean = true> {
+  text?: T;
   updatedAt?: T;
   createdAt?: T;
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-// import Burger from "./Burger";
+import Burger from './Burger'
 import Link from 'next/link'
 import Logo from './Logo'
 
@@ -12,7 +12,9 @@ const Navbar = () => {
       <div className="w-16 h-16 relative">
         <Logo />
       </div>
-      <div className="block md:hidden">{/* <Burger /> */}</div>
+      <div className="block md:hidden">
+        <Burger />
+      </div>
       <div className="hidden md:flex gap-4 text-3xl md:gap-8 lg:gap-12">
         <Link href="/offer" className="p-4">
           Oferta

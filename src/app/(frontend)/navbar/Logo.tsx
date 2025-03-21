@@ -39,7 +39,7 @@ const Logo = () => {
     }
     fetchData()
   }, [])
-  console.log(image)
+
   return (
     <>
       <Link href="/" className="flex gap-4 text-xl items-center" onClick={() => setIsOpen(false)}>
