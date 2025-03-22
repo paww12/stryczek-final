@@ -42,6 +42,7 @@ const HeroImage = () => {
   }, [])
 
   useEffect(() => {
+    if (!imageData) return
     const TimeoutNumber = setTimeout(() => {
       animate(progres1, 1, { duration: 1.3, ease: [0.76, 0, 0.24, 1] })
       animate(progres2, 1, { duration: 1.0, ease: [0.76, 0, 0.24, 1] })
@@ -50,7 +51,7 @@ const HeroImage = () => {
     return () => {
       clearTimeout(TimeoutNumber)
     }
-  }, [progres1, progres2])
+  }, [progres1, progres2, imageData])
 
   const opacity = useTransform(progres1, [0, 1], [0, 1])
   const points = [

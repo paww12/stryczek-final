@@ -71,6 +71,7 @@ export interface Config {
     logo: Logo;
     'navbar-image': NavbarImage;
     'navbar-text': NavbarText;
+    'hero-description': HeroDescription;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -82,6 +83,7 @@ export interface Config {
     logo: LogoSelect<false> | LogoSelect<true>;
     'navbar-image': NavbarImageSelect<false> | NavbarImageSelect<true>;
     'navbar-text': NavbarTextSelect<false> | NavbarTextSelect<true>;
+    'hero-description': HeroDescriptionSelect<false> | HeroDescriptionSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -187,6 +189,16 @@ export interface NavbarText {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "hero-description".
+ */
+export interface HeroDescription {
+  id: number;
+  text: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -211,6 +223,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'navbar-text';
         value: number | NavbarText;
+      } | null)
+    | ({
+        relationTo: 'hero-description';
+        value: number | HeroDescription;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -311,6 +327,15 @@ export interface NavbarImageSelect<T extends boolean = true> {
  * via the `definition` "navbar-text_select".
  */
 export interface NavbarTextSelect<T extends boolean = true> {
+  text?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "hero-description_select".
+ */
+export interface HeroDescriptionSelect<T extends boolean = true> {
   text?: T;
   updatedAt?: T;
   createdAt?: T;

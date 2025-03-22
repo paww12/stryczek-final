@@ -1,24 +1,65 @@
 'use client'
 import { useEffect, useState } from 'react'
 
-const phrases = ['ciasteczka', 'torty', 'słodkości']
 const SPEED = 250
+
+interface NavbarTextDoc {
+  id: number
+  text: string
+  createdAt: string
+  updatedAt: string
+}
+
+interface ApiResponse {
+  docs: NavbarTextDoc[]
+  hasNextPage: boolean
+  hasPrevPage: boolean
+  limit: number
+  nextPage: null | number
+  page: number
+  pagingCounter: number
+  prevPage: null | number
+  totalDocs: number
+  totalPages: number
+}
 
 const Text = () => {
   const [text, setText] = useState('')
+  const [phrases, setPhrases] = useState<string[] | null>(null)
   const [index, setIndex] = useState(0)
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch('/api/navbar-text')
+        const data: ApiResponse = await res.json()
+
+        const texts = data.docs.map((doc) => doc.text)
+        setPhrases(texts)
+      } catch (error) {
+        console.error('Error fetching navbar texts:', error)
+        setPhrases(['słodkości', 'torty', 'ciasteczka'])
+      }
+    }
+
+    fetchData()
+  }, [])
+
+  useEffect(() => {
     const animate = async () => {
-      for (let i = 0; i <= phrases[index].length; i++) {
-        setText(phrases[index].slice(0, i))
+      if (!phrases || phrases.length === 0) return
+
+      const currentPhrase = phrases[index]
+
+      for (let i = 0; i <= currentPhrase.length; i++) {
+        setText(currentPhrase.slice(0, i))
         await new Promise((r) => setTimeout(r, SPEED))
       }
 
-      await new Promise((r) => setTimeout(r, 1000))
+      await new Promise((r) => setTimeout(r, SPEED * 4))
 
-      for (let i = phrases[index].length; i >= 0; i--) {
-        setText(phrases[index].slice(0, i))
+      for (let i = currentPhrase.length; i >= 0; i--) {
+        setText(currentPhrase.slice(0, i))
         await new Promise((r) => setTimeout(r, SPEED / 2))
       }
 
@@ -26,10 +67,10 @@ const Text = () => {
     }
 
     animate()
-  }, [index])
+  }, [index, phrases])
 
   return (
-    <h2 className="hidden sm:flex mt-12 p-6 sm:h-28 bg-white w-fit bg-opacity-75 mb-16 backdrop-blur-[1px] flex-col rounded-md opacity-0 text-2xl animate-fade-in-delay md:text-3xl lg:h-32 lg:text-4xl ">
+    <h2 className="hidden sm:flex mt-12 p-6 sm:h-28 bg-white w-fit bg-opacity-75 mb-16 backdrop-blur-[1px] flex-col rounded-md opacity-0 text-2xl animate-fade-in-delay md:text-3xl lg:h-32 lg:text-4xl">
       <span className="flex flex-col">
         Oferujemy pyszne
         <span>{text}</span>

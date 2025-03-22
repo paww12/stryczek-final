@@ -1,3 +1,4 @@
+import Description from './Description'
 import HeroImage from './HeroImage'
 import Loop from './Loop'
 import Text from './Text'
@@ -18,13 +19,7 @@ const Hero = () => {
           <Loop />
         </h1>
         <Text />
-        <div className="hidden md:block mt-12 max-w-2xl opacity-0 bg-white bg-opacity-75 text-lg p-4 rounded-md animate-fade-in-delay-long">
-          <span>
-            Jesteśmy małą fimą Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odit iste
-            minus temporibus quasi asperiores praesentium possimus! Architecto ad vel ipsa accusamus
-            asperiores sint sunt recusandae illo est omnis, neque praesentium!
-          </span>
-        </div>
+        <Description />
       </div>
       <HeroImage />
     </section>
