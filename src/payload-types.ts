@@ -72,6 +72,7 @@ export interface Config {
     'navbar-image': NavbarImage;
     'navbar-text': NavbarText;
     'hero-description': HeroDescription;
+    news: News;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -84,6 +85,7 @@ export interface Config {
     'navbar-image': NavbarImageSelect<false> | NavbarImageSelect<true>;
     'navbar-text': NavbarTextSelect<false> | NavbarTextSelect<true>;
     'hero-description': HeroDescriptionSelect<false> | HeroDescriptionSelect<true>;
+    news: NewsSelect<false> | NewsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -199,6 +201,33 @@ export interface HeroDescription {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "news".
+ */
+export interface News {
+  id: number;
+  title: string;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  image?: (number | null) | Media;
+  image2?: (number | null) | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -227,6 +256,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'hero-description';
         value: number | HeroDescription;
+      } | null)
+    | ({
+        relationTo: 'news';
+        value: number | News;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -337,6 +370,18 @@ export interface NavbarTextSelect<T extends boolean = true> {
  */
 export interface HeroDescriptionSelect<T extends boolean = true> {
   text?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "news_select".
+ */
+export interface NewsSelect<T extends boolean = true> {
+  title?: T;
+  content?: T;
+  image?: T;
+  image2?: T;
   updatedAt?: T;
   createdAt?: T;
 }

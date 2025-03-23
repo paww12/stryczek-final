@@ -13,6 +13,7 @@ import { Logo } from './collections/Logo'
 import { NavbarImage } from './collections/NavbarImage'
 import { NavbarText } from './collections/NavbarText'
 import { HeroDescription } from './collections/HeroDescription'
+import { News } from './collections/News'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -24,7 +25,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Logo, NavbarImage, NavbarText, HeroDescription],
+  collections: [Users, Media, Logo, NavbarImage, NavbarText, HeroDescription, News],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
