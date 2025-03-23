@@ -1,21 +1,15 @@
-// NewsCart.tsx
 'use client'
-
+import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { RichText } from '@payloadcms/richtext-lexical/react'
-import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
-import { usePopupStore } from '../../state/store'
-import CartTop from './CartTop'
+import CartTop from '../Sections/NewsSection/CartTop'
+import { usePopupStore } from '../state/store'
 
-interface NewsCartProps {
-  slide: string
-}
-interface NewsData {
-  title: string
-  createdAt: string
+export interface NewsData {
   id: number
+  title?: string | null
+  createdAt: string
   updatedAt: string
   content: SerializedEditorState
   subcontent?: SerializedEditorState
@@ -33,34 +27,10 @@ interface NewsData {
   }
 }
 
-const NewsCart: React.FC<NewsCartProps> = ({ slide }) => {
-  const [data, setData] = useState<NewsData | null>(null)
-  const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
+export default function NewsCard({ data }: { data: NewsData }) {
   const { setComponent } = usePopupStore()
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setIsLoading(true)
-        const res = await fetch(`/api/news?limit=1&sort=-createdAt&page=${slide}`)
-
-        if (!res.ok) throw new Error('Failed to fetch data')
-
-        const responseData = await res.json()
-        setData(responseData.docs[0])
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Unknown error occurred')
-      } finally {
-        setIsLoading(false)
-      }
-    }
-
-    fetchData()
-  }, [slide])
-
   const handleImageClick = (imageSrc: string) => {
-    console.log('imageSrc')
     setComponent(
       <motion.div
         className="w-full h-full"
@@ -72,7 +42,7 @@ const NewsCart: React.FC<NewsCartProps> = ({ slide }) => {
         <Image
           alt="Enlarged content preview"
           className="object-contain rounded-md aspect-auto w-full h-full
-          pointer-events-none max-w-[90vw] max-h-[90vh]"
+              pointer-events-none max-w-[90vw] max-h-[90vh]"
           src={imageSrc}
           width={data?.image?.width}
           height={data?.image?.height}
@@ -81,31 +51,8 @@ const NewsCart: React.FC<NewsCartProps> = ({ slide }) => {
       </motion.div>,
     )
   }
-
-  if (isLoading) {
-    return (
-      <div className="mx-2 my-2 h-fit animate-pulse">
-        <div className="flex flex-col lg:flex-row md:gap-6">
-          <div className="flex-1 space-y-4">
-            <div className="h-6 bg-gray-200 rounded w-3/4"></div>
-            <div className="h-4 bg-gray-200 rounded w-1/2"></div>
-          </div>
-          <div className="flex flex-col gap-4 mt-4 md:flex-row md:items-start md:gap-6 md:flex-none">
-            <div className="w-full h-64 bg-gray-200 rounded-md sm:h-72 md:h-80"></div>
-          </div>
-        </div>
-      </div>
-    )
-  }
-
-  if (error) {
-    return <div className="mx-2 my-2 p-4 bg-red-100 text-red-700 rounded-lg">Error: {error}</div>
-  }
-
-  if (!data) return null
-
   return (
-    <article className="mx-2 my-2 h-fit">
+    <article className="mx-2 my-2 h-fit w-full p-4 bg-white rounded-lg shadow-lg">
       <CartTop data={data.createdAt} />
       <div className="w-full h-1 bg-slate-100 rounded-sm my-4 hidden md:block"></div>
       <div className="flex flex-col xl:flex-row md:gap-6">
@@ -159,5 +106,3 @@ const NewsCart: React.FC<NewsCartProps> = ({ slide }) => {
     </article>
   )
 }
-
-export default NewsCart

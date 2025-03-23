@@ -9,7 +9,7 @@ export default async function HomePage() {
     <>
       <Hero />
       <News />
-      <div className="h-screen"></div>
+      <div className="h-24"></div>
       <PopupSection />
     </>
   )

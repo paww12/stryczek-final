@@ -4,6 +4,7 @@ import { useMotionValue } from 'framer-motion'
 import { useState, useCallback } from 'react'
 import { motion } from 'framer-motion'
 import NewsCart from './NewsCart'
+import SeeAllNews from './SeeAllNews'
 
 const SLIDE_GAP = 48
 const DRAG_THRESHOLD = 75
@@ -30,7 +31,7 @@ const News = () => {
   }
 
   return (
-    <section className="mb-6  relative" aria-label="Aktualności">
+    <section className="mb-6 md:mt-12 relative" aria-label="Aktualności">
       <h1 className="text-center text-4xl mb-12 mt-4">Aktualności</h1>
 
       <div
@@ -75,6 +76,7 @@ const News = () => {
           />
         ))}
       </div>
+      <SeeAllNews />
     </section>
   )
 }
