@@ -7,11 +7,15 @@ export const News: CollectionConfig = {
       name: 'title',
       label: 'Title',
       type: 'text',
-      required: true,
     },
     {
       name: 'content',
       label: 'Content',
+      type: 'richText',
+    },
+    {
+      name: 'subcontent',
+      label: 'SubContent',
       type: 'richText',
     },
     {

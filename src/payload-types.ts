@@ -205,8 +205,23 @@ export interface HeroDescription {
  */
 export interface News {
   id: number;
-  title: string;
+  title?: string | null;
   content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  subcontent?: {
     root: {
       type: string;
       children: {
@@ -380,6 +395,7 @@ export interface HeroDescriptionSelect<T extends boolean = true> {
 export interface NewsSelect<T extends boolean = true> {
   title?: T;
   content?: T;
+  subcontent?: T;
   image?: T;
   image2?: T;
   updatedAt?: T;

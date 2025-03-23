@@ -30,7 +30,7 @@ const News = () => {
   }
 
   return (
-    <section className="mb-6 mt-40 relative" aria-label="Aktualności">
+    <section className="mb-6  relative" aria-label="Aktualności">
       <h1 className="text-center text-4xl mb-12 mt-4">Aktualności</h1>
 
       <div
