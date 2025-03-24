@@ -60,7 +60,6 @@ const NewsCart: React.FC<NewsCartProps> = ({ slide }) => {
   }, [slide])
 
   const handleImageClick = (imageSrc: string) => {
-    console.log('imageSrc')
     setComponent(
       <motion.div
         className="w-full h-full"

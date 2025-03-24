@@ -14,6 +14,8 @@ import { NavbarImage } from './collections/NavbarImage'
 import { NavbarText } from './collections/NavbarText'
 import { HeroDescription } from './collections/HeroDescription'
 import { News } from './collections/News'
+import { AboutMePhoto } from './collections/AboutMePhoto'
+import { Opinion } from './collections/Opinion'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -28,7 +30,17 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Logo, NavbarImage, NavbarText, HeroDescription, News],
+  collections: [
+    Users,
+    Media,
+    Logo,
+    NavbarImage,
+    NavbarText,
+    HeroDescription,
+    News,
+    AboutMePhoto,
+    Opinion,
+  ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

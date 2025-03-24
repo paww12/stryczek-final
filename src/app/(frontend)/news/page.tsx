@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Suspense } from 'react'
 import NewsList from './NewsList'
-import PopupSection from '../popupSection/PopupSection'
+import PopupSection from '../Sections/popupSection/PopupSection'
 
 const NewsPage = async ({ searchParams }: { searchParams: { page?: string } }) => {
   const currentPage = Number(searchParams.page) || 1

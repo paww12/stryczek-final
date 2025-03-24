@@ -73,6 +73,8 @@ export interface Config {
     'navbar-text': NavbarText;
     'hero-description': HeroDescription;
     news: News;
+    'about-me-photo': AboutMePhoto;
+    opinion: Opinion;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -86,6 +88,8 @@ export interface Config {
     'navbar-text': NavbarTextSelect<false> | NavbarTextSelect<true>;
     'hero-description': HeroDescriptionSelect<false> | HeroDescriptionSelect<true>;
     news: NewsSelect<false> | NewsSelect<true>;
+    'about-me-photo': AboutMePhotoSelect<false> | AboutMePhotoSelect<true>;
+    opinion: OpinionSelect<false> | OpinionSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -243,6 +247,28 @@ export interface News {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about-me-photo".
+ */
+export interface AboutMePhoto {
+  id: number;
+  photo: number | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "opinion".
+ */
+export interface Opinion {
+  id: number;
+  name: string;
+  opinion: string;
+  stars: number;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -275,6 +301,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'news';
         value: number | News;
+      } | null)
+    | ({
+        relationTo: 'about-me-photo';
+        value: number | AboutMePhoto;
+      } | null)
+    | ({
+        relationTo: 'opinion';
+        value: number | Opinion;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -398,6 +432,26 @@ export interface NewsSelect<T extends boolean = true> {
   subcontent?: T;
   image?: T;
   image2?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about-me-photo_select".
+ */
+export interface AboutMePhotoSelect<T extends boolean = true> {
+  photo?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "opinion_select".
+ */
+export interface OpinionSelect<T extends boolean = true> {
+  name?: T;
+  opinion?: T;
+  stars?: T;
   updatedAt?: T;
   createdAt?: T;
 }
