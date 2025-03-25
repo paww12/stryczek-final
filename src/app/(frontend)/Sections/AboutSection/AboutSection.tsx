@@ -10,7 +10,7 @@ const AboutSection = async () => {
   const data = await payload.find({ collection: 'about-me-photo' })
 
   return (
-    <section className="relative pt-16 pb-4 my-20 md:pb-12 rounded-lg shadow-lg bg-white overflow-hidden">
+    <section className="pt-16 mb-24 pb-4  md:pb-12 rounded-lg shadow-lg bg-white overflow-hidden">
       <div className="container mx-auto px-4">
         <div className="flex flex-wrap items-center -mx-4">
           <div className="w-full lg:w-1/2 px-4 mb-12 lg:mb-0">

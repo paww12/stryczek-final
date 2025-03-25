@@ -22,7 +22,7 @@ const OpinionsSection = async () => {
   }
 
   return (
-    <section className="bg-gray-50 py-16 rounded-lg shadow-lg mb-12" itemScope>
+    <section className="bg-gray-50 py-16 rounded-lg shadow-lg mb-20" itemScope>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-3xl font-bold text-center mb-6 text-gray-900">Co mówią nasi goście</h2>
         <p className="text-gray-600 text-center mb-8">

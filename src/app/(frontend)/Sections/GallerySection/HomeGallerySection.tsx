@@ -3,6 +3,8 @@ import EyeButton from '../../Components/EyeButton'
 import SweetBox from '../../Components/SweetBox'
 import Overlay from '../../Components/Overlay'
 import Title from '../../Components/Title'
+import { MotionValue, useTransform, motion } from 'framer-motion'
+import { useIsMobile } from '../../lib/useIsMobile'
 
 interface CategoryTypes {
   title: string
@@ -10,31 +12,50 @@ interface CategoryTypes {
   icon: string
   desc: string
 }
+const categories: CategoryTypes[] = [
+  {
+    icon: '🎂',
+    title: 'Torty Artystyczne',
+    desc: 'Unikalne kompozycje na specjalne okazje',
+    href: '/galery?category=Torty',
+  },
+  {
+    icon: '🍰',
+    title: 'Desery Sezonowe',
+    desc: 'Słodkości inspirowane porami roku',
+    href: '/galery?category=Desery',
+  },
+  {
+    icon: '🥐',
+    title: 'Wypieki Domowe',
+    desc: 'Elegancja i lekkość w każdym kęsie',
+    href: '/galery?category=Wypieki',
+  },
+]
 
-const HomeGallerySection = () => {
-  const categories: CategoryTypes[] = [
-    {
-      icon: '🎂',
-      title: 'Torty Artystyczne',
-      desc: 'Unikalne kompozycje na specjalne okazje',
-      href: '/galery?category=Torty',
-    },
-    {
-      icon: '🍰',
-      title: 'Desery Sezonowe',
-      desc: 'Słodkości inspirowane porami roku',
-      href: '/galery?category=Desery',
-    },
-    {
-      icon: '🥐',
-      title: 'Wypieki Domowe',
-      desc: 'Elegancja i lekkość w każdym kęsie',
-      href: '/galery?category=Wypieki',
-    },
-  ]
+const HomeGallerySection = ({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) => {
+  const isMobile = useIsMobile()
+
+  const desktopScale = useTransform(scrollYProgress, [0, 1], [1, 0.8])
+  const desktopRotate = useTransform(scrollYProgress, [0, 1], [0, -5])
+  const desktopBrightness = useTransform(scrollYProgress, [0, 1], [1, 0.75])
+
+  const desktopFilter = useTransform(desktopBrightness, (v) => `brightness(${v})`)
+
+  const motionStyles = isMobile
+    ? {}
+    : {
+        scale: desktopScale,
+        rotate: desktopRotate,
+        filter: desktopFilter,
+      }
 
   return (
-    <section className="relative py-20 bg-gradient-to-b rounded-lg shadow-md from-slate-50 to-white">
+    <motion.section
+      style={motionStyles}
+      className="md:sticky md:top-[20vh] md:h-[70vh] md:mb-[10vh]
+     py-20 bg-gradient-to-b rounded-lg shadow-md from-slate-50 to-white"
+    >
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
@@ -55,7 +76,7 @@ const HomeGallerySection = () => {
         </Overlay>
 
         <Overlay delay={1}>
-          <div className="text-center mt-16">
+          <div className="text-center mt-16 lg:mt-24">
             <Link
               href="/galery"
               className="inline-flex items-center gap-3 px-8 py-4 bg-slate-200 text-black rounded-full text-lg font-semibold hover:bg-slate-700 hover:text-white transition-colors"
@@ -70,7 +91,7 @@ const HomeGallerySection = () => {
           <div className="absolute bottom-10 right-10 w-48 h-48 bg-pink-300 opacity-50 rounded-full blur-3xl" />
         </div>
       </div>
-    </section>
+    </motion.section>
   )
 }
 
