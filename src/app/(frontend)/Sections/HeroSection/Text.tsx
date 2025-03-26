@@ -33,7 +33,6 @@ const Text = () => {
       try {
         const res = await fetch('/api/navbar-text')
         const data: ApiResponse = await res.json()
-
         const texts = data.docs.map((doc) => doc.text)
         setPhrases(texts)
       } catch (error) {
@@ -46,12 +45,15 @@ const Text = () => {
   }, [])
 
   useEffect(() => {
+    let cancelled = false
+
     const animate = async () => {
       if (!phrases || phrases.length === 0) return
 
       const currentPhrase = phrases[index]
 
       for (let i = 0; i <= currentPhrase.length; i++) {
+        if (cancelled) return
         setText(currentPhrase.slice(0, i))
         await new Promise((r) => setTimeout(r, SPEED))
       }
@@ -59,14 +61,21 @@ const Text = () => {
       await new Promise((r) => setTimeout(r, SPEED * 4))
 
       for (let i = currentPhrase.length; i >= 0; i--) {
+        if (cancelled) return
         setText(currentPhrase.slice(0, i))
         await new Promise((r) => setTimeout(r, SPEED / 2))
       }
 
-      setIndex((prev) => (prev + 1) % phrases.length)
+      if (!cancelled) {
+        setIndex((prev) => (prev + 1) % phrases.length)
+      }
     }
 
     animate()
+
+    return () => {
+      cancelled = true
+    }
   }, [index, phrases])
 
   return (

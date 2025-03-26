@@ -1,4 +1,3 @@
-// NewsCart.tsx
 'use client'
 
 import Image from 'next/image'
@@ -44,7 +43,6 @@ const NewsCart: React.FC<NewsCartProps> = ({ slide }) => {
       try {
         setIsLoading(true)
         const res = await fetch(`/api/news?limit=1&sort=-createdAt&page=${slide}`)
-
         if (!res.ok) throw new Error('Failed to fetch data')
         const responseData = await res.json()
         setData(responseData.docs[0])

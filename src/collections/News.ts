@@ -2,6 +2,9 @@ import { CollectionConfig } from 'payload'
 
 export const News: CollectionConfig = {
   slug: 'news',
+  access: {
+    read: () => true,
+  },
   fields: [
     {
       name: 'title',
