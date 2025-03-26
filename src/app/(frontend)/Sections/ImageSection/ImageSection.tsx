@@ -1,5 +1,6 @@
 import { MotionValue, useTransform, motion, useIsomorphicLayoutEffect } from 'framer-motion'
 import { useState } from 'react'
+import ContactForm from '../../contact/components/ContactForm'
 
 type StyleProps = {
   x?: string
@@ -70,7 +71,7 @@ const ImageSection = ({ scrollYProgress }: { scrollYProgress: MotionValue<number
   return (
     <motion.section
       style={{ rotate: roteteSection, scale }}
-      className="relative h-[80vh] py-20 bg-gradient-to-b rounded-lg shadow-md  from-slate-100 to-slate-50 overflow-hidden"
+      className="relative h-[80vh] pb-20 pt-12 bg-gradient-to-b rounded-lg shadow-md  from-slate-100 to-slate-50 overflow-hidden"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
@@ -84,15 +85,15 @@ const ImageSection = ({ scrollYProgress }: { scrollYProgress: MotionValue<number
         style={{ x: '50px', rotate: '45deg' }}
       />
 
-      <div className="mx-auto px-4 h-full flex items-center justify-center relative">
-        <motion.div className="text-center space-y-4" style={{ y: yPos, opacity }}>
+      <div className="mx-auto px-4 h-full flex items-start justify-center relative">
+        <motion.div className="text-center space-y-2" style={{ y: yPos, opacity }}>
           <h2 className="text-4xl font-bold text-slate-800">Lorem ipsum dolor sit amet.</h2>
           <p className="text-slate-600 max-w-md mx-auto">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem quisquam commodi
             amet incidunt officiis enim accusamus consequatur, sint natus qui.
           </p>
+          <ContactForm />
         </motion.div>
-
         {dots.length > 0 && (
           <motion.div
             className="absolute inset-0 pointer-events-none"

@@ -23,6 +23,7 @@
     "@payloadcms/richtext-lexical": "latest",
     "@types/nodemailer": "^6.4.17",
     "cross-env": "^7.0.3",
+    "dotenv": "^16.4.7",
     "graphql": "^16.8.1",
     "lenis": "^1.2.3",
     "motion": "^12.5.0",

@@ -16,11 +16,15 @@ import { HeroDescription } from './collections/HeroDescription'
 import { News } from './collections/News'
 import { AboutMePhoto } from './collections/AboutMePhoto'
 import { Opinion } from './collections/Opinion'
+import { emailAdapter } from './adapters/email'
+import { testAPI } from './adapters/APIhandlers'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
+  endpoints: [testAPI],
+  email: emailAdapter,
   routes: {
     admin: '/dupa',
   },

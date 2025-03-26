@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-//import SocialIcons from "../contact/components/SocialIcons";
+import SocialIcons from '../contact/components/SocialIcons'
 
 const Footer = () => {
   return (
@@ -28,7 +28,9 @@ const Footer = () => {
               Contact
             </Link>
           </div>
-          <div className="hidden md:block ">{/* <SocialIcons /> */}</div>
+          <div className="hidden md:block ">
+            <SocialIcons />
+          </div>
 
           <p className="text-sm text-gray-500 mt-4">© {new Date().getFullYear()} Słodka Pętelka</p>
         </div>
