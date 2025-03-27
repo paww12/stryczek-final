@@ -46,7 +46,7 @@ const ContactForm = () => {
   }
 
   return (
-    <div className="bg-white p-8 rounded-2xl shadow-lg space-y-6 w-full">
+    <div className="bg-white px-8 py-3 rounded-2xl shadow-lg space-y-2 w-full">
       <form onSubmit={handleSubmit}>
         <div>
           <label className="block text-gray-700 my-2">Adres email</label>
@@ -54,7 +54,7 @@ const ContactForm = () => {
             type="email"
             id="adresee"
             name="adresee"
-            className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             onChange={() => setErrors((prev) => ({ ...prev, email: undefined }))}
           />
           {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
@@ -66,7 +66,7 @@ const ContactForm = () => {
             type="text"
             id="subject"
             name="subject"
-            className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             onChange={() => setErrors((prev) => ({ ...prev, subject: undefined }))}
           />
           {errors.subject && <p className="text-red-500 text-sm mt-1">{errors.subject}</p>}
@@ -75,7 +75,7 @@ const ContactForm = () => {
         <div>
           <label className="block text-gray-700 my-2">Wiadomość</label>
           <textarea
-            rows={6}
+            rows={4}
             id="text"
             name="text"
             className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -95,7 +95,7 @@ const ContactForm = () => {
 
       {state && !isPending && (
         <p
-          className={`mt-4 p-3 rounded-lg ${
+          className={`mt-2 p-3 rounded-lg ${
             state.success ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
           }`}
         >

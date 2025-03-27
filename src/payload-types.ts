@@ -75,6 +75,7 @@ export interface Config {
     news: News;
     'about-me-photo': AboutMePhoto;
     opinion: Opinion;
+    product: Product;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -90,6 +91,7 @@ export interface Config {
     news: NewsSelect<false> | NewsSelect<true>;
     'about-me-photo': AboutMePhotoSelect<false> | AboutMePhotoSelect<true>;
     opinion: OpinionSelect<false> | OpinionSelect<true>;
+    product: ProductSelect<false> | ProductSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -269,6 +271,31 @@ export interface Opinion {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "product".
+ */
+export interface Product {
+  id: number;
+  title: string;
+  image?: (number | null) | Media;
+  alt: string;
+  description: string;
+  category: 'Desery' | 'Wypieki' | 'Ciasta';
+  allergens?:
+    | {
+        allergen?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  prices?: {
+    full?: number | null;
+    half?: number | null;
+  };
+  slug: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -309,6 +336,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'opinion';
         value: number | Opinion;
+      } | null)
+    | ({
+        relationTo: 'product';
+        value: number | Product;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -452,6 +483,32 @@ export interface OpinionSelect<T extends boolean = true> {
   name?: T;
   opinion?: T;
   stars?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "product_select".
+ */
+export interface ProductSelect<T extends boolean = true> {
+  title?: T;
+  image?: T;
+  alt?: T;
+  description?: T;
+  category?: T;
+  allergens?:
+    | T
+    | {
+        allergen?: T;
+        id?: T;
+      };
+  prices?:
+    | T
+    | {
+        full?: T;
+        half?: T;
+      };
+  slug?: T;
   updatedAt?: T;
   createdAt?: T;
 }
