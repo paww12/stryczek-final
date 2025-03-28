@@ -15,14 +15,17 @@ const Navbar = () => {
       <div className="block md:hidden">
         <Burger />
       </div>
-      <div className="hidden md:flex gap-4 text-3xl md:gap-8 lg:gap-12">
-        <Link href="/offer" className="p-4">
+      <div className="hidden md:flex  text-2xl lg:text-3xl lg:gap-12">
+        <Link href="/news" className="p-4 hover:scale-105 transition-all hover:text-gray-800">
+          Nowości
+        </Link>
+        <Link href="/offer" className="p-4 hover:scale-105 transition-all hover:text-gray-800">
           Oferta
         </Link>
-        <Link href="/galery" className="p-4">
+        <Link href="/galery" className="p-4 hover:scale-105 transition-all hover:text-gray-800">
           Galeria
         </Link>
-        <Link href="/contact" className="p-4">
+        <Link href="/contact" className="p-4 hover:scale-105 transition-all hover:text-gray-800">
           Kontakt
         </Link>
       </div>

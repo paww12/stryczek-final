@@ -114,6 +114,11 @@ const Burger = () => {
                 Kontakt
               </Link>
             </motion.div>
+            <motion.div variants={linkVariants} className="p-4">
+              <Link href="/news" onClick={() => setIsOpen(false)}>
+                Nowości
+              </Link>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

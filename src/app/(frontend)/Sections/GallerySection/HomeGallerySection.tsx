@@ -17,19 +17,19 @@ const categories: CategoryTypes[] = [
     icon: '🎂',
     title: 'Torty Artystyczne',
     desc: 'Unikalne kompozycje na specjalne okazje',
-    href: '/galery?category=Torty',
+    href: '/offer?category=Ciasta',
   },
   {
     icon: '🍰',
     title: 'Desery Sezonowe',
     desc: 'Słodkości inspirowane porami roku',
-    href: '/galery?category=Desery',
+    href: '/offer?category=Desery',
   },
   {
     icon: '🥐',
     title: 'Wypieki Domowe',
     desc: 'Elegancja i lekkość w każdym kęsie',
-    href: '/galery?category=Wypieki',
+    href: '/offer?category=Wypieki',
   },
 ]
 
@@ -76,9 +76,9 @@ const HomeGallerySection = ({ scrollYProgress }: { scrollYProgress: MotionValue<
         </Overlay>
 
         <Overlay delay={1}>
-          <div className="text-center mt-16 lg:mt-24">
+          <div className="text-center mt-4 lg:mt-6">
             <Link
-              href="/galery"
+              href="/offer"
               className="inline-flex items-center gap-3 px-8 py-4 bg-slate-200 text-black rounded-full text-lg font-semibold hover:bg-slate-700 hover:text-white transition-colors"
             >
               <EyeButton />
