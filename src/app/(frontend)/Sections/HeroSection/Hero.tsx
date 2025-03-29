@@ -3,8 +3,6 @@ import HeroImage from './HeroImage'
 import Loop from './Loop'
 import Text from './Text'
 
-// import Text from "./Text";
-
 const Hero = () => {
   return (
     <section className="w-full relative container md:mb-16 mx-auto  h-screen ">

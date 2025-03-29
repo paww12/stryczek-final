@@ -22,14 +22,12 @@ const GalleryClient = ({ initialData }: { initialData: ImageType[] }) => {
     offset: ['start start', 'end end'],
   })
 
-  // Animation transforms
   const scale = useTransform(scrollYProgress, [0, 1], [0.2, 1])
   const translateXLeft = useTransform(scrollYProgress, [0, 0.4, 1], ['-30%', '0%', '0%'])
   const translateXRight = useTransform(scrollYProgress, [0, 0.4, 1], ['30%', '0%', '0%'])
   const translateYUp = useTransform(scrollYProgress, [0, 0.4, 1], ['-30%', '0%', '0%'])
   const translateYDown = useTransform(scrollYProgress, [0, 0.4, 1], ['30%', '0%', '0%'])
 
-  // Text animations
   const textOpacity = useTransform(scrollYProgress, [0, 1], [1, 0])
   const textScale = useTransform(scrollYProgress, [0, 0.3], [1, 0.8])
   const textY = useTransform(scrollYProgress, [0, 0.3], ['0%', '-20%'])

@@ -31,15 +31,12 @@ const SVG = () => {
   return (
     <motion.svg
       xmlns="http://www.w3.org/2000/svg"
-      // width="487"
-      // height="289"
       className="w-full px-2 max-w-96 lg:max-w-[500px]"
       viewBox="0 0 487 289"
       fill="none"
       initial="hidden"
       animate="visible"
     >
-      {/* Purple lines */}
       <motion.path
         d="M450 146L451.619 261.293"
         stroke="#C470C6"
