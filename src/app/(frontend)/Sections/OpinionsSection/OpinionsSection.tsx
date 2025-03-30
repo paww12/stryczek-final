@@ -1,5 +1,6 @@
 import { getPayload } from 'payload'
 import config from '@/payload.config'
+import BubbleText from '../../contact/components/BubbleText'
 
 const OpinionsSection = async () => {
   const payloadConfig = await config
@@ -24,7 +25,9 @@ const OpinionsSection = async () => {
   return (
     <section className="bg-gray-50 py-16 rounded-lg shadow-lg mb-20" itemScope>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl font-bold text-center mb-6 text-gray-900">Co mówią nasi goście</h2>
+        <h2 className="text-3xl font-bold text-center mb-6 text-gray-900">
+          <BubbleText text="Co mówią nasi goście" />
+        </h2>
         <p className="text-gray-600 text-center mb-8">
           Przeczytaj opinie naszych gości, którzy odwiedzili nasz obiekt
         </p>
@@ -40,6 +43,7 @@ const OpinionsSection = async () => {
               <div
                 className="flex mb-4"
                 aria-label={`Ocena: ${testimonial.stars} na 5 gwiazdek`}
+                role="img"
                 itemScope
               >
                 <meta itemProp="ratingValue" content={testimonial.stars.toString()} />

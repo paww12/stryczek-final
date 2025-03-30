@@ -16,7 +16,7 @@ export default function App({ text }: { text: string }) {
           animate={{
             x: ['0%', 'calc(-100% - 20px)'],
           }}
-          style={{ skewX: -velocity / 30 }}
+          style={{ skewX: -velocity / 40 }}
           transition={{
             duration: 10,
             ease: 'linear',
@@ -24,9 +24,9 @@ export default function App({ text }: { text: string }) {
           }}
         >
           {[...Array(10)].map((_, index) => (
-            <button key={index} className="flex-shrink-0 rounded-lg bg-[#e6d5b8] py-2 text-xl px-2">
+            <li key={index} className="flex-shrink-0 rounded-lg bg-[#e6d5b8] py-2 text-xl px-2">
               {text} {index}
-            </button>
+            </li>
           ))}
         </motion.ul>
 
@@ -35,7 +35,7 @@ export default function App({ text }: { text: string }) {
           animate={{
             x: ['0%', 'calc(-100% - 20px)'],
           }}
-          style={{ skewX: -velocity / 30 }}
+          style={{ skewX: -velocity / 40 }}
           transition={{
             duration: 10,
             ease: 'linear',
@@ -43,9 +43,9 @@ export default function App({ text }: { text: string }) {
           }}
         >
           {[...Array(10)].map((_, index) => (
-            <button key={index} className="flex-shrink-0 rounded-lg bg-[#e6d5b8] py-2 text-xl px-2">
+            <li key={index} className="flex-shrink-0 rounded-lg bg-[#e6d5b8] py-2 text-xl px-2">
               {text} {index}
-            </button>
+            </li>
           ))}
         </motion.ul>
       </div>

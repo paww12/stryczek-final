@@ -6,14 +6,17 @@ const SocialIcons = () => {
     {
       icon: <FaFacebook className="text-2xl" />,
       href: 'https://www.facebook.com/profile.php?id=61568993582578&locale=pl_PL',
+      name: 'Facebook',
     },
     {
       icon: <FaInstagram className="text-2xl" />,
       href: 'https://www.instagram.com/slodka_petelka/',
+      name: 'Instagram',
     },
     {
       icon: <MdOutlineWeb className="text-2xl" />,
       href: 'https://www.slodkapetelka.pl/',
+      name: 'Strona internetowa',
     },
   ]
 
@@ -25,11 +28,16 @@ const SocialIcons = () => {
           <a
             key={index}
             href={item.href}
+            data-name={item.name}
+            aria-label={item.name}
+            rel="noopener noreferrer"
             target="_blank"
             className="p-x-2 bg-gray-100 rounded-full hover:bg-blue-100
-            transition-colors text-gray-600 hover:text-blue-600"
+            transition-colors text-gray-600 hover:text-blue-600
+            focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             {item.icon}
+            <span className="sr-only">{item.name}</span>
           </a>
         ))}
       </div>

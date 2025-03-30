@@ -3,6 +3,7 @@ import Link from 'next/link'
 import OverlayX from '../../Components/OverlayX'
 import { getPayload } from 'payload'
 import config from '@/payload.config'
+import BubbleText from '../../contact/components/BubbleText'
 
 const AboutSection = async () => {
   const payloadConfig = await config
@@ -17,7 +18,8 @@ const AboutSection = async () => {
             <div className="max-w-lg mx-auto lg:mx-0">
               <OverlayX delay={0.2}>
                 <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                  Lorem ipsum dolor sit amet.
+                  {/* Lorem ipsum dolor sit amet. */}
+                  <BubbleText text="Lorem ipsum dolor sit amet consectetur adipisicing." />
                 </h2>
               </OverlayX>
               <OverlayX delay={0.3}>

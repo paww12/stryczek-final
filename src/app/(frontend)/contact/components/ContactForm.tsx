@@ -1,6 +1,7 @@
 'use client'
 import { SendMail } from '@/actions/actions'
 import { useActionState, useState, startTransition } from 'react'
+import ButtonSubmit from './ButtonSubmit'
 
 const ContactForm = () => {
   const [state, action, isPending] = useActionState(SendMail, null)
@@ -49,7 +50,9 @@ const ContactForm = () => {
     <div className="bg-white px-8 py-3 rounded-2xl shadow-lg space-y-2 w-full">
       <form onSubmit={handleSubmit}>
         <div>
-          <label className="block text-gray-700 my-2">Adres email</label>
+          <label htmlFor="adresee" className="block text-gray-700 my-2">
+            Adres email
+          </label>
           <input
             type="email"
             id="adresee"
@@ -61,7 +64,9 @@ const ContactForm = () => {
         </div>
 
         <div>
-          <label className="block text-gray-700 my-2">Temat</label>
+          <label htmlFor="subject" className="block text-gray-700 my-2">
+            Temat
+          </label>
           <input
             type="text"
             id="subject"
@@ -73,7 +78,9 @@ const ContactForm = () => {
         </div>
 
         <div>
-          <label className="block text-gray-700 my-2">Wiadomość</label>
+          <label htmlFor="text" className="block text-gray-700 my-2">
+            Wiadomość
+          </label>
           <textarea
             rows={4}
             id="text"
@@ -83,25 +90,11 @@ const ContactForm = () => {
           ></textarea>
           {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
         </div>
-
-        <button
-          type="submit"
-          disabled={isPending}
-          className="w-full mt-2 bg-blue-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-blue-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
-        >
-          {isPending ? 'Wysyłanie...' : 'Wyślij wiadomość'}
-        </button>
+        <ButtonSubmit
+          isPending={isPending}
+          state={state as { success: boolean; message: string } | null}
+        />
       </form>
-
-      {state && !isPending && (
-        <p
-          className={`mt-2 p-3 rounded-lg ${
-            state.success ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
-          }`}
-        >
-          {(state as { message: string }).message}
-        </p>
-      )}
     </div>
   )
 }

@@ -3,14 +3,12 @@ import config from '@/payload.config'
 import { getPayload } from 'payload'
 
 export async function SendMail(prevState: unknown, formData: FormData) {
-  console.log('first')
   const payloadConfig = await config
   const payload = await getPayload({ config: payloadConfig })
   //   await new Promise((resolve) => setTimeout(resolve, 1000))
   const subject = formData.get('subject')
   const textBody = formData.get('text')
   const adresee = formData.get('adresee')
-  console.log(adresee, subject, textBody)
   if (!adresee || typeof adresee !== 'string') {
     throw new Error('Podaj adres email.')
   }
