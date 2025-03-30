@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useState, useEffect, useRef } from 'react'
+import SVGComponent from './SVGComponent'
 
 type ImageType = {
   id: string
@@ -73,6 +74,7 @@ const GalleryClient = ({ initialData }: { initialData: ImageType[] }) => {
   return (
     <>
       <div ref={container} className="relative h-[calc(200dvh-7rem)] w-full">
+        <SVGComponent scrollYProgress={scrollYProgress} />
         <motion.h1
           style={{
             opacity: textOpacity,
@@ -83,7 +85,6 @@ const GalleryClient = ({ initialData }: { initialData: ImageType[] }) => {
         >
           Our Gallery
         </motion.h1>
-
         <motion.h2
           style={{
             opacity: textOpacity,
