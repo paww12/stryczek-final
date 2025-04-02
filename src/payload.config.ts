@@ -19,6 +19,7 @@ import { Opinion } from './collections/Opinion'
 import { emailAdapter } from './adapters/email'
 import { testAPI } from './adapters/APIhandlers'
 import { Product } from './collections/Product'
+import GalleryTop from './collections/GalleryTop'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -46,6 +47,7 @@ export default buildConfig({
     AboutMePhoto,
     Opinion,
     Product,
+    GalleryTop,
   ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',

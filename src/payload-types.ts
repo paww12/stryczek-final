@@ -76,6 +76,7 @@ export interface Config {
     'about-me-photo': AboutMePhoto;
     opinion: Opinion;
     product: Product;
+    'gallery-top': GalleryTop;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -92,6 +93,7 @@ export interface Config {
     'about-me-photo': AboutMePhotoSelect<false> | AboutMePhotoSelect<true>;
     opinion: OpinionSelect<false> | OpinionSelect<true>;
     product: ProductSelect<false> | ProductSelect<true>;
+    'gallery-top': GalleryTopSelect<false> | GalleryTopSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -296,6 +298,17 @@ export interface Product {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "gallery-top".
+ */
+export interface GalleryTop {
+  id: number;
+  title: string;
+  image: number | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -340,6 +353,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'product';
         value: number | Product;
+      } | null)
+    | ({
+        relationTo: 'gallery-top';
+        value: number | GalleryTop;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -509,6 +526,16 @@ export interface ProductSelect<T extends boolean = true> {
         half?: T;
       };
   slug?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "gallery-top_select".
+ */
+export interface GalleryTopSelect<T extends boolean = true> {
+  title?: T;
+  image?: T;
   updatedAt?: T;
   createdAt?: T;
 }
