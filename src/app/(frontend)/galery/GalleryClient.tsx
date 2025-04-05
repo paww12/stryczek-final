@@ -121,7 +121,6 @@ const GalleryClient = () => {
           </div>
         )}
       </div>
-      <div className=" relative h-screen"></div>
     </>
   )
 }
