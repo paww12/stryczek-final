@@ -29,11 +29,10 @@ const GalleryClient = () => {
   useEffect(() => {
     const fetchLatest = async () => {
       try {
-        const res = await fetch('/api/gallery-top')
+        const res = await fetch('/api/gallery-top?limit=5')
         const newData = await res.json()
         const images = newData.docs
-        const trimmed = images.slice(0, 5)
-        setImages(trimmed)
+        setImages(images)
       } catch (error) {
         console.error('Error refreshing data:', error)
       } finally {
@@ -105,7 +104,7 @@ const GalleryClient = () => {
                   animate="visible"
                   custom={index}
                   variants={opacityVariants}
-                  className={`relative m-2 ${getSizeClass(index)}`}
+                  className={`relative m-4 ${getSizeClass(index)}`}
                 >
                   <Image
                     src={image.image.url}

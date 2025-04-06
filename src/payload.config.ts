@@ -20,6 +20,7 @@ import { emailAdapter } from './adapters/email'
 import { testAPI } from './adapters/APIhandlers'
 import { Product } from './collections/Product'
 import GalleryTop from './collections/GalleryTop'
+import { GalleryMain } from './collections/GalleryMain'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -48,6 +49,7 @@ export default buildConfig({
     Opinion,
     Product,
     GalleryTop,
+    GalleryMain,
   ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',

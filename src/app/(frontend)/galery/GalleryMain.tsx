@@ -11,8 +11,9 @@ const GalleryMain = () => {
   useEffect(() => {
     const fetchLatest = async () => {
       try {
-        const res = await fetch('/api/gallery-top')
+        const res = await fetch('/api/gallery-main')
         const newData = await res.json()
+        console.log(newData)
         setImages(newData.docs as GalleryTop[])
       } catch (error) {
         console.error('Error refreshing data:', error)
@@ -23,12 +24,26 @@ const GalleryMain = () => {
     fetchLatest()
   }, [])
 
+  const getSizeClass = (i: number) => {
+    const pattern = [
+      'col-span-2 row-span-1',
+      'col-span-1 row-span-2',
+      'col-span-2 row-span-1',
+      'col-span-1 row-span-1',
+      'col-span-2 row-span-1',
+    ]
+    return pattern[i % pattern.length]
+  }
+
   if (loading) return <div>Loading...</div>
 
   return (
-    <motion.div className="p-4 gap-4 grid grid-cols-3 w-full h-full">
+    <motion.div className="p-4 gap-8 grid grid-cols-3 auto-rows-fr gap-y-8 mb-12 h-[calc(100dvh-7rem)]">
       {images?.map((image, i) => (
-        <motion.div className="relative w-full h-full min-h-40 overflow-hidden" key={image.id}>
+        <motion.div
+          className={`relative w-full h-full overflow-hidden ${getSizeClass(i)}`}
+          key={image.id}
+        >
           <Photo image={image} i={i} />
         </motion.div>
       ))}
