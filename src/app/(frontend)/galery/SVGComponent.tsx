@@ -9,7 +9,7 @@ const SVGComponent = ({ scrollYProgress }: { scrollYProgress: MotionValue<number
   return (
     <motion.svg
       style={{ opacity, translateY }}
-      className="w-screen fixed top-1/4 left-0 h-full"
+      className="w-screen fixed top-1/4 left-0 h-full pointer-events-none"
       viewBox="0 0 566 307"
       fill="none"
       strokeWidth={2}

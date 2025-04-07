@@ -16,7 +16,16 @@ export const GalleryMain: CollectionConfig = {
       name: 'link',
       type: 'relationship',
       relationTo: 'product',
-      required: false,
+      // hooks: {
+      //   afterRead: [
+      //     ({ value }) => {
+      //       if (value && typeof value === 'object') {
+      //         return value.title
+      //       }
+      //       return value
+      //     },
+      //   ],
+      // },
     },
   ],
 }

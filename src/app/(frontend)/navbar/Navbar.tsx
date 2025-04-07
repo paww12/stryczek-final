@@ -6,7 +6,7 @@ import Logo from './Logo'
 const Navbar = () => {
   return (
     <nav
-      className="flex fixed top-0 left-0 w-screen z-20 px-6 flex-row justify-between 
+      className="flex fixed top-0 left-0 w-screen z-50 px-6 flex-row justify-between 
     items-center h-28 bg-white text-black shadow-lg font-shantell-sans"
     >
       <div className="w-16 h-16 relative">

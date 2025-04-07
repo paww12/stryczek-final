@@ -104,13 +104,13 @@ const GalleryClient = () => {
                   animate="visible"
                   custom={index}
                   variants={opacityVariants}
-                  className={`relative m-4 ${getSizeClass(index)}`}
+                  className={`relative m-4 overflow-hidden ${getSizeClass(index)}`}
                 >
                   <Image
                     src={image.image.url}
                     alt={image.image.alt}
                     fill
-                    className="w-full h-full object-cover rounded-lg"
+                    className="w-full h-full object-cover rounded-lg transition-transform duration-300 hover:scale-105"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     priority={index < 3}
                   />

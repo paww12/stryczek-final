@@ -18,7 +18,6 @@ export const Product: CollectionConfig = {
       name: 'image',
       type: 'upload',
       relationTo: 'media',
-      // required: true,
     },
     {
       name: 'alt',

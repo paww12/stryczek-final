@@ -1,12 +1,12 @@
 import React from 'react'
 import GalleryClient from './GalleryClient'
-import GalleryMain from './GalleryMain'
+import GalleryMainPage from './GalleryMainPage'
 
 const page = () => {
   return (
     <>
       <GalleryClient />
-      <GalleryMain />
+      <GalleryMainPage />
     </>
   )
 }
