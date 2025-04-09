@@ -59,7 +59,7 @@ const GalleryClient = () => {
 
   return (
     <>
-      <div ref={container} className="relative h-[calc(200dvh-7rem)] w-full">
+      <div ref={container} className="relative h-[calc(200dvh-7rem)] w-full ">
         <SVGComponent scrollYProgress={scrollYProgress} />
         <motion.h1
           style={{

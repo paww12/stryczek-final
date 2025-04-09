@@ -1,43 +1,49 @@
 'use client'
-import { motion } from 'framer-motion'
+import { motion, useInView } from 'framer-motion'
 import Photo from './Photo'
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef, useCallback } from 'react'
 import { GalleryMain } from '@/payload-types'
 
 const GalleryMainPage = () => {
   const [images, setImages] = useState<GalleryMain[]>([])
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(false)
   const [page, setPage] = useState(1)
+  const [hasMore, setHasMore] = useState(true)
   const animatedIds = useRef(new Set<string>())
+  const sentinelRef = useRef(null)
 
-  useEffect(() => {
-    const fetchLatest = async () => {
-      try {
-        const res = await fetch(`/api/gallery-main?page=1&limit=5&depth=1`)
-        const newData = await res.json()
-        setImages(newData.docs)
-      } catch (error) {
-        console.error('Error:', error)
-      } finally {
-        setLoading(false)
-      }
-    }
-    fetchLatest()
-  }, [])
-  console.log(images)
-  const handleLoadMore = async () => {
-    setLoading(true)
+  const isInView = useInView(sentinelRef, {
+    once: false,
+  })
+
+  const loadImages = useCallback(async (pageNumber: number) => {
     try {
-      const nextPage = page + 1
-      const res = await fetch(`/api/gallery-main?page=${nextPage}&limit=5&depth=1`)
+      setLoading(true)
+      const res = await fetch(`/api/gallery-main?page=${pageNumber}&limit=5&depth=1`)
       const newData = await res.json()
 
-      setPage(nextPage)
+      if (newData.docs.length === 0) {
+        setHasMore(false)
+        return
+      }
+
       setImages((prev) => [...prev, ...newData.docs])
     } finally {
       setLoading(false)
     }
-  }
+  }, [])
+
+  useEffect(() => {
+    if (isInView && hasMore && !loading) {
+      const nextPage = page + 1
+      setPage(nextPage)
+      loadImages(nextPage)
+    }
+  }, [isInView, hasMore, loading, page, loadImages])
+
+  useEffect(() => {
+    loadImages(1)
+  }, [loadImages])
 
   const getSizeClass = (i: number) => {
     const pattern = [
@@ -54,17 +60,11 @@ const GalleryMainPage = () => {
     animatedIds.current.add(id)
   }
 
-  if (loading && images.length === 0) return <div>Loading...</div>
-
   return (
-    <div className="p-4">
-      <motion.div className="grid grid-cols-3 gap-8 mb-4">
+    <>
+      <motion.div className="grid grid-cols-3 gap-8 m-4">
         {images.map((image, i) => (
-          <motion.div
-            className={`relative min-h-[26.5dvh] ${getSizeClass(i)}`}
-            key={image.id}
-            layout
-          >
+          <motion.div className={`${getSizeClass(i)}`} key={image.id} layout>
             <Photo
               image={image}
               index={i}
@@ -75,13 +75,11 @@ const GalleryMainPage = () => {
         ))}
       </motion.div>
 
-      <button
-        onClick={handleLoadMore}
-        className="rounded-md px-6 py-3 font-medium text-white bg-blue-400 mx-auto mb-4 block hover:bg-blue-500 transition-colors"
-      >
-        Load more
-      </button>
-    </div>
+      <div ref={sentinelRef} className="h-[1px] w-full bg-transparent" />
+
+      {loading && <div className="text-center p-4 text-gray-500">Ładowanie...</div>}
+      {!hasMore && <div className="text-center p-4 text-gray-500">To już wszystkie zdjęcia</div>}
+    </>
   )
 }
 
