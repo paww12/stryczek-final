@@ -88,7 +88,7 @@ const Offer = async ({ searchParams }: { searchParams: { page?: string; category
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
             {products.map((product) => (
               <Link
-                href={`/product/${encodeURIComponent(product.slug)}`}
+                href={`/product/${encodeURIComponent(product.title)}`}
                 key={product.id}
                 className="hover:scale-[.98] transition-all shadow-md hover:shadow-xl"
               >

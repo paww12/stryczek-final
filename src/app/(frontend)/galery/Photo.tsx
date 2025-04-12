@@ -91,13 +91,16 @@ const Photo = ({
         }}
         fill
         alt={image.image.alt || `Gallery image ${index + 1}`}
-        className="object-cover hover:scale-105 transition-transform rounded-lg overflow-hidden"
+        className="object-cover cursor-pointer hover:scale-105 transition-transform rounded-lg overflow-hidden"
         sizes="(max-width: 768px) 100vw, 50vw"
         priority={index < 3}
       />
 
       {image.link && typeof image.link === 'object' && (
-        <Link href={`/product/${image.link.slug}`} className="absolute bottom-0 left-0 w-full">
+        <Link
+          href={`/product/${encodeURIComponent(image.link.title)}`}
+          className="absolute bottom-0 left-0 w-full"
+        >
           <div className="bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center h-full">
             <p className="text-white text-lg font-medium py-2">Sprawdź!</p>
           </div>

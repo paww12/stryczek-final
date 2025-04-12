@@ -5,11 +5,14 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import { useState, useEffect, useRef } from 'react'
 import SVGComponent from './SVGComponent'
 import { GalleryTop } from '@/payload-types'
+import { usePopupStore } from '../state/store'
 
 const GalleryClient = () => {
   const [images, setImages] = useState<GalleryTop[] | null>(null)
   const [loading, setLoading] = useState<boolean>(true)
   const container = useRef(null)
+
+  const { setComponent } = usePopupStore()
 
   const { scrollYProgress } = useScroll({
     target: container,
@@ -55,6 +58,28 @@ const GalleryClient = () => {
       opacity: 1,
       transition: { delay: index * 0.15 },
     }),
+  }
+
+  const handleImageClick = (url: string) => {
+    setComponent(
+      <motion.div
+        className="w-full h-full"
+        layoutId={`photo-${url}`}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+      >
+        <Image
+          alt="Enlarged content preview"
+          className="object-contain rounded-md aspect-auto w-full h-full
+            pointer-events-none max-w-[90vw] max-h-[90vh]"
+          src={url}
+          width={1500}
+          height={1500}
+          priority
+        />
+      </motion.div>,
+    )
   }
 
   return (
@@ -104,13 +129,18 @@ const GalleryClient = () => {
                   animate="visible"
                   custom={index}
                   variants={opacityVariants}
-                  className={`relative m-4 overflow-hidden ${getSizeClass(index)}`}
+                  className={`relative m-4 rounded-lg overflow-hidden ${getSizeClass(index)}`}
                 >
                   <Image
                     src={image.image.url}
+                    onClick={() => {
+                      if (typeof image.image !== 'number' && image.image.url) {
+                        handleImageClick(image.image.url)
+                      }
+                    }}
                     alt={image.image.alt}
                     fill
-                    className="w-full h-full object-cover rounded-lg transition-transform duration-300 hover:scale-105"
+                    className="w-full cursor-pointer h-full object-cover rounded-lg transition-transform duration-300 hover:scale-105"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     priority={index < 3}
                   />

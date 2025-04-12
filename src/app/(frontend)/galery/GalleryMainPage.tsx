@@ -17,6 +17,7 @@ const GalleryMainPage = () => {
   })
 
   const loadImages = useCallback(async (pageNumber: number) => {
+    if (loading) return
     try {
       setLoading(true)
       const res = await fetch(`/api/gallery-main?page=${pageNumber}&limit=5&depth=1`)
@@ -27,7 +28,11 @@ const GalleryMainPage = () => {
         return
       }
 
-      setImages((prev) => [...prev, ...newData.docs])
+      setImages((prev) => {
+        const existingIds = new Set(prev.map((img) => img.id))
+        const filtered = newData.docs.filter((doc: GalleryMain) => !existingIds.has(doc.id))
+        return [...prev, ...filtered]
+      })
     } finally {
       setLoading(false)
     }
@@ -42,6 +47,10 @@ const GalleryMainPage = () => {
   }, [isInView, hasMore, loading, page, loadImages])
 
   useEffect(() => {
+    setImages([])
+    setPage(1)
+    setHasMore(true)
+    animatedIds.current.clear()
     loadImages(1)
   }, [loadImages])
 
