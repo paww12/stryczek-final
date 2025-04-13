@@ -3,7 +3,8 @@ import config from '@/payload.config'
 import Link from 'next/link'
 import { Product } from '@/payload-types'
 import SVG from '../../SVG'
-import Image from 'next/image'
+import ImageComponent from './ImageComponent'
+import PopupSection from '../../Sections/popupSection/PopupSection'
 
 interface PageParams {
   cake: string
@@ -63,81 +64,84 @@ const page = async ({ params }: { params: PageParams }) => {
     )
   }
 
-  const cake = cakeResult.docs[0]
-  console.log(cake)
+  const cake = cakeResult.docs[0] as Product
+
   return (
-    <section className="container bg-white rounded-lg mx-auto px-4 py-8 mt-32">
-      <div className="max-w-6xl mx-auto">
-        <nav aria-label="Nawigacja " className="mb-6">
-          <ol className="flex items-center gap-2 text-sm text-gray-600">
-            <li>
-              <Link href="/" className="hover:text-indigo-600 transition-colors">
-                Strona główna
-              </Link>
-            </li>
-            <li>/</li>
-            <li>
-              <Link href="/offer" className="hover:text-indigo-600 transition-colors">
-                Oferta
-              </Link>
-            </li>
-            <li>/</li>
-            <li className="font-medium text-gray-900">{cakeName}</li>
-          </ol>
-        </nav>
+    <>
+      <section className="container bg-white rounded-lg mx-auto px-4 py-8 mt-32">
+        <div className="max-w-6xl mx-auto">
+          <nav aria-label="Nawigacja " className="mb-6">
+            <ol className="flex items-center gap-2 text-sm text-gray-600">
+              <li>
+                <Link href="/" className="hover:text-indigo-600 transition-colors">
+                  Strona główna
+                </Link>
+              </li>
+              <li>/</li>
+              <li>
+                <Link href="/offer" className="hover:text-indigo-600 transition-colors">
+                  Oferta
+                </Link>
+              </li>
+              <li>/</li>
+              <li className="font-medium text-gray-900">{cakeName}</li>
+            </ol>
+          </nav>
 
-        <section className="grid md:grid-cols-2 gap-8 mb-12">
-          <div className="relative aspect-square rounded-xl overflow-hidden shadow-lg">
-            <Image src={cake.image.url} fill className="object-cover" alt={cake.image.alt} />
-          </div>
+          <section className="grid md:grid-cols-2 gap-8 mb-12">
+            <div className="relative aspect-square rounded-xl overflow-hidden shadow-lg">
+              <ImageComponent image={cake.image} />
+            </div>
 
-          <article className="space-y-6">
-            <header>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">{cake.title}</h1>
-              <p className="text-lg text-gray-600">{cake.description}</p>
-            </header>
+            <article className="space-y-6">
+              <header>
+                <h1 className="text-3xl font-bold text-gray-900 mb-2">{cake.title}</h1>
+                <p className="text-lg text-gray-600">{cake.description}</p>
+              </header>
 
-            <div className="space-y-4">
-              <div className="flex items-center gap-4">
-                {cake.prices && (
-                  <div className="bg-indigo-50 px-4 py-2 rounded-lg flex flex-col gap-4">
-                    <span className="text-2xl font-bold text-indigo-700">
-                      {cake.prices.full && <span> Cała porcja: {cake.prices.full} zł</span>}
-                    </span>
-                    <span className="text-2xl font-bold text-indigo-700">
-                      {cake.prices.half && <span> Pół porcji: {cake.prices.half} zł</span>}
-                    </span>
+              <div className="space-y-4">
+                {(cake.prices?.full || cake.prices?.half) && (
+                  <div className="flex items-center gap-4">
+                    <div className="bg-indigo-50 px-4 py-2 rounded-lg flex flex-col gap-4">
+                      <span className="text-2xl font-bold text-indigo-700">
+                        {cake.prices.full && <span> Cała porcja: {cake.prices.full} zł</span>}
+                      </span>
+                      <span className="text-2xl font-bold text-indigo-700">
+                        {cake.prices.half && <span> Pół porcji: {cake.prices.half} zł</span>}
+                      </span>
+                    </div>
+                  </div>
+                )}
+                {(cake.allergens ?? []).length > 0 && (
+                  <div className="bg-red-50 p-4 rounded-lg">
+                    <h3 className="font-medium text-red-700 mb-2">Zawiera alergeny:</h3>
+                    <ul className="flex flex-wrap gap-2">
+                      {(cake.allergens ?? []).map((allergen) => (
+                        <li
+                          key={allergen.id}
+                          className="bg-red-100 text-red-700 px-3 py-1 rounded-full text-sm"
+                        >
+                          {allergen.allergen}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 )}
               </div>
-              {cake.allergens?.length > 0 && (
-                <div className="bg-red-50 p-4 rounded-lg">
-                  <h3 className="font-medium text-red-700 mb-2">Zawiera alergeny:</h3>
-                  <ul className="flex flex-wrap gap-2">
-                    {cake.allergens.map((allergen) => (
-                      <li
-                        key={allergen.id}
-                        className="bg-red-100 text-red-700 px-3 py-1 rounded-full text-sm"
-                      >
-                        {allergen.allergen}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
-            <div className="">
-              {cake.category && (
-                <div className="p-4 bg-gray-50 rounded-lg">
-                  <h3 className="text-sm font-medium text-gray-500 mb-1">Kategoria</h3>
-                  <p className="text-gray-900 font-medium">{cake.category}</p>
-                </div>
-              )}
-            </div>
-          </article>
-        </section>
-      </div>
-    </section>
+              <div className="">
+                {cake.category && (
+                  <div className="p-4 bg-gray-50 rounded-lg">
+                    <h3 className="text-sm font-medium text-gray-500 mb-1">Kategoria</h3>
+                    <p className="text-gray-900 font-medium">{cake.category}</p>
+                  </div>
+                )}
+              </div>
+            </article>
+          </section>
+        </div>
+      </section>
+      <PopupSection />
+    </>
   )
 }
 
