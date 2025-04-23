@@ -50,7 +50,7 @@ const ContactForm = () => {
     <div className="bg-white px-8 py-3 rounded-2xl shadow-lg space-y-2 w-full">
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="adresee" className="block text-gray-700 my-2">
+          <label htmlFor="adresee" className="block text-gray-700 my-1">
             Adres email
           </label>
           <input
@@ -64,7 +64,7 @@ const ContactForm = () => {
         </div>
 
         <div>
-          <label htmlFor="subject" className="block text-gray-700 my-2">
+          <label htmlFor="subject" className="block text-gray-700 my-1">
             Temat
           </label>
           <input
@@ -78,7 +78,7 @@ const ContactForm = () => {
         </div>
 
         <div>
-          <label htmlFor="text" className="block text-gray-700 my-2">
+          <label htmlFor="text" className="block text-gray-700 my-1">
             Wiadomość
           </label>
           <textarea

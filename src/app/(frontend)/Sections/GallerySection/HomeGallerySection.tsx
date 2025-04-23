@@ -54,11 +54,11 @@ const HomeGallerySection = ({ scrollYProgress }: { scrollYProgress: MotionValue<
     <motion.section
       style={motionStyles}
       className="md:sticky md:top-[20vh] md:h-[70vh] md:mb-[10vh]
-     py-20 bg-gradient-to-b rounded-lg shadow-md from-slate-50 to-white"
+     py-16 bg-gradient-to-b rounded-lg shadow-md from-slate-50 to-white"
     >
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+        <div className="text-center mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-2">
             <Overlay delay={0.3}>
               <Title />
             </Overlay>
@@ -76,7 +76,7 @@ const HomeGallerySection = ({ scrollYProgress }: { scrollYProgress: MotionValue<
         </Overlay>
 
         <Overlay delay={1}>
-          <div className="text-center mt-12 md:mt-20">
+          <div className="text-center mt-8 md:mt-12">
             <Link
               href="/offer"
               className="inline-flex items-center gap-3 px-8 py-4 bg-slate-200 text-black rounded-full text-lg font-semibold hover:bg-slate-700 hover:text-white transition-colors"

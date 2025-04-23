@@ -71,7 +71,8 @@ const ImageSection = ({ scrollYProgress }: { scrollYProgress: MotionValue<number
   return (
     <motion.section
       style={{ rotate: roteteSection, scale }}
-      className="relative h-[80vh] pb-20 pt-12 bg-gradient-to-b rounded-lg shadow-md  from-slate-100 to-slate-50 overflow-hidden"
+      className="relative h-[80vh] pb-20 bg-gradient-to-b rounded-lg shadow-md 
+       from-slate-100 to-slate-50 overflow-hidden"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}

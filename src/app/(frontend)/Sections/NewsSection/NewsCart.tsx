@@ -67,8 +67,8 @@ const NewsCart: React.FC<NewsCartProps> = ({ slide }) => {
       >
         <Image
           alt="Enlarged content preview"
-          className="object-contain rounded-md aspect-auto w-full h-full
-          pointer-events-none max-w-[90vw] max-h-[90vh]"
+          className={`object-contain rounded-md aspect-auto w-full h-full
+          pointer-events-none max-w-[90vw] max-h-[90vh] `}
           src={imageSrc}
           width={data?.image?.width}
           height={data?.image?.height}
@@ -125,7 +125,9 @@ const NewsCart: React.FC<NewsCartProps> = ({ slide }) => {
             >
               <Image
                 alt={data.image.alt || 'News image'}
-                className={`object-cover w-full ${data.image2 ? 'h-80' : 'h-[24rem]'} rounded-md shadow-lg hover:shadow-xl transition-shadow duration-200`}
+                className={`object-cover w-full md:h-64
+                  ${data.image2 && data.image ? 'h-40' : 'h-80'}
+                  rounded-md shadow-lg hover:shadow-xl transition-shadow duration-200`}
                 src={data.image.url}
                 width={data.image.width}
                 height={data.image.height}
@@ -143,7 +145,8 @@ const NewsCart: React.FC<NewsCartProps> = ({ slide }) => {
             >
               <Image
                 alt={data.image2.alt || 'Secondary news image'}
-                className="object-cover w-full h-80 rounded-md shadow-lg hover:shadow-xl transition-shadow duration-200"
+                className={`object-cover w-full ${data.image2 && data.image ? 'h-40' : 'h-80'} 
+                rounded-md shadow-lg hover:shadow-xl transition-shadow duration-200 md:h-64`}
                 src={data.image2.url}
                 width={data.image2.width}
                 height={data.image2.height}

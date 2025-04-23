@@ -37,12 +37,12 @@ const ButtonSubmit = ({ isPending, state }: { isPending: boolean; state: StateTy
     <button
       type="submit"
       disabled={isPending}
-      className={`relative rounded-md px-6 py-3 font-medium text-white transition-colors w-full
+      className={`relative rounded-md px-6 py-3 font-medium text-white transition-colors w-full mt-2
         ${getButtonColor()} 
         ${!isPending ? 'hover:scale-105 active:scale-95' : ''}
       `}
     >
-      <div className="flex items-center gap-2 justify-center">
+      <div className="flex items-center gap-2 justify-center 0">
         <AnimatePresence mode="wait">
           <StatusIcon key={String(localState?.success)} isPending={isPending} state={localState} />
         </AnimatePresence>

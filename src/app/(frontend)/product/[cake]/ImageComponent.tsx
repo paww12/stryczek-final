@@ -8,7 +8,6 @@ const ImageComponent = ({ image }: { image: any }) => {
   const { setComponent } = usePopupStore()
 
   const handleClick = (url: string) => {
-    console.log(url)
     setComponent(
       <motion.div
         className="w-full h-full"
