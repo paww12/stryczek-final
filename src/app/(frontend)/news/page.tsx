@@ -2,10 +2,13 @@ import Link from 'next/link'
 import { Suspense } from 'react'
 import NewsList from './NewsList'
 import PopupSection from '../Sections/popupSection/PopupSection'
-
-const NewsPage = async ({ searchParams }: { searchParams: { page?: string } }) => {
-  const { page } = await searchParams
-  const currentPage = Number(page) || 1
+export default async function NewsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string }>
+}) {
+  const { page = '1' } = await searchParams
+  const currentPage = Number(page)
 
   return (
     <>
@@ -32,4 +35,4 @@ const NewsPage = async ({ searchParams }: { searchParams: { page?: string } }) =
   )
 }
 
-export default NewsPage
+// export default NewsPage
