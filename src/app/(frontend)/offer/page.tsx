@@ -8,8 +8,9 @@ import PaginationControls from './PaginationControls'
 const Offer = async ({ searchParams }: { searchParams: { page?: string; category?: string } }) => {
   const payloadConfig = await config
   const payload = await getPayload({ config: payloadConfig })
-  const currentPage = Number(searchParams.page) || 1
-  const selectedCategory = searchParams.category
+  const { page, category } = await searchParams
+  const currentPage = Number(page) || 1
+  const selectedCategory = category
 
   const categoriesData = await payload.find({
     collection: 'product',

@@ -43,3 +43,6 @@ body {
 .animate-fade-in-delay-long {
   animation: fade 0.5s forwards ease-in 1.25s;
 }
+body{
+  overflow-x: hidden;
+}

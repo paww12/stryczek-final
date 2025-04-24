@@ -14,7 +14,8 @@ const page = async ({ params }: { params: PageParams }) => {
   const payloadConfig = await config
   const payload = await getPayload({ config: payloadConfig })
 
-  const cakeName = decodeURIComponent(params.cake)
+  const { cake } = await params
+  const cakeName = decodeURIComponent(cake)
 
   const cakeResult = await payload.find({
     collection: 'product',
@@ -64,7 +65,7 @@ const page = async ({ params }: { params: PageParams }) => {
     )
   }
 
-  const cake = cakeResult.docs[0] as Product
+  const cakeRes = cakeResult.docs[0] as Product
 
   return (
     <>
@@ -90,33 +91,33 @@ const page = async ({ params }: { params: PageParams }) => {
 
           <section className="grid md:grid-cols-2 gap-8 mb-12">
             <div className="relative aspect-square rounded-xl overflow-hidden shadow-lg">
-              <ImageComponent image={cake.image} />
+              <ImageComponent image={cakeRes.image} />
             </div>
 
             <article className="space-y-6">
               <header>
-                <h1 className="text-3xl font-bold text-gray-900 mb-2">{cake.title}</h1>
-                <p className="text-lg text-gray-600">{cake.description}</p>
+                <h1 className="text-3xl font-bold text-gray-900 mb-2">{cakeRes.title}</h1>
+                <p className="text-lg text-gray-600">{cakeRes.description}</p>
               </header>
 
               <div className="space-y-4">
-                {(cake.prices?.full || cake.prices?.half) && (
+                {(cakeRes.prices?.full || cakeRes.prices?.half) && (
                   <div className="flex items-center gap-4">
                     <div className="bg-indigo-50 px-4 py-2 rounded-lg flex flex-col gap-4">
                       <span className="text-2xl font-bold text-indigo-700">
-                        {cake.prices.full && <span> Cała porcja: {cake.prices.full} zł</span>}
+                        {cakeRes.prices.full && <span> Cała porcja: {cakeRes.prices.full} zł</span>}
                       </span>
                       <span className="text-2xl font-bold text-indigo-700">
-                        {cake.prices.half && <span> Pół porcji: {cake.prices.half} zł</span>}
+                        {cakeRes.prices.half && <span> Pół porcji: {cakeRes.prices.half} zł</span>}
                       </span>
                     </div>
                   </div>
                 )}
-                {(cake.allergens ?? []).length > 0 && (
+                {(cakeRes.allergens ?? []).length > 0 && (
                   <div className="bg-red-50 p-4 rounded-lg">
                     <h3 className="font-medium text-red-700 mb-2">Zawiera alergeny:</h3>
                     <ul className="flex flex-wrap gap-2">
-                      {(cake.allergens ?? []).map((allergen) => (
+                      {(cakeRes.allergens ?? []).map((allergen) => (
                         <li
                           key={allergen.id}
                           className="bg-red-100 text-red-700 px-3 py-1 rounded-full text-sm"
@@ -129,10 +130,10 @@ const page = async ({ params }: { params: PageParams }) => {
                 )}
               </div>
               <div className="">
-                {cake.category && (
+                {cakeRes.category && (
                   <div className="p-4 bg-gray-50 rounded-lg">
                     <h3 className="text-sm font-medium text-gray-500 mb-1">Kategoria</h3>
-                    <p className="text-gray-900 font-medium">{cake.category}</p>
+                    <p className="text-gray-900 font-medium">{cakeRes.category}</p>
                   </div>
                 )}
               </div>
