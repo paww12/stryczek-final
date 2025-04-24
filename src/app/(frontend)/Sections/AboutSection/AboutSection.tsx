@@ -69,7 +69,7 @@ const AboutSection = async () => {
 
           <div className="w-full lg:w-1/2 px-4">
             <div className="relative h-96 rounded-lg overflow-hidden shadow-xl">
-              {typeof data.docs[0].photo === 'object' && data.docs[0].photo.url && (
+              {typeof data.docs[0]?.photo === 'object' && data.docs[0]?.photo.url && (
                 <Image
                   src={data.docs[0].photo.url}
                   alt={data.docs[0].photo.alt || 'Image of the author'}

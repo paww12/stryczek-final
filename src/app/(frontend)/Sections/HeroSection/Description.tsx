@@ -8,7 +8,7 @@ const Description = async () => {
     collection: 'hero-description',
     limit: 1,
   })
-  const text = data.docs[0].text
+  const text = data.docs[0]?.text
 
   return (
     <div className="hidden md:block mt-12 max-w-2xl opacity-0 bg-white bg-opacity-75 text-lg p-4 rounded-md animate-fade-in-delay-long">

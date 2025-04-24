@@ -2,9 +2,12 @@ import Link from 'next/link'
 import { Suspense } from 'react'
 import NewsList from './NewsList'
 import PopupSection from '../Sections/popupSection/PopupSection'
+import { useSearchParams } from 'next/navigation'
 
-const NewsPage = async ({ searchParams }: { searchParams: { page?: string } }) => {
-  const currentPage = Number(searchParams.page) || 1
+const NewsPage = () => {
+  const searchParams = useSearchParams()
+  const pageParam = searchParams.get('page') || '1'
+  const currentPage = Number(pageParam)
 
   return (
     <>
