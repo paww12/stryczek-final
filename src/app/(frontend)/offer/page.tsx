@@ -5,12 +5,17 @@ import { getPayload } from 'payload'
 import config from '@/payload.config'
 import PaginationControls from './PaginationControls'
 
-const Offer = async ({ searchParams }: { searchParams: { page?: string; category?: string } }) => {
+export default async function Offer({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string; category?: string }>
+}) {
+  const { page = '1', category } = await searchParams
+  const currentPage = Number(page)
+  const selectedCategory = category
+
   const payloadConfig = await config
   const payload = await getPayload({ config: payloadConfig })
-  const { page, category } = await searchParams
-  const currentPage = Number(page) || 1
-  const selectedCategory = category
 
   const categoriesData = await payload.find({
     collection: 'product',
@@ -172,4 +177,4 @@ const Offer = async ({ searchParams }: { searchParams: { page?: string; category
   )
 }
 
-export default Offer
+// export default Offer

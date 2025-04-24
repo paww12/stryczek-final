@@ -6,16 +6,16 @@ import SVG from '../../SVG'
 import ImageComponent from './ImageComponent'
 import PopupSection from '../../Sections/popupSection/PopupSection'
 
-interface PageParams {
-  cake: string
-}
+// interface PageParams {
+//   cake: string
+// }
 
-const page = async ({ params }: { params: PageParams }) => {
-  const payloadConfig = await config
-  const payload = await getPayload({ config: payloadConfig })
-
+export default async function CakePage({ params }: { params: Promise<{ cake: string }> }) {
   const { cake } = await params
   const cakeName = decodeURIComponent(cake)
+
+  const payloadConfig = await config
+  const payload = await getPayload({ config: payloadConfig })
 
   const cakeResult = await payload.find({
     collection: 'product',
@@ -146,4 +146,4 @@ const page = async ({ params }: { params: PageParams }) => {
   )
 }
 
-export default page
+// export default page
