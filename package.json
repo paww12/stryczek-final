@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@payloadcms/db-postgres": "latest",
+    "@payloadcms/db-vercel-postgres": "^3.35.1",
     "@payloadcms/email-nodemailer": "^3.28.1",
     "@payloadcms/next": "latest",
     "@payloadcms/payload-cloud": "latest",
