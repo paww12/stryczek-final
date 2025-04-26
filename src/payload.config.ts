@@ -71,6 +71,8 @@ export default buildConfig({
     pool: {
       connectionString: process.env.POSTGRES_URL || '',
     },
+    // migrationDir: './src/migrations',
+    // prodMigrations: migrations,
   }),
   sharp,
   plugins: [
