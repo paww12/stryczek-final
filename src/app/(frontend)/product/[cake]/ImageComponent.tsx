@@ -2,7 +2,8 @@
 
 import Image from 'next/image'
 import { usePopupStore } from '../../state/store'
-import { motion } from 'framer-motion'
+// import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 
 const ImageComponent = ({ image }: { image: any }) => {
   const { setComponent } = usePopupStore()

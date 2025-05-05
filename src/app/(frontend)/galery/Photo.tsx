@@ -1,6 +1,7 @@
 'use client'
 import Image from 'next/image'
-import { motion, useInView } from 'framer-motion'
+// import { motion, useInView } from 'framer-motion'
+import { useInView, motion } from 'motion/react'
 import { GalleryMain } from '@/payload-types'
 import { useRef } from 'react'
 import Link from 'next/link'

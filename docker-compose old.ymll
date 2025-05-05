@@ -2,23 +2,20 @@
 
 services:
   payload:
-    build: .
-    # image: node:18-alpine
-    image: stryczek
+    #image: node:18-alpine
+    image: aleks3650/stryczek-final:1.0
     ports:
       - '3000:3000'
     volumes:
       - .:/home/node/app
       - node_modules:/home/node/app/node_modules
     working_dir: /home/node/app/
-    command: sh -c "corepack enable && corepack prepare pnpm@latest --activate && pnpm install && pnpm dev"
+    #command: sh -c "npm install -g pnpm@latest && pnpm install && pnpm dev"    
+    command: sh -c "npm install -g pnpm@9.15.9 && pnpm install && pnpm dev"    
     depends_on:
-      # - mongo
       - postgres
     env_file:
       - .env
-
-  # Uncomment the following to use postgres
   postgres:
     restart: always
     image: postgres:latest

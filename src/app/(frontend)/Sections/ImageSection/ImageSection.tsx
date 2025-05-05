@@ -1,4 +1,5 @@
-import { MotionValue, useTransform, motion, useIsomorphicLayoutEffect } from 'framer-motion'
+// import { MotionValue, useTransform, motion, useIsomorphicLayoutEffect } from 'framer-motion'
+import { MotionValue, useTransform, motion, useIsomorphicLayoutEffect } from 'motion/react'
 import { useState } from 'react'
 import ContactForm from '../../contact/components/ContactForm'
 

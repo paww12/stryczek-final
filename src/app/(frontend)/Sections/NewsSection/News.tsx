@@ -1,8 +1,9 @@
 'use client'
 
-import { useMotionValue } from 'framer-motion'
+// import { useMotionValue } from 'framer-motion'
 import { useState, useCallback } from 'react'
-import { motion } from 'framer-motion'
+// import { motion } from 'framer-motion'
+import { motion, useMotionValue } from 'motion/react'
 import NewsCart from './NewsCart'
 import SeeAllNews from './SeeAllNews'
 

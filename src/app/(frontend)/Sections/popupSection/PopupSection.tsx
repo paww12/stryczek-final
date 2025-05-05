@@ -2,7 +2,8 @@
 import { useRef } from 'react'
 import { usePopupStore } from '../../state/store'
 import useOutsideClick from '../../lib/useOutsideClick'
-import { AnimatePresence, motion } from 'framer-motion'
+// import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'motion/react'
 
 const PopupSection = () => {
   const modalRef = useRef(null)

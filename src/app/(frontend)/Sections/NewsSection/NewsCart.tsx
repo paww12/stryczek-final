@@ -2,7 +2,8 @@
 
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
-import { motion } from 'framer-motion'
+// import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { RichText } from '@payloadcms/richtext-lexical/react'
 import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
 import { usePopupStore } from '../../state/store'

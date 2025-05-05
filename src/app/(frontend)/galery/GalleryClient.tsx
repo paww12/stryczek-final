@@ -1,7 +1,8 @@
 'use client'
 
 import Image from 'next/image'
-import { motion, useScroll, useTransform } from 'framer-motion'
+// import { motion, useScroll, useTransform } from 'framer-motion'
+import { useScroll, motion, useTransform } from 'motion/react'
 import { useState, useEffect, useRef } from 'react'
 import SVGComponent from './SVGComponent'
 import { GalleryTop } from '@/payload-types'

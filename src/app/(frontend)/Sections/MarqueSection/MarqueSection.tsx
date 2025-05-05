@@ -1,5 +1,6 @@
 'use client'
-import { motion } from 'framer-motion'
+// import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import useScrollVelocity from '../../lib/useScrollVelocity'
 
 export default function App({ text }: { text: string }) {

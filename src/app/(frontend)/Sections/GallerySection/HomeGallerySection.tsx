@@ -3,7 +3,8 @@ import EyeButton from '../../Components/EyeButton'
 import SweetBox from '../../Components/SweetBox'
 import Overlay from '../../Components/Overlay'
 import Title from '../../Components/Title'
-import { MotionValue, useTransform, motion } from 'framer-motion'
+// import { MotionValue, useTransform, motion } from 'framer-motion'
+import { MotionValue, useTransform, motion } from 'motion/react'
 import { useIsMobile } from '../../lib/useIsMobile'
 
 interface CategoryTypes {
