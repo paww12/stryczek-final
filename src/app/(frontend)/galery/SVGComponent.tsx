@@ -1,5 +1,6 @@
-import { motion, useTransform } from 'framer-motion'
-import { MotionValue } from 'framer-motion'
+// import { motion, useTransform } from 'framer-motion'
+// import { MotionValue } from 'framer-motion'
+import { MotionValue, useTransform, motion } from "motion/react"
 
 const SVGComponent = ({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) => {
   const opacity = useTransform(scrollYProgress, [0, 0.1, 0.9, 1], [1, 1, 1, 0])

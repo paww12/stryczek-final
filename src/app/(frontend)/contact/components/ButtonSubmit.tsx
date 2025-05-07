@@ -1,6 +1,8 @@
-import { AnimatePresence } from 'framer-motion'
+// import { AnimatePresence } from 'framer-motion'
+import { AnimatePresence } from 'motion/react'
 import { FiCheck, FiLoader, FiX } from 'react-icons/fi'
-import { motion } from 'framer-motion'
+// import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { useEffect, useState } from 'react'
 
 type StateType = {

@@ -17,18 +17,20 @@ import { HeroDescription } from './collections/HeroDescription'
 import { News } from './collections/News'
 import { AboutMePhoto } from './collections/AboutMePhoto'
 import { Opinion } from './collections/Opinion'
-import { emailAdapter } from './adapters/email'
+// import { emailAdapter } from './adapters/email'
 import { testAPI } from './adapters/APIhandlers'
 import { Product } from './collections/Product'
 import GalleryTop from './collections/GalleryTop'
 import { GalleryMain } from './collections/GalleryMain'
+import { migrations } from './migrations/index'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
   endpoints: [testAPI],
-  email: emailAdapter,
+  // email: emailAdapter,
+  email: undefined,
   routes: {
     admin: '/dupa',
   },
@@ -71,8 +73,8 @@ export default buildConfig({
     pool: {
       connectionString: process.env.POSTGRES_URL || '',
     },
-    // migrationDir: './src/migrations',
-    // prodMigrations: migrations,
+    migrationDir: './src/migrations',
+    prodMigrations: migrations,
   }),
   sharp,
   plugins: [

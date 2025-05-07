@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
-import { motion, useMotionValue, useTransform, animate, useMotionTemplate } from 'framer-motion'
+// import { motion, useMotionValue, useTransform, animate, useMotionTemplate } from 'framer-motion'
+import { useMotionValue, motion, useTransform, animate, useMotionTemplate } from 'motion/react'
 
 interface ImageData {
   alt: string
