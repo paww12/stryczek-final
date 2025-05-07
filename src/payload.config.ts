@@ -21,6 +21,7 @@ import { testAPI } from './adapters/APIhandlers'
 import { Product } from './collections/Product'
 import GalleryTop from './collections/GalleryTop'
 import { GalleryMain } from './collections/GalleryMain'
+import { migrations } from './migrations/index'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -28,25 +29,6 @@ const dirname = path.dirname(filename)
 export default buildConfig({
   endpoints: [testAPI],
   // email: emailAdapter,
-  onInit: async (payload) => {
-    if (process.env.NODE_ENV !== 'production') {
-      // Sprawdź czy admin już istnieje
-      const { totalDocs: adminCount } = await payload.find({
-        collection: 'users',
-        limit: 0
-      });
-
-      if (adminCount === 0) {
-        await payload.create({
-          collection: 'users',
-          data: {
-            email: process.env.ADMIN_EMAIL || 'admin@example.com',
-            password: process.env.ADMIN_PASSWORD || 'secret',
-          }
-        });
-      }
-    }
-  },
   email: undefined,
   routes: {
     admin: '/dupa',
@@ -89,6 +71,8 @@ export default buildConfig({
     pool: {
       connectionString: process.env.DATABASE_URI || '',
     },
+    migrationDir: './src/migrations',
+    prodMigrations: migrations
   }),
   sharp,
   plugins: [
