@@ -1,7 +1,9 @@
 // storage-adapter-import-placeholder
+import 'dotenv/config'
+// import 'dotenv'
 import { postgresAdapter } from '@payloadcms/db-postgres'
 // import { vercelPostgresAdapter } from '@payloadcms/db-vercel-postgres'
-import { payloadCloudPlugin } from '@payloadcms/payload-cloud'
+// import { payloadCloudPlugin } from '@payloadcms/payload-cloud'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { buildConfig } from 'payload'
@@ -71,14 +73,14 @@ export default buildConfig({
   // db: vercelPostgresAdapter(),
   db: postgresAdapter({
     pool: {
-      connectionString: process.env.POSTGRES_URL || '',
+      connectionString: process.env.DATABASE_URI || '',
     },
     migrationDir: './src/migrations',
     prodMigrations: migrations,
   }),
   sharp,
   plugins: [
-    payloadCloudPlugin(),
+    // payloadCloudPlugin(),
     // storage-adapter-placeholder
   ],
 })

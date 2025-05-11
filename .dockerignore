@@ -1,7 +1,11 @@
+# Include .env file for build args
+!.env
+
+# Exclude development files
 node_modules
 .git
-npm-debug.log
-.coverage
-.coverage.*
-.env
-.aws
+.github
+.next
+dist
+build
+*.log
