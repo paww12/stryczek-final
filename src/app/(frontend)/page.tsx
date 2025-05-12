@@ -12,11 +12,13 @@ import ScrollToTop from './Sections/ScrollToTop/ScrollToTop'
 export default async function HomePage() {
   return (
     <>
-      <Hero /> <News />
+      <h1>asda</h1>
+      {/* <Hero /> 
+      <News />
       <MarqueSection text="Słodki Stryczek" />
       <AboutSection />
-      <CombinedSection />
-      <OpinionsSection />
+      <CombinedSection /> */}
+      {/* <OpinionsSection /> */}
       <ScrollToTop />
       <PopupSection />
     </>

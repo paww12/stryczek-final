@@ -24,7 +24,7 @@ import { testAPI } from './adapters/APIhandlers'
 import { Product } from './collections/Product'
 import GalleryTop from './collections/GalleryTop'
 import { GalleryMain } from './collections/GalleryMain'
-import { migrations } from './migrations/index'
+// import { migrations } from './migrations/index'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -75,8 +75,8 @@ export default buildConfig({
     pool: {
       connectionString: process.env.DATABASE_URI || '',
     },
-    migrationDir: './src/migrations',
-    prodMigrations: migrations,
+    // migrationDir: './src/migrations',
+    // prodMigrations: migrations,
   }),
   sharp,
   plugins: [

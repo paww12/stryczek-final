@@ -2,8 +2,9 @@ import Image from 'next/image'
 import Link from 'next/link'
 import Overlay from '../Components/Overlay'
 import { getPayload } from 'payload'
-import config from '@/payload.config'
+// import config from '@/payload.config'
 import PaginationControls from './PaginationControls'
+import configPromise from '@payload-config'
 
 export default async function Offer({
   searchParams,
@@ -14,8 +15,9 @@ export default async function Offer({
   const currentPage = Number(page)
   const selectedCategory = category
 
-  const payloadConfig = await config
-  const payload = await getPayload({ config: payloadConfig })
+  // const payloadConfig = await config
+  // const payload = await getPayload({ config: payloadConfig })
+  const payload = await getPayload({ config: configPromise })
 
   const categoriesData = await payload.find({
     collection: 'product',

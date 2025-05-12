@@ -2,12 +2,15 @@ import Image from 'next/image'
 import Link from 'next/link'
 import OverlayX from '../../Components/OverlayX'
 import { getPayload } from 'payload'
-import config from '@/payload.config'
+// import config from '@/payload.config'
 import BubbleText from '../../contact/components/BubbleText'
+import configPromise from '@payload-config'
+
 
 const AboutSection = async () => {
-  const payloadConfig = await config
-  const payload = await getPayload({ config: payloadConfig })
+  // const payloadConfig = await config
+  // const payload = await getPayload({ config: payloadConfig })
+  const payload = await getPayload({ config: configPromise })
   const data = await payload.find({ collection: 'about-me-photo' })
 
   return (
