@@ -14,7 +14,9 @@
     "lint": "cross-env NODE_OPTIONS=--no-deprecation next lint",
     "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
-    "ci": "payload migrate && pnpm build"
+    "ci": "payload migrate && pnpm build",
+    "build:static": "next build",
+    "db:migrate": "payload db:create && payload db:migrate"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "latest",

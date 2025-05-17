@@ -1,13 +1,13 @@
 import { getPayload } from 'payload'
-// import config from '@/payload.config'
+import config from '@/payload.config'
 import BubbleText from '../../contact/components/BubbleText'
-import configPromise from '@payload-config'
+// import configPromise from '@payload-config'
 
 const OpinionsSection = async () => {
-  // const payloadConfig = await config
-  // const payload = await getPayload({ config: payloadConfig })
-  const payload = await getPayload({ config: configPromise })
+  const payloadConfig = await config
+  const payload = await getPayload({ config: payloadConfig })
   const data = await payload.find({ collection: 'opinion' })
+  // const payload = await getPayload({ config: configPromise })
   const testimonials = data.docs
 
   const renderStars = (rating: number) => {

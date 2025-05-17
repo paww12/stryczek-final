@@ -18,7 +18,7 @@ export default async function HomePage() {
       <MarqueSection text="Słodki Stryczek" />
       <AboutSection />
       <CombinedSection /> */}
-      {/* <OpinionsSection /> */}
+      <OpinionsSection />
       <ScrollToTop />
       <PopupSection />
     </>
