@@ -1,42 +1,39 @@
-version: '3'
-services:
-  postgres:
-    # image: postgres:latest
-    build: 
-      context: postgres
-    restart: always
-    env_file:
-      - .env
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-    ports:
-      - "5434:5432"
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
+# version: '3'
 
+services:
   payload:
-    image: node:18-alpine
-    working_dir: /home/node/app
-    env_file:
-      - .env
-    depends_on:
-      postgres:
-        condition: service_healthy
+    image: node:20-alpine
+    # image: aleks3650/stryczek-app:1.0  
+    # build: 
+    #   context: .
+    #   dockerfile: Dockerfile
+    ports:
+      - '3000:3000'
     volumes:
       - .:/home/node/app
       - node_modules:/home/node/app/node_modules
+    working_dir: /home/node/app/
+    command: sh -c "corepack enable && corepack prepare pnpm@9.0.0 --activate && pnpm install && pnpm dev"
+    depends_on:
+      - postgres
+      # - mongo
+    env_file:
+      - .env
+
+  postgres:
+    restart: always
+    image: postgres:latest
+    volumes:
+      - pgdata:/var/lib/postgresql/data
     ports:
-      - "3000:3000"
-    command: >
-      sh -c "corepack enable &&
-             corepack prepare pnpm@latest --activate &&
-             pnpm install &&
-             pnpm dev"
+      - '5435:5432'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: payload-db 
+      POSTGRES_HOST_AUTH_METHOD: trust
+
 
 volumes:
   pgdata:
+  # data:
   node_modules:
-  data:

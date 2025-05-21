@@ -13,11 +13,11 @@ export default async function HomePage() {
   return (
     <>
       <h1>asda</h1>
-      {/* <Hero /> 
+      <Hero /> 
       <News />
       <MarqueSection text="Słodki Stryczek" />
       <AboutSection />
-      <CombinedSection /> */}
+      <CombinedSection />
       <OpinionsSection />
       <ScrollToTop />
       <PopupSection />

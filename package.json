@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "cross-env NODE_OPTIONS=--no-deprecation next build",
+    "ci": "payload migrate && pnpm build",
     "build:with-migrations": "pnpm run payload migrate && cross-env NODE_OPTIONS=--no-deprecation next build",
     "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev",
     "devsafe": "rm -rf .next && cross-env NODE_OPTIONS=--no-deprecation next dev",
@@ -13,34 +14,34 @@
     "generate:types": "cross-env NODE_OPTIONS=--no-deprecation payload generate:types",
     "lint": "cross-env NODE_OPTIONS=--no-deprecation next lint",
     "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
-    "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
-    "ci": "payload migrate && pnpm build",
-    "build:static": "next build",
-    "db:migrate": "payload db:create && payload db:migrate"
+    "start": "cross-env NODE_OPTIONS=--no-deprecation next start"
   },
   "dependencies": {
-    "@payloadcms/db-postgres": "latest",
-    "@payloadcms/email-nodemailer": "^3.28.1",
-    "@payloadcms/next": "latest",
-    "@payloadcms/plugin-form-builder": "^3.28.1",
-    "@payloadcms/richtext-lexical": "latest",
+    "@payloadcms/db-postgres": "^3.38.0",
+    "@payloadcms/email-nodemailer": "^3.38.0",
+    "@payloadcms/next": "^3.38.0",
+    "@payloadcms/plugin-form-builder": "^3.38.0",
+    "@payloadcms/richtext-lexical": "^3.38.0",
     "@react-hook/window-size": "^3.1.1",
     "@types/nodemailer": "^6.4.17",
     "cross-env": "^7.0.3",
     "dotenv": "^16.4.7",
     "graphql": "^16.8.1",
     "lenis": "^1.2.3",
+    "monaco-editor": "^0.52.2",
     "motion": "^12.5.0",
-    "next": "15.2.2",
+    "next": "15.2.3",
     "nodemailer": "^6.10.0",
     "normalize-wheel": "^1.0.1",
     "payload": "latest",
+    "picomatch": "^4.0.2",
     "pnpm": "^9.15.9",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-icons": "^5.5.0",
     "react-use": "^17.6.0",
     "sharp": "0.32.6",
+    "yjs": "^13.6.27",
     "zustand": "^5.0.3"
   },
   "devDependencies": {
@@ -54,7 +55,7 @@
     "postcss": "^8.5.3",
     "prettier": "^3.4.2",
     "tailwindcss": "^3.4.17",
-    "typescript": "5.7.3"
+    "typescript": "5.8.3"
   },
   "engines": {
     "node": "^18.20.2 || >=20.9.0",
