@@ -19,7 +19,7 @@ import { HeroDescription } from './collections/HeroDescription'
 import { News } from './collections/News'
 import { AboutMePhoto } from './collections/AboutMePhoto'
 import { Opinion } from './collections/Opinion'
-// import { emailAdapter } from './adapters/email'
+import { emailAdapter } from './adapters/email'
 import { testAPI } from './adapters/APIhandlers'
 import { Product } from './collections/Product'
 import GalleryTop from './collections/GalleryTop'
@@ -31,8 +31,8 @@ const dirname = path.dirname(filename)
 
 export default buildConfig({
   endpoints: [testAPI],
-  // email: emailAdapter,
-  email: undefined,
+  email: emailAdapter,
+  // email: undefined,
   routes: {
     admin: '/dupa',
   },
