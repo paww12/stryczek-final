@@ -5,6 +5,7 @@ import { getPayload } from 'payload'
 // import config from '@/payload.config'
 import BubbleText from '../../contact/components/BubbleText'
 import configPromise from '@payload-config'
+import BakingSVG from '../../Components/BakingSVG'
 
 
 const AboutSection = async () => {
@@ -35,7 +36,7 @@ const AboutSection = async () => {
               <div className="mb-8">
                 <div className="flex items-center mb-4">
                   <OverlayX delay={0.4} left={true}>
-                    <div className="mr-4 text-amber-600 text-5xl">🍰</div>
+                    <div className="mr-4 text-amber-600 text-5xl"><BakingSVG className='w-32 aspect-auto' /></div>
                   </OverlayX>
                   <div>
                     <OverlayX delay={0.4}>

@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect } from 'react'
-// import { AnimatePresence, motion } from 'framer-motion'
 import { AnimatePresence, motion } from 'motion/react'
 import Link from 'next/link'
 import { useBurgerStore } from '../state/store'
@@ -49,19 +48,30 @@ const Burger = () => {
     exit: { opacity: 0, x: -50 },
   }
 
-  const topLine = {
-    open: { rotate: 45, y: 6, transformOrigin: 'left' },
-    closed: { rotate: 0, y: 0, transformOrigin: 'left' },
+  const lineVariants = {
+    closed: { 
+      rotate: 0, 
+      y: 0,
+      transition: { 
+        type: "spring", 
+        stiffness: 400,
+        damping: 20
+      } 
+    },
+    open: (index: number) => ({
+      rotate: index === 0 ? 45 : index === 2 ? -45 : 0,
+      y: index === 0 ? 6 : index === 2 ? -6 : 0,
+      transition: { 
+        type: "spring", 
+        stiffness: 400,
+        damping: 20
+      }
+    })
   }
 
-  const middleLine = {
-    open: { opacity: 0 },
+  const opacityVariants = {
     closed: { opacity: 1 },
-  }
-
-  const bottomLine = {
-    open: { rotate: -45, y: -6, transformOrigin: 'left' },
-    closed: { rotate: 0, y: 0, transformOrigin: 'left' },
+    open: { opacity: 0 }
   }
 
   return (
@@ -83,9 +93,24 @@ const Burger = () => {
           width="3em"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <motion.line x1="3" y1="6" x2="21" y2="6" variants={topLine} />
-          <motion.line x1="3" y1="12" x2="21" y2="12" variants={middleLine} />
-          <motion.line x1="3" y1="18" x2="21" y2="18" variants={bottomLine} />
+          <motion.line 
+            x1="3" y1="6" x2="21" y2="6"
+            variants={lineVariants}
+            custom={0}
+            style={{ transformOrigin: 'center' }}
+          />
+          
+          <motion.line 
+            x1="3" y1="12" x2="21" y2="12"
+            variants={opacityVariants}
+          />
+          
+          <motion.line 
+            x1="3" y1="18" x2="21" y2="18"
+            variants={lineVariants}
+            custom={2}
+            style={{ transformOrigin: 'center' }}
+          />
         </svg>
       </motion.div>
 
@@ -98,7 +123,8 @@ const Burger = () => {
             exit="exit"
             variants={menuVariants}
             style={{ opacity: 0 }}
-            className="flex flex-col absolute top-28 left-0 w-screen h-[calc(100vh-7rem)] items-center justify-evenly bg-white text-4xl text-black shadow-sm font-shantell-sans"
+            className="flex flex-col absolute top-28 left-0 w-screen h-[calc(100vh-7rem)] items-center 
+            justify-evenly bg-white text-4xl text-black shadow-sm font-shantell-sans pb-12"
           >
             <motion.div variants={linkVariants} className="p-4">
               <Link href="/offer" onClick={() => setIsOpen(false)}>

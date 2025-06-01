@@ -3,31 +3,34 @@ import EyeButton from '../../Components/EyeButton'
 import SweetBox from '../../Components/SweetBox'
 import Overlay from '../../Components/Overlay'
 import Title from '../../Components/Title'
-// import { MotionValue, useTransform, motion } from 'framer-motion'
 import { MotionValue, useTransform, motion } from 'motion/react'
 import { useIsMobile } from '../../lib/useIsMobile'
+import CakeSVG from '../../Components/CakeSVG'
+import { ReactNode } from 'react'
+import BunSVG from '../../Components/BunSVG'
+import BakingSVG from '../../Components/BakingSVG'
 
 interface CategoryTypes {
   title: string
   href: string
-  icon: string
+  icon: ReactNode
   desc: string
 }
 const categories: CategoryTypes[] = [
   {
-    icon: '🎂',
+    icon: <CakeSVG className='aspect-auto w-1/2' />,
     title: 'Torty Artystyczne',
     desc: 'Unikalne kompozycje na specjalne okazje',
     href: '/offer?category=Ciasta',
   },
   {
-    icon: '🍰',
+    icon: <BunSVG className='aspect-auto w-1/2' />,
     title: 'Desery Sezonowe',
     desc: 'Słodkości inspirowane porami roku',
     href: '/offer?category=Desery',
   },
   {
-    icon: '🥐',
+    icon: <BakingSVG className='aspect-auto w-1/2 ' />,
     title: 'Wypieki Domowe',
     desc: 'Elegancja i lekkość w każdym kęsie',
     href: '/offer?category=Wypieki',
@@ -55,7 +58,7 @@ const HomeGallerySection = ({ scrollYProgress }: { scrollYProgress: MotionValue<
     <motion.section
       style={motionStyles}
       className="md:sticky md:top-[20vh] md:h-[70vh] md:mb-[10vh]
-     py-16 bg-gradient-to-b rounded-lg shadow-md from-slate-50 to-white"
+     py-8 bg-gradient-to-b rounded-lg shadow-md from-slate-50 to-white"
     >
       <div className="container mx-auto px-4">
         <div className="text-center mb-4">
@@ -77,7 +80,7 @@ const HomeGallerySection = ({ scrollYProgress }: { scrollYProgress: MotionValue<
         </Overlay>
 
         <Overlay delay={1}>
-          <div className="text-center mt-8 md:mt-12">
+          <div className="text-center mt-8 md:mt-12 tooHeight">
             <Link
               href="/offer"
               className="inline-flex items-center gap-3 px-8 py-4 bg-slate-200 text-black rounded-full text-lg font-semibold hover:bg-slate-700 hover:text-white transition-colors"

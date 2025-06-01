@@ -1,5 +1,4 @@
 'use client'
-// import { motion, useInView } from 'framer-motion'
 import { useInView, motion } from 'motion/react'
 import Photo from './Photo'
 import { useEffect, useState, useRef, useCallback } from 'react'
@@ -37,6 +36,7 @@ const GalleryMainPage = () => {
     } finally {
       setLoading(false)
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {

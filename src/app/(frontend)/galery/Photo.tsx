@@ -1,6 +1,5 @@
 'use client'
 import Image from 'next/image'
-// import { motion, useInView } from 'framer-motion'
 import { useInView, motion } from 'motion/react'
 import { GalleryMain } from '@/payload-types'
 import { useRef } from 'react'
@@ -21,15 +20,10 @@ const Photo = ({
   const box = useRef(null)
   const isInView = useInView(box, {
     once: true,
-    margin: '20%',
-    amount: 0.1,
+    margin: '0px',
+    amount: 0.5, 
   })
   const { setComponent } = usePopupStore()
-
-  const getAnimationDirection = () => {
-    const patternPosition = index % 5
-    return patternPosition === 1 || patternPosition === 4 ? '100%' : '-100%'
-  }
 
   if (typeof image.image === 'number' || !image.image.url) return null
 
@@ -63,7 +57,8 @@ const Photo = ({
         shouldAnimate
           ? {
               opacity: 0,
-              x: getAnimationDirection(),
+              scale: 0.6,
+              y: 30,
             }
           : false
       }
@@ -71,12 +66,12 @@ const Photo = ({
         isInView && shouldAnimate
           ? {
               opacity: 1,
-              x: 0,
+              scale: 1,
+              y: 0,
               transition: {
                 type: 'spring',
                 stiffness: 100,
                 damping: 20,
-                delay: (index % 5) * 0.1,
               },
             }
           : {}

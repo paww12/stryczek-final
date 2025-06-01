@@ -12,7 +12,6 @@ import ScrollToTop from './Sections/ScrollToTop/ScrollToTop'
 export default async function HomePage() {
   return (
     <>
-      <h1>asda</h1>
       <Hero /> 
       <News />
       <MarqueSection text="Słodki Stryczek" />
