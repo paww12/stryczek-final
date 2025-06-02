@@ -24,6 +24,7 @@
     "@payloadcms/richtext-lexical": "^3.38.0",
     "@react-hook/window-size": "^3.1.1",
     "@types/nodemailer": "^6.4.17",
+    "babel-plugin-react-compiler": "^19.1.0-rc.2",
     "cross-env": "^7.0.3",
     "dotenv": "^16.4.7",
     "graphql": "^16.8.1",

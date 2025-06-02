@@ -1,4 +1,4 @@
-import { useScroll } from 'framer-motion'
+import { useScroll } from "motion/react"
 import { useEffect, useRef, useState } from 'react'
 
 export default function useScrollVelocity(smoothing = 0.2) {

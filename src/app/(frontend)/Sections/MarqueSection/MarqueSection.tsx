@@ -1,5 +1,5 @@
 'use client'
-import { motion, useSpring, useTransform } from 'framer-motion'
+import { motion, useSpring, useTransform } from 'motion/react'
 import useScrollVelocity from '../../lib/useScrollVelocity'
 import { useEffect } from 'react'
 
@@ -23,16 +23,14 @@ export default function App({ text }: { text: string }) {
   }, [rawVelocity, springVelocity])
 
   return (
-    <div className="py-2 my-8 overflow-hidden flex gap-5 border-y-2 mx-8 md:mx-12 lg:mx24
-      [mask:linear-gradient(90deg,transparent,white_10%,white_90%,transparent)]">
-      
+    <div className="py-2 my-8 overflow-hidden flex gap-5 border-y-2 mx-8 md:mx-12 lg:mx24 [mask:linear-gradient(90deg,transparent,white_10%,white_90%,transparent)]">
       <MarqueeSection text={text} skew={skewX} />
       <MarqueeSection text={text} skew={skewX} />
     </div>
   )
 }
 
-import type { MotionValue } from 'framer-motion'
+import type { MotionValue } from 'motion/react'
 
 function MarqueeSection({ text, skew }: { text: string; skew: MotionValue<number> }) {
   return (

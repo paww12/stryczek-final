@@ -1,5 +1,4 @@
 'use client'
-// import { motion } from 'framer-motion'
 import { motion } from 'motion/react'
 
 const loopVariants = {
@@ -42,10 +41,7 @@ const pathVariants = {
 const Loop = () => {
   return (
     <motion.div
-      className="absolute -bottom-1/2 left-1/3 w-20 h-44 rotate-[106deg] z-30 
-                 sm:-bottom-[145%] sm:w-32 sm:h-72
-                 md:-bottom-[100%] md:w-64 md:h-80 md:left-[40%]
-                 lg:-bottom-[135%] lg:left-[40%]"
+      className='absolute -bottom-1/2 left-1/3 w-20 h-44 rotate-[106deg] z-30 sm:-bottom-[145%] sm:w-32 sm:h-72 md:-bottom-[100%] md:w-64 md:h-80 md:left-[40%] lg:-bottom-[135%] lg:left-[40%]'
       variants={loopVariants}
       initial="initial"
       animate="animate"
