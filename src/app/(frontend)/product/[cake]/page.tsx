@@ -1,5 +1,4 @@
 import { getPayload } from 'payload'
-// import config from '@/payload.config'
 import Link from 'next/link'
 import { Product } from '@/payload-types'
 import SVG from '../../SVG'
@@ -7,17 +6,27 @@ import ImageComponent from './ImageComponent'
 import PopupSection from '../../Sections/popupSection/PopupSection'
 import configPromise from '@payload-config'
 
-
-// interface PageParams {
-//   cake: string
-// }
+export async function generateMetadata({params}: {params: Promise<{cake: string}>}) {
+    const {cake} = await params
+    const payload = await getPayload({ config: configPromise })
+    const cakeName = decodeURIComponent(cake)
+    const cakeResult = await payload.find({
+    collection: 'product',
+    where: {
+      title: { equals: cakeName },
+    },
+    })
+    const cakeRes = cakeResult.docs[0]
+    return {
+      title: `jeden z naszych pyszności: ${cakeRes.title}!`,
+      description: cakeRes.description
+    }
+}
 
 export default async function CakePage({ params }: { params: Promise<{ cake: string }> }) {
   const { cake } = await params
   const cakeName = decodeURIComponent(cake)
 
-  // const payloadConfig = await config
-  // const payload = await getPayload({ config: payloadConfig })
   const payload = await getPayload({ config: configPromise })
 
   const cakeResult = await payload.find({
@@ -148,5 +157,3 @@ export default async function CakePage({ params }: { params: Promise<{ cake: str
     </>
   )
 }
-
-// export default page

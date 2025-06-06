@@ -3,6 +3,11 @@ import ContactInfo from './components/ContanctInfo'
 import ContactMap from './components/ContastMap'
 import PageHeader from './components/PageHeader'
 
+export const metadata = {
+  title: "Kontakt - Skontaktuj się z nami!",
+  description: "Masz pytanie lub chcesz zamówić ciasto? Skorzystaj z naszych danych kontaktowych, formularza lub zadzwoń. Jesteśmy do Twojej dyspozycji!"
+};
+
 const ContactPage = () => {
   return (
     <div className="min-h-screen  mt-32 mb-16 rounded-lg shadow-xl bg-gray-50 w-full">

@@ -2,6 +2,13 @@ import Link from 'next/link'
 import { Suspense } from 'react'
 import NewsList from './NewsList'
 import PopupSection from '../Sections/popupSection/PopupSection'
+
+export const metadata = {
+  title: "Oferta - sprawdź co ",
+  description: "Masz pytanie lub chcesz zamówić ciasto? Skorzystaj z naszych danych kontaktowych, formularza lub odwiedź nas osobiście. Jesteśmy do Twojej dyspozycji!"
+}
+
+
 export default async function NewsPage({
   searchParams,
 }: {
@@ -16,7 +23,7 @@ export default async function NewsPage({
         <div className="mb-12 text-center">
           <h1 className="text-4xl font-bold mb-4">Aktualności</h1>
           <p className="text-gray-500">
-            Tutaj znajdziesz nasze najnowsze kulinarne nowości, wydarzenia i wiele więcej.
+            Tutaj znajdziesz nasze najnowsze kulinarne nowości i wiele więcej.
           </p>
           <Link
             href="/"
