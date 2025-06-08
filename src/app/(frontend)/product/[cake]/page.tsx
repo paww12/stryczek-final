@@ -18,7 +18,7 @@ export async function generateMetadata({params}: {params: Promise<{cake: string}
     })
     const cakeRes = cakeResult.docs[0]
     return {
-      title: `jeden z naszych pyszności: ${cakeRes.title}!`,
+      title: `${cakeRes.title} - jeden z naszych pyszności!`,
       description: cakeRes.description
     }
 }

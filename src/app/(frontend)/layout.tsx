@@ -1,14 +1,9 @@
 import React from 'react'
 import './styles.css'
 import ReactLenis from './lib/ReactLenis'
-import { Shantell_Sans } from 'next/font/google'
 import Footer from './footer/Footer'
 import Navbar from './navbar/Navbar'
-
-const shantellSans = Shantell_Sans({
-  variable: '--font-shantell-sans',
-  subsets: ['latin'],
-})
+import Script from 'next/script'
 
 export const metadata = {
   title: 'Słodka Pętelka – Ciasta i wypieki z Tychów',
@@ -69,23 +64,24 @@ const schemaData = {
   "description": "Słodka Pętelka - domowe ciasta i słodycze z Tychów. Działamy na Śląsku. Zamów pyszności już dziś!"
 }
 
-export default async function RootLayout(props: { children: React.ReactNode }) {
+export default async function FrontendLayout(props: { children: React.ReactNode }) {
   const { children } = props
 
   return (
-    <html lang="pl">
-      <head>
-        <script type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }} />
-      </head>
-      <body className={`${shantellSans.variable} antialiased`}>
-        <Navbar />
-        <main>
-          <div className="container mx-auto min-h-screen">{children}</div>
-          <Footer />
-        </main>
-        <ReactLenis />
-      </body>
-    </html>
+    <>
+      <Script
+        id="structured-data"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
+      />
+      
+      <Navbar />
+      <main>
+        <div className="container mx-auto min-h-screen">{children}</div>
+        <Footer />
+      </main>
+      <ReactLenis />
+    </>
   )
 }
