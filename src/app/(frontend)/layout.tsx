@@ -53,7 +53,7 @@ const schemaData = {
   "name": "Słodka Pętelka",
   "image": "https://slodkapetelka.pl/og-image.jpg",
   "url": "https://slodkapetelka.pl",
-  "telephone": "+48 789 741 964", 
+  "telephone": "+48 789 741 964",
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "ul. Mąkołowska 150",
@@ -68,20 +68,24 @@ export default async function FrontendLayout(props: { children: React.ReactNode 
   const { children } = props
 
   return (
-    <>
-      <Script
-        id="structured-data"
-        type="application/ld+json"
-        strategy="beforeInteractive"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
-      />
-      
-      <Navbar />
-      <main>
-        <div className="container mx-auto min-h-screen">{children}</div>
-        <Footer />
-      </main>
-      <ReactLenis />
-    </>
+    <html lang='pl'>
+      <body>
+        <>
+          <Script
+            id="structured-data"
+            type="application/ld+json"
+            strategy="beforeInteractive"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
+          />
+
+          <Navbar />
+          <main>
+            <div className="container mx-auto min-h-screen">{children}</div>
+            <Footer />
+          </main>
+          <ReactLenis />
+        </>
+      </body>
+    </html>
   )
 }

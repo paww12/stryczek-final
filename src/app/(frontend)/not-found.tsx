@@ -1,6 +1,6 @@
-import SVG from './(frontend)/SVG'
+import SVG from './SVG'
 import Link from 'next/link'
-import './(frontend)/styles.css'
+import './styles.css'
 
 export const metadata = {
   title: 'Strona nie znaleziona - Słodka Pętelka',

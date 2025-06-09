@@ -5,6 +5,7 @@ import SVG from '../../SVG'
 import ImageComponent from './ImageComponent'
 import PopupSection from '../../Sections/popupSection/PopupSection'
 import configPromise from '@payload-config'
+import { notFound } from 'next/navigation'
 
 export async function generateMetadata({params}: {params: Promise<{cake: string}>}) {
     const {cake} = await params
@@ -17,6 +18,7 @@ export async function generateMetadata({params}: {params: Promise<{cake: string}
     },
     })
     const cakeRes = cakeResult.docs[0]
+  if(!cakeRes) notFound()
     return {
       title: `${cakeRes.title} - jeden z naszych pyszności!`,
       description: cakeRes.description
