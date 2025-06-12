@@ -79,7 +79,7 @@ const Text = () => {
   }, [index, phrases])
 
   return (
-    <h2 className="hidden sm:flex mt-12 p-6 sm:h-28 bg-white w-fit bg-opacity-75 mb-16 backdrop-blur-[1px] flex-col rounded-md opacity-0 text-2xl animate-fade-in-delay md:text-3xl lg:h-32 lg:text-4xl">
+    <h2 className="hidden sm:flex mt-8 p-6 sm:h-28 bg-white w-fit bg-opacity-75 mb-12 backdrop-blur-[1px] flex-col rounded-md opacity-0 text-2xl animate-fade-in-delay md:text-3xl lg:h-32 lg:text-4xl">
       <span className="flex flex-col">
         Oferujemy pyszne
         <span>{text}</span>

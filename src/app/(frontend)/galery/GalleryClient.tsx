@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { useScroll, motion, useTransform } from 'motion/react'
 import { useState, useEffect, useRef } from 'react'
 import SVGComponent from './SVGComponent'
-import { GalleryTop } from '@/payload-types'
+import { GalleryTop, Media } from '@/payload-types'
 import { usePopupStore } from '../state/store'
 
 const GalleryClient = () => {
@@ -61,11 +61,11 @@ const GalleryClient = () => {
     }),
   }
 
-  const handleImageClick = (url: string) => {
+  const handleImageClick = (image: Media) => {
     setComponent(
       <motion.div
         className="w-full h-full"
-        layoutId={`photo-${url}`}
+        layoutId={`photo-${image.url}`}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -74,9 +74,9 @@ const GalleryClient = () => {
           alt="Enlarged content preview"
           className="object-contain rounded-md aspect-auto w-full h-full
             pointer-events-none max-w-[90vw] max-h-[90vh]"
-          src={url}
-          width={1500}
-          height={1500}
+          src={image.url ?? 'image'}
+          width={typeof image.width === 'number' ? image.width : undefined}
+          height={typeof image.height === 'number' ? image.height : undefined}
           priority
         />
       </motion.div>,
@@ -136,7 +136,7 @@ const GalleryClient = () => {
                     src={image.image.url}
                     onClick={() => {
                       if (typeof image.image !== 'number' && image.image.url) {
-                        handleImageClick(image.image.url)
+                        handleImageClick(image.image)
                       }
                     }}
                     alt={image.image.alt}

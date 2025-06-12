@@ -94,3 +94,6 @@ const AboutSection = async () => {
 }
 
 export default AboutSection
+
+
+export const revalidate = 60

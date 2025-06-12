@@ -1,8 +1,6 @@
 'use client'
 
-// import { useMotionValue } from 'framer-motion'
-import { useState, useCallback } from 'react'
-// import { motion } from 'framer-motion'
+import { useState, useEffect, useRef } from 'react'
 import { motion, useMotionValue } from 'motion/react'
 import NewsCart from './NewsCart'
 import SeeAllNews from './SeeAllNews'
@@ -10,19 +8,46 @@ import SeeAllNews from './SeeAllNews'
 const SLIDE_GAP = 48
 const DRAG_THRESHOLD = 75
 const ARRAY = [1, 2, 3]
+const AUTO_SLIDE_INTERVAL = 10000
 
 const News = () => {
   const [currentIndex, setCurrentIndex] = useState(0)
   const dragX = useMotionValue(0)
+  const intervalRef = useRef<NodeJS.Timeout | null>(null)
 
-  const handleDragEnd = useCallback(() => {
+  const clearExistingInterval = () => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current)
+      intervalRef.current = null
+    }
+  }
+
+  const startAutoSlide = () => {
+    clearExistingInterval()
+    intervalRef.current = setInterval(() => {
+      setCurrentIndex((prev) => (prev < ARRAY.length - 1 ? prev + 1 : 0))
+    }, AUTO_SLIDE_INTERVAL)
+  }
+
+  useEffect(() => {
+    startAutoSlide()
+    return clearExistingInterval
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const handleManualChange = (newIndex: number) => {
+    setCurrentIndex(newIndex)
+    startAutoSlide() // Reset interval after manual change
+  }
+
+  const handleDragEnd = () => {
     const x = dragX.get()
     if (x < -DRAG_THRESHOLD && currentIndex < ARRAY.length - 1) {
-      setCurrentIndex((prev) => prev + 1)
+      handleManualChange(currentIndex + 1)
     } else if (x > DRAG_THRESHOLD && currentIndex > 0) {
-      setCurrentIndex((prev) => prev - 1)
+      handleManualChange(currentIndex - 1)
     }
-  }, [currentIndex, dragX])
+  }
 
   const springTransition = {
     type: 'spring',
@@ -68,7 +93,7 @@ const News = () => {
         {ARRAY.map((slide, index) => (
           <button
             key={slide}
-            onClick={() => setCurrentIndex(slide - 1)}
+            onClick={() => handleManualChange(index)}
             className={`rounded-full transition-all duration-500 size-4 ${
               index === currentIndex ? 'bg-black' : 'bg-gray-500 hover:bg-gray-700'
             }`}

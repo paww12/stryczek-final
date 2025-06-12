@@ -14,7 +14,9 @@ export default async function HomePage() {
     <>
       <Hero /> 
       <News />
-      <MarqueSection text="Słodki Stryczek" />
+      <div className="hidden md:block">
+        <MarqueSection text="Słodki Stryczek" />
+      </div>
       <AboutSection />
       <CombinedSection />
       <OpinionsSection />

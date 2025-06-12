@@ -28,7 +28,7 @@ const PopupSection = () => {
                 animate={{ y: 0, opacity: 1 }}
                 exit={{ y: -20, opacity: 0 }}
                 transition={{ duration: 0.5, delay: 0.5 }}
-                className="absolute top-2 right-2 text-4xl text-white"
+                className="absolute top-2 right-2 text-4xl z-30 text-white"
                 onClick={() => setComponent(null)}
                 aria-label="Zamknij"
               >

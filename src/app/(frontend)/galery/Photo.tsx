@@ -1,7 +1,7 @@
 'use client'
 import Image from 'next/image'
 import { useInView, motion } from 'motion/react'
-import { GalleryMain } from '@/payload-types'
+import { GalleryMain, Media } from '@/payload-types'
 import { useRef } from 'react'
 import Link from 'next/link'
 import { usePopupStore } from '../state/store'
@@ -23,29 +23,29 @@ const Photo = ({
     margin: '0px',
     amount: 0.5, 
   })
-  const { setComponent } = usePopupStore()
+  const { setComponent } = usePopupStore() 
 
   if (typeof image.image === 'number' || !image.image.url) return null
-
-  const handleImageClick = (url: string) => {
+  console.log(image)
+  const handleImageClick = (image: Media) => {
     setComponent(
       <motion.div
-        className="w-full h-full"
-        layoutId={`photo-${url}`}
+        className="relative w-full h-full rounded-md "
+        layoutId={`photo-${image.url}`}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
       >
         <Image
           alt="Enlarged content preview"
-          className="object-contain rounded-md aspect-auto w-full h-full
-          pointer-events-none max-w-[90vw] max-h-[90vh]"
-          src={url}
-          width={1500}
-          height={1500}
+          className="object-contain aspect-auto w-full h-full
+            pointer-events-none max-w-[90vw] max-h-[90vh]"
+          src={image.url ?? ''}
+          width={typeof image.width === 'number' ? image.width : undefined}
+          height={typeof image.height === 'number' ? image.height : undefined}
           priority
         />
-      </motion.div>,
+      </motion.div>
     )
   }
 
@@ -81,9 +81,7 @@ const Photo = ({
       <Image
         src={image.image.url}
         onClick={() => {
-          if (typeof image.image !== 'number' && image.image.url) {
-            handleImageClick(image.image.url)
-          }
+            handleImageClick(image.image as Media)
         }}
         fill
         alt={image.image.alt || `Gallery image ${index + 1}`}

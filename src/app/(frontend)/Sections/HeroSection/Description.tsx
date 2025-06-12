@@ -13,7 +13,7 @@ const Description = async () => {
   const text = data.docs[0]?.text
 
   return (
-    <div className="hidden md:block mt-12 max-w-2xl opacity-0 bg-white bg-opacity-75 text-lg p-4 rounded-md animate-fade-in-delay-long">
+    <div className="hidden md:block mt-4 max-w-2xl opacity-0 bg-white bg-opacity-75 text-lg p-4 rounded-md animate-fade-in-delay-long">
       <span>
         {text
           ? text

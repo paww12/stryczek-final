@@ -12,7 +12,6 @@ import sharp from 'sharp'
 
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
-import { Logo } from './collections/Logo'
 import { NavbarImage } from './collections/NavbarImage'
 import { NavbarText } from './collections/NavbarText'
 import { HeroDescription } from './collections/HeroDescription'
@@ -24,6 +23,7 @@ import { testAPI } from './adapters/APIhandlers'
 import { Product } from './collections/Product'
 import GalleryTop from './collections/GalleryTop'
 import { GalleryMain } from './collections/GalleryMain'
+import { MarqueItems } from './collections/MarqueItems'
 // import { migrations } from './migrations/index'
 
 const filename = fileURLToPath(import.meta.url)
@@ -54,7 +54,6 @@ export default buildConfig({
   collections: [
     Users,
     Media,
-    Logo,
     NavbarImage,
     NavbarText,
     HeroDescription,
@@ -64,6 +63,7 @@ export default buildConfig({
     Product,
     GalleryTop,
     GalleryMain,
+    MarqueItems,
   ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
