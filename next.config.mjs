@@ -5,6 +5,9 @@ const nextConfig = {
   output: 'standalone',
   experimental: {
     reactCompiler: true
+  },
+  images: {
+    domains: ['lh3.googleusercontent.com']
   }
 }
 

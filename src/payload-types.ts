@@ -74,7 +74,6 @@ export interface Config {
     'hero-description': HeroDescription;
     news: News;
     'about-me-photo': AboutMePhoto;
-    opinion: Opinion;
     product: Product;
     'gallery-top': GalleryTop;
     'gallery-main': GalleryMain;
@@ -92,7 +91,6 @@ export interface Config {
     'hero-description': HeroDescriptionSelect<false> | HeroDescriptionSelect<true>;
     news: NewsSelect<false> | NewsSelect<true>;
     'about-me-photo': AboutMePhotoSelect<false> | AboutMePhotoSelect<true>;
-    opinion: OpinionSelect<false> | OpinionSelect<true>;
     product: ProductSelect<false> | ProductSelect<true>;
     'gallery-top': GalleryTopSelect<false> | GalleryTopSelect<true>;
     'gallery-main': GalleryMainSelect<false> | GalleryMainSelect<true>;
@@ -253,18 +251,6 @@ export interface AboutMePhoto {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "opinion".
- */
-export interface Opinion {
-  id: number;
-  name: string;
-  opinion: string;
-  stars: number;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "product".
  */
 export interface Product {
@@ -354,10 +340,6 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'about-me-photo';
         value: number | AboutMePhoto;
-      } | null)
-    | ({
-        relationTo: 'opinion';
-        value: number | Opinion;
       } | null)
     | ({
         relationTo: 'product';
@@ -496,17 +478,6 @@ export interface NewsSelect<T extends boolean = true> {
  */
 export interface AboutMePhotoSelect<T extends boolean = true> {
   photo?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "opinion_select".
- */
-export interface OpinionSelect<T extends boolean = true> {
-  name?: T;
-  opinion?: T;
-  stars?: T;
   updatedAt?: T;
   createdAt?: T;
 }
