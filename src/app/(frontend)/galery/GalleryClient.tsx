@@ -1,19 +1,18 @@
 'use client'
 
 import Image from 'next/image'
-// import { motion, useScroll, useTransform } from 'framer-motion'
 import { useScroll, motion, useTransform } from 'motion/react'
 import { useState, useEffect, useRef } from 'react'
 import SVGComponent from './SVGComponent'
 import { GalleryTop, Media } from '@/payload-types'
-import { usePopupStore } from '../state/store'
+import { usePopupStoreGalery } from '../state/store'
 
 const GalleryClient = () => {
   const [images, setImages] = useState<GalleryTop[] | null>(null)
   const [loading, setLoading] = useState<boolean>(true)
   const container = useRef(null)
 
-  const { setComponent } = usePopupStore()
+  const { setComponent, setImages: setStoreImages } = usePopupStoreGalery()
 
   const { scrollYProgress } = useScroll({
     target: container,
@@ -35,7 +34,7 @@ const GalleryClient = () => {
       try {
         const res = await fetch('/api/gallery-top?limit=5')
         const newData = await res.json()
-        const images = newData.docs
+        const images = newData.docs 
         setImages(images)
       } catch (error) {
         console.error('Error refreshing data:', error)
@@ -61,26 +60,25 @@ const GalleryClient = () => {
     }),
   }
 
-  const handleImageClick = (image: Media) => {
-    setComponent(
-      <motion.div
-        className="w-full h-full"
-        layoutId={`photo-${image.url}`}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-      >
-        <Image
-          alt="Enlarged content preview"
-          className="object-contain rounded-md aspect-auto w-full h-full
-            pointer-events-none max-w-[90vw] max-h-[90vh]"
-          src={image.url ?? 'image'}
-          width={typeof image.width === 'number' ? image.width : undefined}
-          height={typeof image.height === 'number' ? image.height : undefined}
-          priority
-        />
-      </motion.div>,
-    )
+  const handleImageClick = async (clickedImage: Media, clickedIndex: number) => {
+    const topImages = images?.map(img => typeof img.image !== 'number' ? img.image : null).filter(Boolean) as Media[] || []
+    
+    let mainImages: Media[] = []
+    try {
+      const res = await fetch('/api/gallery-main?limit=1000&depth=1')
+      const mainData = await res.json()
+      mainImages = mainData.docs.map((doc: any) => typeof doc.image !== 'number' ? doc.image : null).filter(Boolean) as Media[]
+    } catch (error) {
+      console.error('Error fetching main gallery:', error)
+    }
+
+    const allImages = [...topImages, ...mainImages]
+    
+    const globalIndex = allImages.findIndex(img => img.url === clickedImage.url)
+    
+    setStoreImages(allImages, globalIndex !== -1 ? globalIndex : clickedIndex)
+    
+    setComponent(<div />)
   }
 
   return (
@@ -95,7 +93,7 @@ const GalleryClient = () => {
           }}
           className="text-4xl font-bold text-gray-800 fixed left-0 w-full text-center top-1/2 -translate-y-1/2 py-8"
         >
-          Our Gallery
+          Galeria
         </motion.h1>
         <motion.h2
           style={{
@@ -113,7 +111,7 @@ const GalleryClient = () => {
             <p className="text-lg">Loading images...</p>
           </div>
         ) : (
-          <div className="w-full h-[calc(100dvh-7rem)] sticky inset-0 top-28 grid grid-cols-3 grid-rows-3">
+          <div className="w-full h-[calc(100dvh-7rem)] sticky inset-0 top-28 grid grid-cols-3 grid-rows-3 ">
             {images?.map((image, index) => {
               if (typeof image.image === 'number' || !image.image.url) {
                 return null
@@ -134,11 +132,7 @@ const GalleryClient = () => {
                 >
                   <Image
                     src={image.image.url}
-                    onClick={() => {
-                      if (typeof image.image !== 'number' && image.image.url) {
-                        handleImageClick(image.image)
-                      }
-                    }}
+                    onClick={() => handleImageClick(image.image as Media, index)}
                     alt={image.image.alt}
                     fill
                     className="w-full cursor-pointer h-full object-cover rounded-lg transition-transform duration-300 hover:scale-105"

@@ -79,7 +79,7 @@ const HomeGallerySection = ({ scrollYProgress }: { scrollYProgress: MotionValue<
         </Overlay>
 
         <Overlay delay={1}>
-          <div className="text-center mt-8 md:mt-12 tooHeight">
+          <div className="text-center mt-8 md:mt-12 tooHeightBtn">
             <Link
               href="/offer"
               className="inline-flex items-center gap-3 px-8 py-4 bg-slate-200 text-black rounded-full text-lg font-semibold hover:bg-slate-700 hover:text-white transition-colors"

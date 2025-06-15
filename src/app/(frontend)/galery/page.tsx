@@ -1,7 +1,7 @@
 import React from 'react'
 import GalleryClient from './GalleryClient'
 import GalleryMainPage from './GalleryMainPage'
-import PopupSection from '../Sections/popupSection/PopupSection'
+import PopupSectionGalery from './PopupSectionGalery';
 
 export const metadata = {
   title: "Galeria naszych wypieków",
@@ -13,7 +13,7 @@ const page = () => {
     <>
       <GalleryClient />
       <GalleryMainPage />
-      <PopupSection />
+      <PopupSectionGalery />
     </>
   )
 }

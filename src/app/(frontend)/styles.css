@@ -41,3 +41,9 @@ body {
     display: none;
   }
 }
+
+@media screen and (max-height: 800px) and (min-width: 768px) and (max-width: 768px){
+  .tooHeightBtn{
+    background-color: red;
+  }
+}

@@ -57,11 +57,11 @@ const GalleryMainPage = () => {
 
   const getSizeClass = (i: number) => {
     const pattern = [
-      'col-span-2 row-span-1',
-      'col-span-1 row-span-2',
-      'col-span-2 row-span-1',
-      'col-span-1 row-span-1',
-      'col-span-2 row-span-1',
+      'col-span-2 row-span-1 h-64',
+      'col-span-1 row-span-2 h-[34rem]',
+      'col-span-2 row-span-1 h-64',
+      'col-span-1 row-span-1 h-64',
+      'col-span-2 row-span-1 h-64',
     ]
     return pattern[i % pattern.length]
   }
@@ -72,7 +72,7 @@ const GalleryMainPage = () => {
 
   return (
     <>
-      <motion.div className="grid grid-cols-3 gap-8 m-4">
+      <motion.div className="grid grid-cols-3 gap-8 m-4 auto-rows-max">
         {images.map((image, i) => (
           <motion.div className={`${getSizeClass(i)}`} key={image.id} layout>
             <Photo

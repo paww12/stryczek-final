@@ -24,3 +24,4 @@ const Description = async () => {
 }
 
 export default Description
+export const revalidate = 3600 
