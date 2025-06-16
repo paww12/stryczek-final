@@ -60,7 +60,7 @@ const HomeGallerySection = ({ scrollYProgress }: { scrollYProgress: MotionValue<
       className="md:sticky md:top-[20vh] md:h-[70vh] md:mb-[10vh] py-8 bg-gradient-to-b rounded-lg shadow-md from-slate-50 to-white"
     >
       <div className="container mx-auto px-4">
-        <div className="text-center mb-4">
+        <div className="text-center mb-4 tooHeightText">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-2">
             <Overlay delay={0.3}>
               <Title />
