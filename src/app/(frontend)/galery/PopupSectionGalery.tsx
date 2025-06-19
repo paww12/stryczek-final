@@ -1,6 +1,6 @@
 'use client'
-import { useRef, useEffect, useCallback } from 'react'
-import { usePopupStoreGalery } from '../state/store' 
+import { useRef, useEffect, useCallback, useState } from 'react'
+import { usePopupStoreGalery } from '../state/store'
 import useOutsideClick from '../lib/useOutsideClick'
 import { AnimatePresence, motion } from 'motion/react'
 import Image from 'next/image'
@@ -8,17 +8,23 @@ import Image from 'next/image'
 const PopupSectionGalery = () => {
   const modalRef = useRef(null)
   const { component, images, currentIndex, setComponent, nextImage, prevImage } = usePopupStoreGalery()
-  
+  const [imageLoaded, setImageLoaded] = useState(false)
+
   useOutsideClick(modalRef, () => {
     setComponent(null)
   })
 
+  // Reset loaded state when image changes
+  useEffect(() => {
+    setImageLoaded(false)
+  }, [currentIndex])
+
   const handleKeyPress = useCallback((e: KeyboardEvent) => {
-    if (!component) return
+    if (!component || !imageLoaded) return
     if (e.key === 'ArrowRight') nextImage()
     if (e.key === 'ArrowLeft') prevImage()
     if (e.key === 'Escape') setComponent(null)
-  }, [component, nextImage, prevImage, setComponent])
+  }, [component, imageLoaded, nextImage, prevImage, setComponent])
 
   useEffect(() => {
     document.addEventListener('keydown', handleKeyPress)
@@ -50,7 +56,7 @@ const PopupSectionGalery = () => {
                 ✕
               </motion.button>
 
-              {images.length > 1 && (
+              {imageLoaded && images.length > 1 && (
                 <>
                   <motion.button
                     initial={{ x: -20, opacity: 0 }}
@@ -58,7 +64,7 @@ const PopupSectionGalery = () => {
                     exit={{ x: -20, opacity: 0 }}
                     transition={{ duration: 0.5, delay: 0.5 }}
                     className="absolute left-4 top-1/2 -translate-y-1/2 text-4xl z-30 text-white hover:text-gray-300 transition-colors bg-black/30 rounded-full w-12 h-12 flex items-center justify-center"
-                    onClick={prevImage}
+                    onClick={nextImage}
                     aria-label="Poprzednie zdjęcie"
                   >
                     ←
@@ -94,11 +100,12 @@ const PopupSectionGalery = () => {
                     width={typeof currentImage.width === 'number' ? currentImage.width : undefined}
                     height={typeof currentImage.height === 'number' ? currentImage.height : undefined}
                     priority
+                    onLoad={() => setImageLoaded(true)}
                   />
                 </motion.div>
               )}
 
-              {images.length > 1 && (
+              {imageLoaded && images.length > 1 && (
                 <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white text-sm bg-black/30 px-3 py-1 rounded-full">
                   {currentIndex + 1} / {images.length}
                 </div>

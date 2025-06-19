@@ -105,7 +105,7 @@ const NewsCart: React.FC<NewsCartProps> = ({ slide }) => {
     <article className="mx-2 my-2 h-fit">
       <CartTop data={data.createdAt} />
       <div className="w-full h-1 bg-slate-100 rounded-sm my-4 hidden md:block"></div>
-      <div className="flex flex-col xl:flex-row md:gap-6">
+      <div className="flex flex-col xl:flex-row md:gap-6 mb-8">
         <div className="flex-1">
           <h2 className="text-2xl font-bold lg:text-4xl">{data.title}</h2>
           {data.content && <RichText data={data.content} />}

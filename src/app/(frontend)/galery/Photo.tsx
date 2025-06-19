@@ -45,7 +45,7 @@ const Photo = ({ image, index, shouldAnimate, onAnimationComplete }: PhotoProps)
 
     const allImages = [...topImages, ...mainImages]
     const globalIndex = allImages.findIndex(img => img.url === clickedImage.url)
-    
+
     setStoreImages(allImages, globalIndex !== -1 ? globalIndex : topImages.length + clickedIndex)
     setComponent(<div />)
   }
@@ -66,6 +66,10 @@ const Photo = ({ image, index, shouldAnimate, onAnimationComplete }: PhotoProps)
       transition={{ duration: 0.6, delay: index * 0.1 }}
       onAnimationComplete={onAnimationComplete}
       onClick={() => handleImageClick(image.image as Media, index)}
+      role="button"
+      onKeyDown={(e) => {
+        if (e.key === 'Enter') handleImageClick(image.image as Media, index)
+      }}
     >
       <Image
         src={image.image.url}
@@ -76,15 +80,16 @@ const Photo = ({ image, index, shouldAnimate, onAnimationComplete }: PhotoProps)
       />
 
       <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300 rounded-lg" />
-      
+
       {image.link && typeof image.link !== 'number' && isValidProductLink(image.link) && (
         <Link
           href={`/product/${encodeURIComponent(image.link.title)}`}
           onClick={(e) => e.stopPropagation()}
+          className="absolute bottom-0 backdrop-blur-2xl w-full text-white text-center text-2xl p-2 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
+          tabIndex={0}
+          aria-label={`Przejdź do produktu: ${image.link.title}`}
         >
-          <span className="absolute bottom-0 backdrop-blur-2xl w-full text-white text-center text-2xl">
-            Sprawdź...
-          </span>
+          Sprawdź...
         </Link>
       )}
     </motion.div>

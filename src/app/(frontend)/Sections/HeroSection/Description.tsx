@@ -24,4 +24,6 @@ const Description = async () => {
 }
 
 export default Description
-export const revalidate = 3600 
+export const dynamic = 'force-dynamic'
+
+export const revalidate = 0 

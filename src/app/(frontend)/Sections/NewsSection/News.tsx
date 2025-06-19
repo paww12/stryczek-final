@@ -6,14 +6,16 @@ import NewsCart from './NewsCart'
 import SeeAllNews from './SeeAllNews'
 
 const SLIDE_GAP = 48
-const DRAG_THRESHOLD = 75
+const DRAG_THRESHOLD = 50
 const ARRAY = [1, 2, 3]
-const AUTO_SLIDE_INTERVAL = 10000
+const AUTO_SLIDE_INTERVAL = 15000
 
 const News = () => {
   const [currentIndex, setCurrentIndex] = useState(0)
+  const [containerHeight, setContainerHeight] = useState<number | null>(null)
   const dragX = useMotionValue(0)
   const intervalRef = useRef<NodeJS.Timeout | null>(null)
+  const slideRefs = useRef<(HTMLDivElement | null)[]>([])
 
   const clearExistingInterval = () => {
     if (intervalRef.current) {
@@ -30,21 +32,50 @@ const News = () => {
   }
 
   useEffect(() => {
+    const updateHeight = () => {
+      const currentSlide = slideRefs.current[currentIndex]
+      if (currentSlide) {
+        const height = currentSlide.offsetHeight + 48
+        setContainerHeight(height)
+      }
+    }
+
+    const timer = setTimeout(updateHeight, 100)
+
+    return () => clearTimeout(timer)
+  }, [currentIndex])
+
+  useEffect(() => {
+    const resizeObserver = new ResizeObserver(() => {
+      const currentSlide = slideRefs.current[currentIndex]
+      if (currentSlide) {
+        setContainerHeight(currentSlide.offsetHeight + 48)
+      }
+    })
+
+    slideRefs.current.forEach(slide => {
+      if (slide) resizeObserver.observe(slide)
+    })
+
+    return () => resizeObserver.disconnect()
+  }, [currentIndex])
+
+  useEffect(() => {
     startAutoSlide()
     return clearExistingInterval
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const handleManualChange = (newIndex: number) => {
     setCurrentIndex(newIndex)
-    startAutoSlide() // Reset interval after manual change
+    startAutoSlide()
   }
 
   const handleDragEnd = () => {
     const x = dragX.get()
-    if (x < -DRAG_THRESHOLD && currentIndex < ARRAY.length - 1) {
+    if ((x < -DRAG_THRESHOLD || x < .1 * window.innerWidth) && currentIndex < ARRAY.length - 1) {
       handleManualChange(currentIndex + 1)
-    } else if (x > DRAG_THRESHOLD && currentIndex > 0) {
+    } else if ((x > DRAG_THRESHOLD || x > .08 * window.innerWidth) && currentIndex > 0) {
       handleManualChange(currentIndex - 1)
     }
   }
@@ -60,14 +91,22 @@ const News = () => {
     <section className="mb-6 md:mt-12 relative" aria-label="Aktualności">
       <h1 className="text-center text-4xl mb-12 mt-4">Aktualności</h1>
 
-      <div
-        className="container mt-12 p-8 gap-12 max-h-[1200px] flex overflow-hidden"
+      <motion.div
+        className="container mt-12 p-8 gap-12 flex overflow-hidden"
+        style={{
+          height: containerHeight ? `${containerHeight}px` : 'auto',
+          minHeight: '400px'
+        }}
+        animate={{ height: containerHeight || 'auto' }}
+        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
         role="region"
         aria-live="polite"
       >
-        {ARRAY.map((slide) => (
+        {ARRAY.map((slide, index) => (
           <motion.div
             key={slide}
+            ref={el => { slideRefs.current[index] = el }}
+            // ref={(el) => slideRefs.current[index] = el}
             onDragEnd={handleDragEnd}
             drag="x"
             dragConstraints={{ left: 0, right: 0 }}
@@ -76,14 +115,14 @@ const News = () => {
               translateX: `calc(-${currentIndex * 100}% - ${currentIndex * SLIDE_GAP}px)`,
             }}
             transition={springTransition}
-            className="bg-white shadow-xl w-full shrink-0 rounded-xl h-fit"
+            className="bg-white shadow-md w-full shrink-0 rounded-xl h-fit"
             role="group"
             aria-roledescription="slide"
           >
             <NewsCart slide={slide.toString()} />
           </motion.div>
         ))}
-      </div>
+      </motion.div>
 
       <div
         className="flex absolute top-20 left-1/2 gap-6 h-fit -translate-x-1/2 w-fit"
@@ -94,9 +133,8 @@ const News = () => {
           <button
             key={slide}
             onClick={() => handleManualChange(index)}
-            className={`rounded-full transition-all duration-500 size-4 ${
-              index === currentIndex ? 'bg-black' : 'bg-gray-500 hover:bg-gray-700'
-            }`}
+            className={`rounded-full transition-all duration-500 size-4 ${index === currentIndex ? 'bg-black' : 'bg-gray-500 hover:bg-gray-700'
+              }`}
             aria-label={`Przejdź do slajdu ${index + 1}`}
             aria-current={index === currentIndex}
           />

@@ -49,10 +49,10 @@ const HomeGallerySection = ({ scrollYProgress }: { scrollYProgress: MotionValue<
   const motionStyles = isMobile
     ? {}
     : {
-        scale: desktopScale,
-        rotate: desktopRotate,
-        filter: desktopFilter,
-      }
+      scale: desktopScale,
+      rotate: desktopRotate,
+      filter: desktopFilter,
+    }
 
   return (
     <motion.section
@@ -78,7 +78,7 @@ const HomeGallerySection = ({ scrollYProgress }: { scrollYProgress: MotionValue<
           </div>
         </Overlay>
 
-        <Overlay delay={1}>
+        <Overlay delay={.8}>
           <div className="text-center mt-8 md:mt-12 tooHeightBtn">
             <Link
               href="/offer"

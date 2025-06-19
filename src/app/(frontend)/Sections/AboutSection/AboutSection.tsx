@@ -2,17 +2,16 @@ import Image from 'next/image'
 import Link from 'next/link'
 import OverlayX from '../../Components/OverlayX'
 import { getPayload } from 'payload'
-// import config from '@/payload.config'
 import BubbleText from '../../contact/components/BubbleText'
 import configPromise from '@payload-config'
 import BakingSVG from '../../Components/BakingSVG'
 
 
 const AboutSection = async () => {
-  // const payloadConfig = await config
-  // const payload = await getPayload({ config: payloadConfig })
   const payload = await getPayload({ config: configPromise })
   const data = await payload.find({ collection: 'about-me-photo' })
+
+  const photo = data.docs[0]?.photo as any
 
   return (
     <section className="pt-16 mb-24 pb-4  md:pb-12 rounded-lg shadow-lg bg-white overflow-hidden">
@@ -73,21 +72,19 @@ const AboutSection = async () => {
 
           <div className="w-full lg:w-1/2 px-4">
             <div className="relative h-96 rounded-lg overflow-hidden shadow-xl">
-              {typeof data.docs[0]?.photo === 'object' && data.docs[0]?.photo.url && (
-                <Image
-                  src={data.docs[0].photo.url}
-                  alt={data.docs[0].photo.alt || 'Image of the author'}
-                  fill
-                  className="object-cover opacity-75"
-                />
-              )}
+              <Image
+                src={photo.url}
+                alt={photo.alt || 'Image of the author'}
+                fill
+                className="object-cover opacity-75"
+              />
               <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
             </div>
           </div>
         </div>
       </div>
 
-      <div className="absolute top-0 right-0 w-72 h-72 bg-amber-300 rounded-full blur-3xl opacity-20 " />
+      <div className="absolute top-0 right-0 w-72 h-72 bg-amber-300 rounded-full blur-3xl opacity-20" />
       <div className="absolute bottom-20 left-0 w-64 h-64 bg-amber-200 rounded-full blur-3xl opacity-30 " />
     </section>
   )
@@ -96,4 +93,6 @@ const AboutSection = async () => {
 export default AboutSection
 
 
-export const revalidate = 3600
+export const dynamic = 'force-dynamic'
+
+export const revalidate = 0

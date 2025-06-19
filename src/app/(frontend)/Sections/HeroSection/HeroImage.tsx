@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
-import { useMotionValue, motion, useTransform, animate, useMotionTemplate } from 'motion/react'
+import { useMotionValue, motion, useTransform, animate, useMotionTemplate, useReducedMotion } from 'motion/react'
 import { NavbarImage } from '@/payload-types'
 
 const HeroImage = () => {
@@ -11,16 +11,14 @@ const HeroImage = () => {
   const [imageData, setImageData] = useState<NavbarImage | null>(null)
   const [isLoading, setIsLoading] = useState(true)
 
+  const shouldReduceMotion = useReducedMotion()
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await fetch('/api/navbar-image')
-        if (!res.ok) {
-          throw new Error(`HTTP error! status: ${res.status}`)
-        }
-        
         const data = await res.json()
-        
+
         if (data.docs?.length > 0) {
           const randomIndex = Math.floor(Math.random() * data.docs.length)
           setImageData(data.docs[randomIndex])
@@ -38,16 +36,22 @@ const HeroImage = () => {
   useEffect(() => {
     if (!imageData || isLoading) return
 
+    if (shouldReduceMotion) {
+      progress1.set(1)
+      progress2.set(1)
+      return
+    }
+
     const timeoutId = setTimeout(() => {
-      animate(progress1, 1, { duration: 1.3, ease: [0.76, 0, 0.24, 1] })
+      animate(progress1, 1, { duration: 1.4, ease: [0.76, 0, 0.24, 1] })
       animate(progress2, 1, { duration: 1.0, ease: [0.76, 0, 0.24, 1] })
     }, 250)
 
     return () => clearTimeout(timeoutId)
-  }, [progress1, progress2, imageData, isLoading])
+  }, [progress1, progress2, imageData, isLoading, shouldReduceMotion])
 
   const opacity = useTransform(progress1, [0, 1], [0, 1])
-  
+
   const points = [
     {
       x: useTransform(progress1, [0, 1], ['50%', '0%']),
@@ -93,10 +97,16 @@ const HeroImage = () => {
       <motion.div
         className="w-[80vw] max-h-[475px] h-full top-1/4 right-4 absolute 
           md:w-[calc(75vw)] md:max-h-[600px] md:right-8 max-w-[1300px]"
-        style={{ clipPath, opacity }}
+        style={{
+          clipPath: shouldReduceMotion ? 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)' : clipPath,
+          opacity: shouldReduceMotion ? 1 : opacity,
+          transform: 'translate3d(0, 0, 0)',
+          willChange: shouldReduceMotion ? 'auto' : 'clip-path, opacity'
+        }}
+        animate={shouldReduceMotion ? false : undefined}
       >
         <Image
-          alt={imageData.image.alt}
+          alt={imageData.image.alt || 'Hero image'}
           src={imageData.image.url}
           priority
           fill

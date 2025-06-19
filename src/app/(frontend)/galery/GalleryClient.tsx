@@ -10,7 +10,9 @@ import { usePopupStoreGalery } from '../state/store'
 const GalleryClient = () => {
   const [images, setImages] = useState<GalleryTop[] | null>(null)
   const [loading, setLoading] = useState<boolean>(true)
-  const container = useRef(null)
+  const [isScrolling, setIsScrolling] = useState(false)
+  const container = useRef<HTMLDivElement>(null)
+  const scrollTimeout = useRef<NodeJS.Timeout>(null)
 
   const { setComponent, setImages: setStoreImages } = usePopupStoreGalery()
 
@@ -30,19 +32,47 @@ const GalleryClient = () => {
   const textY = useTransform(scrollYProgress, [0, 0.3], ['0%', '-20%'])
 
   useEffect(() => {
+    const unsubscribe = scrollYProgress.on('change', () => {
+      setIsScrolling(true)
+
+      if (scrollTimeout.current) {
+        clearTimeout(scrollTimeout.current)
+      }
+
+      scrollTimeout.current = setTimeout(() => {
+        setIsScrolling(false)
+      }, 150)
+    })
+
+    return () => {
+      unsubscribe()
+      if (scrollTimeout.current) {
+        clearTimeout(scrollTimeout.current)
+      }
+    }
+  }, [scrollYProgress])
+
+  useEffect(() => {
+
     const fetchLatest = async () => {
       try {
         const res = await fetch('/api/gallery-top?limit=5')
         const newData = await res.json()
-        const images = newData.docs 
-        setImages(images)
+
+        if (!newData.docs || !Array.isArray(newData.docs)) {
+          throw new Error('Invalid API response structure')
+        }
+
+        setImages(newData.docs)
       } catch (error) {
-        console.error('Error refreshing data:', error)
+        console.error(error)
       } finally {
         setLoading(false)
       }
     }
+
     fetchLatest()
+
   }, [])
 
   const getSizeClass = (index: number) => {
@@ -62,10 +92,15 @@ const GalleryClient = () => {
 
   const handleImageClick = async (clickedImage: Media, clickedIndex: number) => {
     const topImages = images?.map(img => typeof img.image !== 'number' ? img.image : null).filter(Boolean) as Media[] || []
-    
+
     let mainImages: Media[] = []
     try {
       const res = await fetch('/api/gallery-main?limit=1000&depth=1')
+
+      if (!res.ok) {
+        throw new Error(`HTTP ${res.status}: ${res.statusText}`)
+      }
+
       const mainData = await res.json()
       mainImages = mainData.docs.map((doc: any) => typeof doc.image !== 'number' ? doc.image : null).filter(Boolean) as Media[]
     } catch (error) {
@@ -73,33 +108,37 @@ const GalleryClient = () => {
     }
 
     const allImages = [...topImages, ...mainImages]
-    
     const globalIndex = allImages.findIndex(img => img.url === clickedImage.url)
-    
+
     setStoreImages(allImages, globalIndex !== -1 ? globalIndex : clickedIndex)
-    
     setComponent(<div />)
   }
 
   return (
     <>
-      <div ref={container} className="relative h-[calc(200dvh-7rem)] w-full ">
+      <div ref={container} className="relative h-[calc(200dvh-7rem)] w-full">
         <SVGComponent scrollYProgress={scrollYProgress} />
+
         <motion.h1
           style={{
             opacity: textOpacity,
             scale: textScale,
             y: textY,
+            transform: 'translate3d(0, 0, 0)',
+            willChange: isScrolling ? 'opacity, transform' : 'auto'
           }}
           className="text-4xl font-bold text-gray-800 fixed left-0 w-full text-center top-1/2 -translate-y-1/2 py-8"
         >
           Galeria
         </motion.h1>
+
         <motion.h2
           style={{
             opacity: textOpacity,
             scale: textScale,
             y: textY,
+            transform: 'translate3d(0, 0, 0)',
+            willChange: isScrolling ? 'opacity, transform' : 'auto'
           }}
           className="text-xl text-gray-600 fixed left-0 w-full text-center top-1/2 -translate-y-1/2 py-8 mt-16"
         >
@@ -108,21 +147,28 @@ const GalleryClient = () => {
 
         {loading ? (
           <div className="w-full h-full flex items-center justify-center">
-            <p className="text-lg">Loading images...</p>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
+            <p className="text-lg ml-4">Ładowanie zdjęć...</p>
           </div>
         ) : (
-          <div className="w-full h-[calc(100dvh-7rem)] sticky inset-0 top-28 grid grid-cols-3 grid-rows-3 ">
+          <div className="w-full h-[calc(100dvh-7rem)] sticky inset-0 top-28 grid grid-cols-3 grid-rows-3">
             {images?.map((image, index) => {
               if (typeof image.image === 'number' || !image.image.url) {
                 return null
               }
+
+              const translateX = index === 4 || index === 2 ? translateXLeft : translateXRight
+              const translateY = index === 0 || index === 2 ? translateYUp : translateYDown
+
               return (
                 <motion.div
                   key={image.id}
                   style={{
                     scale,
-                    translateX: index === 4 || index === 2 ? translateXLeft : translateXRight,
-                    translateY: index === 0 || index === 2 ? translateYUp : translateYDown,
+                    translateX,
+                    translateY,
+                    transform: 'translate3d(0, 0, 0)',
+                    willChange: isScrolling ? 'transform' : 'auto'
                   }}
                   initial="hidden"
                   animate="visible"
@@ -133,11 +179,13 @@ const GalleryClient = () => {
                   <Image
                     src={image.image.url}
                     onClick={() => handleImageClick(image.image as Media, index)}
-                    alt={image.image.alt}
+                    alt={image.image.alt || `Gallery image ${index + 1}`}
                     fill
-                    className="w-full cursor-pointer h-full object-cover rounded-lg transition-transform duration-300 hover:scale-105"
+                    className="w-full cursor-pointer h-full object-cover rounded-lg transition-transform duration-300 hover:scale-105 transform-gpu"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     priority={index < 3}
+                    placeholder="blur"
+                    blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R7W2xQB8mQy0G0letGrQosHGyYdjsEjyzhxTrWvvl9LPdLpjIILwL5Jh9qK0jvCuJo5SkLrjYKXmHJmXBKpFpDWXOjSZpFJCAWvWy4QgLWEV6o9Q/wAcHdg+e9eWAAAAAElFTkSuQmCC"
                   />
                 </motion.div>
               )

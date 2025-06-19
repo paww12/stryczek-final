@@ -16,7 +16,7 @@ const Footer = () => {
         <div className="flex flex-col-reverse justify-between items-center h-full py-8 px-2 container mx-auto">
           <div className="flex space-x-4 mt-4">
             <Link href="/" className="text-gray-600 hover:text-gray-800">
-              Home
+              Strona główna
             </Link>
             <Link href="/offer" className="text-gray-600 hover:text-gray-800">
               Oferta
@@ -25,7 +25,7 @@ const Footer = () => {
               Galeria
             </Link>
             <Link href="/contact" className="text-gray-600 hover:text-gray-800">
-              Contact
+              Kontakt
             </Link>
           </div>
           <div className="hidden md:block ">
