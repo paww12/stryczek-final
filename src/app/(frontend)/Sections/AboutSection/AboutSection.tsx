@@ -1,17 +1,12 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import OverlayX from '../../Components/OverlayX'
-import { getPayload } from 'payload'
 import BubbleText from '../../contact/components/BubbleText'
-import configPromise from '@payload-config'
 import BakingSVG from '../../Components/BakingSVG'
 
 
 const AboutSection = async () => {
-  const payload = await getPayload({ config: configPromise })
-  const data = await payload.find({ collection: 'about-me-photo' })
 
-  const photo = data.docs[0]?.photo as any
 
   return (
     <section className="pt-16 mb-24 pb-4  md:pb-12 rounded-lg shadow-lg bg-white overflow-hidden">
@@ -73,8 +68,8 @@ const AboutSection = async () => {
           <div className="w-full lg:w-1/2 px-4">
             <div className="relative h-96 rounded-lg overflow-hidden shadow-xl">
               <Image
-                src={photo.url}
-                alt={photo.alt || 'Image of the author'}
+                src='/AboutMePhoto.jpg'
+                alt='Image of the author'
                 fill
                 className="object-cover opacity-75"
               />
@@ -91,8 +86,3 @@ const AboutSection = async () => {
 }
 
 export default AboutSection
-
-
-export const dynamic = 'force-dynamic'
-
-export const revalidate = 0

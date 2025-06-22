@@ -16,7 +16,6 @@ import { NavbarImage } from './collections/NavbarImage'
 import { NavbarText } from './collections/NavbarText'
 import { HeroDescription } from './collections/HeroDescription'
 import { News } from './collections/News'
-import { AboutMePhoto } from './collections/AboutMePhoto'
 import { emailAdapter } from './adapters/email'
 import { testAPI } from './adapters/APIhandlers'
 import { Product } from './collections/Product'
@@ -57,7 +56,6 @@ export default buildConfig({
     NavbarText,
     HeroDescription,
     News,
-    AboutMePhoto,
     Product,
     GalleryTop,
     GalleryMain,

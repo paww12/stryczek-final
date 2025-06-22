@@ -6,7 +6,6 @@ import NewsCart from './NewsCart'
 import SeeAllNews from './SeeAllNews'
 
 const SLIDE_GAP = 48
-const DRAG_THRESHOLD = 50
 const ARRAY = [1, 2, 3]
 const AUTO_SLIDE_INTERVAL = 15000
 
@@ -73,9 +72,11 @@ const News = () => {
 
   const handleDragEnd = () => {
     const x = dragX.get()
-    if ((x < -DRAG_THRESHOLD || x < .1 * window.innerWidth) && currentIndex < ARRAY.length - 1) {
+    console.log(x)
+    if ((x < .1 * window.innerWidth) && currentIndex < ARRAY.length - 1) {
       handleManualChange(currentIndex + 1)
-    } else if ((x > DRAG_THRESHOLD || x > .08 * window.innerWidth) && currentIndex > 0) {
+    }
+    if ((x > - .08 * window.innerWidth) && currentIndex > 0) {
       handleManualChange(currentIndex - 1)
     }
   }

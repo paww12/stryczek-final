@@ -73,7 +73,6 @@ export interface Config {
     'navbar-text': NavbarText;
     'hero-description': HeroDescription;
     news: News;
-    'about-me-photo': AboutMePhoto;
     product: Product;
     'gallery-top': GalleryTop;
     'gallery-main': GalleryMain;
@@ -90,7 +89,6 @@ export interface Config {
     'navbar-text': NavbarTextSelect<false> | NavbarTextSelect<true>;
     'hero-description': HeroDescriptionSelect<false> | HeroDescriptionSelect<true>;
     news: NewsSelect<false> | NewsSelect<true>;
-    'about-me-photo': AboutMePhotoSelect<false> | AboutMePhotoSelect<true>;
     product: ProductSelect<false> | ProductSelect<true>;
     'gallery-top': GalleryTopSelect<false> | GalleryTopSelect<true>;
     'gallery-main': GalleryMainSelect<false> | GalleryMainSelect<true>;
@@ -241,16 +239,6 @@ export interface News {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "about-me-photo".
- */
-export interface AboutMePhoto {
-  id: number;
-  photo: number | Media;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "product".
  */
 export interface Product {
@@ -336,10 +324,6 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'news';
         value: number | News;
-      } | null)
-    | ({
-        relationTo: 'about-me-photo';
-        value: number | AboutMePhoto;
       } | null)
     | ({
         relationTo: 'product';
@@ -469,15 +453,6 @@ export interface NewsSelect<T extends boolean = true> {
   subcontent?: T;
   image?: T;
   image2?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "about-me-photo_select".
- */
-export interface AboutMePhotoSelect<T extends boolean = true> {
-  photo?: T;
   updatedAt?: T;
   createdAt?: T;
 }

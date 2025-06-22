@@ -4,8 +4,8 @@ import NewsList from './NewsList'
 import PopupSection from '../Sections/popupSection/PopupSection'
 
 export const metadata = {
-  title: "Oferta - sprawdź co ",
-  description: "Masz pytanie lub chcesz zamówić ciasto? Skorzystaj z naszych danych kontaktowych, formularza lub odwiedź nas osobiście. Jesteśmy do Twojej dyspozycji!"
+  title: "Nowości - Słodka Pętelka!",
+  description: "Tutaj znajdziesz nasze najnowsze kulinarne nowości i wiele więcej."
 }
 
 
