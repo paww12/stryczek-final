@@ -1,127 +1,157 @@
 'use client'
-import { motion, useSpring, useTransform } from 'motion/react'
+import { motion } from 'motion/react'
 import useScrollVelocity from '../../lib/useScrollVelocity'
 import { useEffect, useState } from 'react'
-import type { MotionValue } from 'motion/react'
 import { MarqueItem } from '@/payload-types'
+import Link from 'next/link'
 
-export default function App({ text }: { text: string }) {
+export default function MarqueeComponent({ text }: { text: string }) {
   const rawVelocity = useScrollVelocity(0.1)
   const [data, setData] = useState<MarqueItem[]>([])
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
-  
-  const springVelocity = useSpring(0, {
-    damping: 20,
-    stiffness: 150,
-    mass: 0.5
-  })
-  
-  const skewX = useTransform(
-    springVelocity, 
-    [-1000, 1000], 
-    [-25, 25],
-    { clamp: true }
-  )
+  const [shouldAnimate, setShouldAnimate] = useState(true)
 
   useEffect(() => {
-    const fetchLatest = async () => {
+    const fetchMarqueeData = async () => {
       try {
         setLoading(true)
-        setError(null)
+
         const res = await fetch('/api/marque-item')
-        
-        if (!res.ok) {
-          throw new Error(`HTTP error! status: ${res.status}`)
-        }
-        
-        const newData = await res.json()
-        const images = newData.docs || []
-        setData(images)
+        const response = await res.json()
+        const items = response.docs || []
+        setData(items)
       } catch (error) {
-        console.error('Error refreshing data:', error)
-        setError(error instanceof Error ? error.message : 'Unknown error')
+        console.error('Marquee fetch error:', error)
       } finally {
         setLoading(false)
+        setShouldAnimate(true)
       }
     }
-    
-    fetchLatest()
+    fetchMarqueeData()
   }, [])
 
-  useEffect(() => {
-    springVelocity.set(rawVelocity)
-  }, [rawVelocity, springVelocity])
+  const processedData = data.length > 0
+    ? data.map(item => ({
+      text: item.text,
+      href: item.link && typeof item.link === 'object' && 'title' in item.link
+        ? `/product/${encodeURIComponent(item.link.title)}`
+        : null
+    }))
+    : [{ text, href: null }]
 
   if (loading) {
     return (
-      <div className="py-2 my-8 overflow-hidden flex gap-5 border-y-2 mx-8 md:mx-12 lg:mx-24 [mask:linear-gradient(90deg,transparent,white_10%,white_90%,transparent)]">
-        <MarqueeSection texts={[text]} skew={skewX} isLoading={true} />
-        <MarqueeSection texts={[text]} skew={skewX} isLoading={true} />
+      <div className="relative py-3 my-8 overflow-hidden border-y border-gray-200/50 mx-8 md:mx-12 lg:mx-24">
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent pointer-events-none" />
+        <div className="flex gap-6 [mask:linear-gradient(90deg,transparent,white_5%,white_95%,transparent)]">
+          <MarqueeTrack
+            items={Array(12).fill({ text: 'Ładowanie...', href: null })}
+            skew={rawVelocity}
+            isLoading={true}
+            shouldAnimate={shouldAnimate}
+          />
+          <MarqueeTrack
+            items={Array(12).fill({ text: 'Ładowanie...', href: null })}
+            skew={rawVelocity}
+            isLoading={true}
+            shouldAnimate={shouldAnimate}
+          />
+        </div>
       </div>
     )
   }
 
-  if (error) {
-    console.warn('Marquee API error, using fallback text:', error)
-  }
-
-  const textsToShow = data.length > 0 ? data.map(item => item.text) : [text]
-
   return (
-    <div className="py-2 my-8 overflow-hidden flex gap-5 border-y-2 mx-8 md:mx-12 lg:mx-24 [mask:linear-gradient(90deg,transparent,white_10%,white_90%,transparent)]">
-      <MarqueeSection texts={textsToShow} skew={skewX} />
-      <MarqueeSection texts={textsToShow} skew={skewX} />
-    </div>
+    <motion.div
+      onHoverStart={() => setShouldAnimate(false)}
+      onHoverEnd={() => setShouldAnimate(true)}
+      className="relative py-3 my-8 overflow-hidden border-y border-gray-200/50 mx-8 md:mx-12 lg:mx-24 group"
+    >
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent pointer-events-none group-hover:via-white/10 transition-all duration-300" />
+      <div className="flex gap-6 [mask:linear-gradient(90deg,transparent,white_5%,white_95%,transparent)]">
+        <MarqueeTrack
+          items={processedData}
+          skew={rawVelocity}
+          shouldAnimate={shouldAnimate}
+        />
+        <MarqueeTrack
+          items={processedData}
+          skew={rawVelocity}
+          shouldAnimate={shouldAnimate}
+        />
+      </div>
+    </motion.div>
   )
 }
 
-function MarqueeSection({ 
-  texts, 
-  skew, 
-  isLoading = false 
-}: { 
-  texts: string[]
-  skew: MotionValue<number>
+interface MarqueeTrackProps {
+  items: Array<{ text: string; href: string | null }>
+  skew: number
   isLoading?: boolean
-}) {
+  shouldAnimate: boolean
+}
+
+function MarqueeTrack({
+  items,
+  skew,
+  isLoading,
+  shouldAnimate
+}: MarqueeTrackProps) {
+  const duplicatedItems = Array(Math.max(12, items.length * 4))
+    .fill(null)
+    .map((_, index) => ({
+      ...items[index % items.length],
+      id: `${index % items.length}-${Math.floor(index / items.length)}`
+    }))
+
   return (
-    <motion.ul
-      className="shrink-0 min-w-full flex justify-between gap-5 items-center"
-      animate={{
-        x: ['0%', 'calc(-100% - 20px)'],
-      }}
-      style={{ skewX: skew }}
+    <motion.div
+      className="shrink-0 min-w-full flex items-center gap-6"
+      animate={shouldAnimate ? {
+        x: ['0%', 'calc(-100% - 24px)'],
+      } : {}}
+      style={{ skewX: skew / 20 }}
       transition={{
-        duration: 20,
+        duration: 25,
         ease: 'linear',
         repeat: Infinity,
       }}
     >
-      {isLoading ? (
-        [...Array(10)].map((_, index) => (
-          <li 
-            key={`loading-${index}`}
-            className="flex-shrink-0 rounded-lg bg-[#e6d5b8] py-2 text-xl px-2 animate-pulse"
+      {duplicatedItems.map(({ text, href, id }) => {
+        const itemContent = (
+          <div className={`
+            flex-shrink-0 
+            rounded-xl 
+            px-4 py-2.5 
+            text-lg font-medium 
+            whitespace-nowrap 
+            transition-all duration-200 
+            ${isLoading
+              ? 'bg-gray-100 text-gray-400 animate-pulse'
+              : href
+                ? 'bg-gradient-to-r from-amber-50 to-orange-50 text-gray-800  cursor-pointer hover:from-amber-100 hover:to-orange-100'
+                : 'bg-gradient-to-r from-slate-50 to-slate-100 text-gray-800 border hover:from-slate-100 hover:to-slate-200 border-amber-200/50 hover:bg-gradient-to-r '
+            }
+          `}>
+            {text}
+          </div>
+        )
+
+        return href ? (
+          <Link
+            key={id}
+            href={href}
+            tabIndex={-1}
+            className="focus:outline-none my-2 focus:ring-1 focus:ring-orange-500 focus:ring-offset-2 rounded-xl"
           >
-            Ładowanie...
-          </li>
-        ))
-      ) : (
-        [...Array(Math.max(10, texts.length * 3))].map((_, index) => {
-          const textIndex = index % texts.length
-          const text = texts[textIndex]
-          
-          return (
-            <li 
-              key={`${textIndex}-${Math.floor(index / texts.length)}`}
-              className="flex-shrink-0 rounded-lg bg-[#e6d5b8] py-2 text-xl px-2 whitespace-nowrap"
-            >
-              {text}
-            </li>
-          )
-        })
-      )}
-    </motion.ul>
+            {itemContent}
+          </Link>
+        ) : (
+          <div key={id} className='my-2'>
+            {itemContent}
+          </div>
+        )
+      })}
+    </motion.div>
   )
 }

@@ -72,7 +72,6 @@ const News = () => {
 
   const handleDragEnd = () => {
     const x = dragX.get()
-    console.log(x)
     if ((x < .1 * window.innerWidth) && currentIndex < ARRAY.length - 1) {
       handleManualChange(currentIndex + 1)
     }

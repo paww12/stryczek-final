@@ -291,6 +291,7 @@ export interface GalleryMain {
 export interface MarqueItem {
   id: number;
   text: string;
+  link?: (number | null) | Product;
   updatedAt: string;
   createdAt: string;
 }
@@ -508,6 +509,7 @@ export interface GalleryMainSelect<T extends boolean = true> {
  */
 export interface MarqueItemSelect<T extends boolean = true> {
   text?: T;
+  link?: T;
   updatedAt?: T;
   createdAt?: T;
 }

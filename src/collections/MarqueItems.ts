@@ -11,5 +11,10 @@ export const MarqueItems: CollectionConfig = {
       type: 'text',
       required: true,
     },
+    {
+      name: 'link',
+      type: 'relationship',
+      relationTo: 'product',
+    },
   ],
 }

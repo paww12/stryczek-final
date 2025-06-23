@@ -12,10 +12,10 @@ import ScrollToTop from './Sections/ScrollToTop/ScrollToTop'
 export default async function HomePage() {
   return (
     <>
-      <Hero /> 
+      <Hero />
       <News />
       <div className="hidden md:block">
-        <MarqueSection text="Słodki Stryczek" />
+        <MarqueSection text="Słodka Pętelka" />
       </div>
       <AboutSection />
       <CombinedSection />
