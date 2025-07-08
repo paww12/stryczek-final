@@ -40,7 +40,7 @@ const CartTop = ({ data }: { data: string }) => {
   }
   return (
     <header className=" items-center justify-between m-2 hidden md:flex">
-      <div className="w-16 h-16 relative">
+      <div className="w-24 h-16 relative">
         <Logo />
       </div>
       <div className=" text-gray-500 flex flex-row text-lg items-center justify-start">

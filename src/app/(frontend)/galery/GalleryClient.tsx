@@ -52,19 +52,20 @@ const MobileGallery = ({ images, loading, handleImageClick }: {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className={`relative w-full rounded-lg overflow-hidden ${getMobileSizeClass(index)}`}
+                className={`relative group w-full rounded-lg overflow-hidden ${getMobileSizeClass(index)}`}
               >
                 <Image
                   src={image.image.url}
                   onClick={() => handleImageClick(image.image as Media, index)}
                   alt={image.image.alt || `Gallery image ${index + 1}`}
                   fill
-                  className="w-full cursor-pointer h-full object-cover transition-transform duration-300 active:scale-95"
+                  className="w-full group-hover:scale-105 cursor-pointer h-full object-cover transition-transform duration-300 active:scale-95"
                   sizes="(max-width: 768px) 100vw, 50vw"
                   priority={index < 2}
                   placeholder="blur"
                   blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R7W2xQB8mQy0G0letGrQosHGyYdjsEjyzhxTrWvvl9LPdLpjIILwL5Jh9qK0jvCuJo5SkLrjYKXmHJmXBKpFpDWXOjSZpFJCAWvWy4QgLWEV6o9Q/wAcHdg+e9eWAAAAAElFTkSuQmCC"
                 />
+                <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300 rounded-lg" />
               </motion.div>
             )
           })}
@@ -185,19 +186,20 @@ const DesktopGallery = ({ images, loading, handleImageClick }: {
                 animate="visible"
                 custom={index}
                 variants={opacityVariants}
-                className={`relative m-4 rounded-lg overflow-hidden ${getSizeClass(index)}`}
+                className={`relative m-4 group rounded-lg overflow-hidden ${getSizeClass(index)}`}
               >
                 <Image
                   src={image.image.url}
                   onClick={() => handleImageClick(image.image as Media, index)}
                   alt={image.image.alt || `Gallery image ${index + 1}`}
                   fill
-                  className="w-full cursor-pointer h-full object-cover rounded-lg transition-transform duration-300 hover:scale-105 transform-gpu"
+                  className="w-full group-hover:scale-105 cursor-pointer h-full object-cover rounded-lg transition-transform duration-300 transform-gpu"
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   priority={index < 3}
                   placeholder="blur"
                   blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R7W2xQB8mQy0G0letGrQosHGyYdjsEjyzhxTrWvvl9LPdLpjIILwL5Jh9qK0jvCuJo5SkLrjYKXmHJmXBKpFpDWXOjSZpFJCAWvWy4QgLWEV6o9Q/wAcHdg+e9eWAAAAAElFTkSuQmCC"
                 />
+                <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-300 rounded-lg" />
               </motion.div>
             )
           })}

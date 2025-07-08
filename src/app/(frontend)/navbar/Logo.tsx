@@ -12,14 +12,15 @@ const Logo = () => {
       <Link href="/" className="flex gap-4 text-xl items-center" onClick={() => setIsOpen(false)}>
         <>
           <Image
-            src="/cinamonRoll.png"
-            height={64}
-            width={64}
+            // src="/cinamonRoll.png"
+            src='/logo.jpeg'
+            height={100}
+            width={100}
             priority
             alt="Słodka Pętelka logo"
           />
         </>
-        <span>Słodka Pętelka</span>
+        {/* <span>Słodka Pętelka</span> */}
       </Link>
     </>
   )
