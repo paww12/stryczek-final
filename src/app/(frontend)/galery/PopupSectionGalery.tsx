@@ -14,7 +14,6 @@ const PopupSectionGalery = () => {
     setComponent(null)
   })
 
-  // Reset loaded state when image changes
   useEffect(() => {
     setImageLoaded(false)
   }, [currentIndex])

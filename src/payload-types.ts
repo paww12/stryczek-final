@@ -77,6 +77,7 @@ export interface Config {
     'gallery-top': GalleryTop;
     'gallery-main': GalleryMain;
     'marque-item': MarqueItem;
+    categories: Category;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -93,6 +94,7 @@ export interface Config {
     'gallery-top': GalleryTopSelect<false> | GalleryTopSelect<true>;
     'gallery-main': GalleryMainSelect<false> | GalleryMainSelect<true>;
     'marque-item': MarqueItemSelect<false> | MarqueItemSelect<true>;
+    categories: CategoriesSelect<false> | CategoriesSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -247,7 +249,7 @@ export interface Product {
   image?: (number | null) | Media;
   alt: string;
   description: string;
-  category: 'Desery' | 'Wypieki' | 'Ciasta';
+  category: (number | Category)[];
   allergens?:
     | {
         allergen?: string | null;
@@ -258,6 +260,17 @@ export interface Product {
     full?: number | null;
     half?: number | null;
   };
+  slug: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "categories".
+ */
+export interface Category {
+  id: number;
+  title: string;
   slug: string;
   updatedAt: string;
   createdAt: string;
@@ -341,6 +354,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'marque-item';
         value: number | MarqueItem;
+      } | null)
+    | ({
+        relationTo: 'categories';
+        value: number | Category;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -510,6 +527,16 @@ export interface GalleryMainSelect<T extends boolean = true> {
 export interface MarqueItemSelect<T extends boolean = true> {
   text?: T;
   link?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "categories_select".
+ */
+export interface CategoriesSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
   updatedAt?: T;
   createdAt?: T;
 }

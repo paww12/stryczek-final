@@ -31,8 +31,9 @@ export const Product: CollectionConfig = {
     },
     {
       name: 'category',
-      type: 'select',
-      options: ['Desery', 'Wypieki', 'Ciasta'],
+      type: 'relationship',
+      relationTo: 'categories',
+      hasMany: true,
       required: true,
     },
     {

@@ -22,6 +22,7 @@ import { Product } from './collections/Product'
 import GalleryTop from './collections/GalleryTop'
 import { GalleryMain } from './collections/GalleryMain'
 import { MarqueItems } from './collections/MarqueItems'
+import { Categories } from './collections/Categories'
 // import { migrations } from './migrations/index'
 
 const filename = fileURLToPath(import.meta.url)
@@ -60,6 +61,7 @@ export default buildConfig({
     GalleryTop,
     GalleryMain,
     MarqueItems,
+    Categories
   ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',

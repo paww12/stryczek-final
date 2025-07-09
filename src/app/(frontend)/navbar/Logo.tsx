@@ -1,7 +1,7 @@
 'use client'
 import { useBurgerStore } from '../state/store'
-import Image from 'next/image'
 import Link from 'next/link'
+import LogoSVG from './LogoSVG'
 
 
 const Logo = () => {
@@ -11,16 +11,8 @@ const Logo = () => {
     <>
       <Link href="/" className="flex gap-4 text-xl items-center" onClick={() => setIsOpen(false)}>
         <>
-          <Image
-            // src="/cinamonRoll.png"
-            src='/logo.jpeg'
-            height={100}
-            width={100}
-            priority
-            alt="Słodka Pętelka logo"
-          />
+          <LogoSVG className='w-[90px] h-auto' />
         </>
-        {/* <span>Słodka Pętelka</span> */}
       </Link>
     </>
   )

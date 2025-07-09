@@ -7,22 +7,22 @@ import PopupSection from '../../Sections/popupSection/PopupSection'
 import configPromise from '@payload-config'
 import { notFound } from 'next/navigation'
 
-export async function generateMetadata({params}: {params: Promise<{cake: string}>}) {
-    const {cake} = await params
-    const payload = await getPayload({ config: configPromise })
-    const cakeName = decodeURIComponent(cake)
-    const cakeResult = await payload.find({
+export async function generateMetadata({ params }: { params: Promise<{ cake: string }> }) {
+  const { cake } = await params
+  const payload = await getPayload({ config: configPromise })
+  const cakeName = decodeURIComponent(cake)
+  const cakeResult = await payload.find({
     collection: 'product',
     where: {
       title: { equals: cakeName },
     },
-    })
-    const cakeRes = cakeResult.docs[0]
-  if(!cakeRes) notFound()
-    return {
-      title: `${cakeRes.title} - jeden z naszych pyszności!`,
-      description: cakeRes.description
-    }
+  })
+  const cakeRes = cakeResult.docs[0]
+  if (!cakeRes) notFound()
+  return {
+    title: `${cakeRes.title} - jeden z naszych pyszności!`,
+    description: cakeRes.description
+  }
 }
 
 export default async function CakePage({ params }: { params: Promise<{ cake: string }> }) {
@@ -144,12 +144,14 @@ export default async function CakePage({ params }: { params: Promise<{ cake: str
                 )}
               </div>
               <div className="">
-                {cakeRes.category && (
-                  <div className="p-4 bg-gray-50 rounded-lg">
-                    <h3 className="text-sm font-medium text-gray-500 mb-1">Kategoria</h3>
-                    <p className="text-gray-900 font-medium">{cakeRes.category}</p>
-                  </div>
-                )}
+                <div className="p-4 bg-gray-50 rounded-lg">
+                  <h3 className="text-sm font-medium text-gray-500 mb-1">Kategoria</h3>
+                  <p className="text-gray-900 font-medium">
+                    {typeof cakeRes?.category[0] === 'object' && cakeRes?.category[0] !== null && 'title' in cakeRes.category[0]
+                      ? (cakeRes.category[0] as { title: string }).title
+                      : ''}
+                  </p>
+                </div>
               </div>
             </article>
           </section>
