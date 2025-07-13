@@ -66,8 +66,9 @@ const StatusIcon = ({ isPending, state }: { isPending: boolean; state: StateType
     initial: { scale: 0 },
     animate: { scale: 1 },
     exit: { scale: 0 },
-    transition: { type: 'spring', stiffness: 200, damping: 15 },
+    transition: { duration: 0.3, easing: 'ease-in-out' }
   }
+
 
   return (
     <>

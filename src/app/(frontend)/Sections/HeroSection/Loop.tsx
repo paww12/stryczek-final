@@ -1,5 +1,5 @@
 'use client'
-import { motion } from 'motion/react'
+import { motion, easeInOut } from 'motion/react'
 
 const loopVariants = {
   initial: {
@@ -13,7 +13,7 @@ const loopVariants = {
     rotate: [106, 105, 106, 107, 106],
     transition: {
       duration: 6,
-      ease: 'easeInOut',
+      ease: easeInOut,
       repeat: Infinity,
       repeatType: 'reverse' as const,
       times: [0, 0.2, 0.5, 0.8, 1],
@@ -30,7 +30,7 @@ const pathVariants = {
     opacity: 1,
     transition: {
       duration: 12,
-      ease: 'easeInOut',
+      ease: easeInOut,
       repeat: Infinity,
       repeatType: 'mirror' as const,
       times: [0, 0.25, 0.5, 0.75, 1],
@@ -52,7 +52,7 @@ const Loop = () => {
         transition={{
           scale: {
             duration: 0.2,
-            ease: 'easeInOut',
+            ease: easeInOut,
             type: 'tween',
           },
         }}

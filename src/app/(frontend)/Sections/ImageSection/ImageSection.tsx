@@ -1,4 +1,4 @@
-import { MotionValue, useTransform, motion, useIsomorphicLayoutEffect } from 'motion/react'
+import { MotionValue, useTransform, motion, useIsomorphicLayoutEffect, easeInOut } from 'motion/react'
 import { useState } from 'react'
 import ContactForm from '../../contact/components/ContactForm'
 
@@ -44,7 +44,7 @@ const ImageSection = ({ scrollYProgress }: { scrollYProgress: MotionValue<number
             transition: {
               duration: 10 + Math.random() * 20,
               repeat: Infinity,
-              ease: 'easeInOut',
+              ease: easeInOut,
             },
           },
         }
@@ -109,7 +109,7 @@ const ImageSection = ({ scrollYProgress }: { scrollYProgress: MotionValue<number
                   transition: {
                     duration: Math.random() * 2 + 3,
                     repeat: Infinity,
-                    ease: 'easeInOut',
+                    ease: easeInOut,
                   },
                 }}
               />

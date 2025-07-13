@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { motion, useMotionValue } from 'motion/react'
+import { easeInOut, motion, useMotionValue } from 'motion/react'
 import NewsCart from './NewsCart'
 import SeeAllNews from './SeeAllNews'
 
@@ -80,11 +80,9 @@ const News = () => {
     }
   }
 
-  const springTransition = {
-    type: 'spring',
-    stiffness: 100,
-    damping: 20,
-    mass: 0.5,
+  const easeTransition = {
+    ease: easeInOut,
+    duration: 0.5
   }
 
   return (
@@ -113,7 +111,7 @@ const News = () => {
             animate={{
               translateX: `calc(-${currentIndex * 100}% - ${currentIndex * SLIDE_GAP}px)`,
             }}
-            transition={springTransition}
+            transition={easeTransition}
             className="bg-white shadow-md w-full shrink-0 rounded-xl h-fit"
             role="group"
             aria-roledescription="slide"

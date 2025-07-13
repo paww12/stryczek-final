@@ -113,7 +113,7 @@ function MarqueeTrack({
       style={{ skewX: skew / 20 }}
       transition={{
         duration: 25,
-        ease: 'linear',
+        easing: 'linear',
         repeat: Infinity,
       }}
     >

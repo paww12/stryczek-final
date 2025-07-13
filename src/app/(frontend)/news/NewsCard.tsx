@@ -1,7 +1,7 @@
 'use client'
 import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
 import Image from 'next/image'
-import { motion } from 'motion/react'
+import { easeIn, motion } from 'motion/react'
 import { RichText } from '@payloadcms/richtext-lexical/react'
 import CartTop from '../Sections/NewsSection/CartTop'
 import { usePopupStore } from '../state/store'
@@ -69,7 +69,7 @@ export default function NewsCard({ data }: { data: NewsData }) {
         <div className="flex flex-col gap-4 md:flex-row md:items-start md:gap-6 md:flex-none">
           {data.image?.url && (
             <motion.div
-              transition={{ duration: 0.25, ease: 'easeIn' }}
+              transition={{ duration: 0.25, ease: easeIn }}
               className="cursor-pointer flex-1"
               onClick={() => data.image?.url && handleImageClick(data.image.url)}
             >
@@ -86,7 +86,7 @@ export default function NewsCard({ data }: { data: NewsData }) {
 
           {data.image2?.url && (
             <motion.div
-              transition={{ duration: 0.25, ease: 'easeIn' }}
+              transition={{ duration: 0.25, ease: easeIn }}
               className="cursor-pointer flex-1"
               onClick={() => data.image2?.url && handleImageClick(data.image2.url)}
             >

@@ -34,7 +34,8 @@ const Burger = () => {
       y: 0,
       transition: {
         duration: 0.2,
-        ease: 'easeOut',
+        easing: [0.25, 0.1, 0.25, 1],
+        delayChildren: 0,
         staggerChildren: 0.18,
       },
     },
@@ -43,12 +44,13 @@ const Burger = () => {
       y: -10,
       transition: {
         duration: 0.15,
-        ease: 'easeIn',
+        easing: [0.42, 0, 1, 1],
         staggerChildren: 0.03,
         staggerDirection: -1,
       },
     },
   }
+
 
   const linkVariants = {
     hidden: { opacity: 0, x: -20 },
@@ -57,18 +59,19 @@ const Burger = () => {
       x: 0,
       transition: {
         duration: 0.15,
-        ease: 'easeOut'
-      }
+        easing: [0.25, 0.1, 0.25, 1], // easeOut
+      },
     },
     exit: {
       opacity: 0,
       x: -20,
       transition: {
         duration: 0.1,
-        ease: 'easeIn'
-      }
+        easing: [0.42, 0, 1, 1], // easeIn
+      },
     },
   }
+
 
   const lineVariants = {
     closed: {
@@ -77,7 +80,7 @@ const Burger = () => {
       opacity: 1,
       transition: {
         duration: 0.15,
-        ease: 'easeOut'
+        easing: [0.25, 0.1, 0.25, 1], // easeOut
       },
     },
     open: (index: number) => ({
@@ -86,10 +89,11 @@ const Burger = () => {
       opacity: index === 1 ? 0 : 1,
       transition: {
         duration: 0.15,
-        ease: 'easeOut'
+        easing: [0.25, 0.1, 0.25, 1],
       },
     }),
   }
+
 
 
   return (

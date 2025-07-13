@@ -1,6 +1,6 @@
 'use client'
 import { FaArrowAltCircleUp } from 'react-icons/fa'
-import { useScroll, motion } from 'motion/react'
+import { useScroll, motion, easeInOut } from 'motion/react'
 import { useEffect, useState } from 'react'
 
 const ScrollToTop = () => {
@@ -33,7 +33,7 @@ const ScrollToTop = () => {
         duration: 0.3,
         scale: {
           duration: 0.2,
-          ease: 'easeInOut',
+          ease: easeInOut,
           type: 'tween',
         },
       }}

@@ -1,21 +1,21 @@
 'use client'
-import { motion } from 'motion/react'
+import { motion, Variants, easeInOut } from 'motion/react'
 
 const SVG = () => {
-  const pathVariants = {
+  const pathVariants: Variants = {
     hidden: { pathLength: 0, opacity: 0 },
-    visible: (delay: number) => ({
+    visible: (custom: number) => ({
       pathLength: 1,
       opacity: 1,
       transition: {
         duration: 0.35,
-        delay: delay,
-        ease: 'easeInOut',
+        delay: custom,
+        ease: easeInOut,
       },
     }),
   }
 
-  const circleVariants = {
+  const circleVariants: Variants = {
     hidden: { fillOpacity: 0, scale: 0 },
     visible: {
       fillOpacity: 1,
@@ -23,7 +23,7 @@ const SVG = () => {
       transition: {
         duration: 1,
         delay: 0.5,
-        ease: 'easeInOut',
+        ease: [0.42, 0, 0.58, 1],
       },
     },
   }
