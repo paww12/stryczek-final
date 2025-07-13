@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
-import { AnimatePresence, motion } from 'motion/react'
+import { AnimatePresence, easeInOut, motion } from 'motion/react'
 import Link from 'next/link'
 import { useBurgerStore } from '../state/store'
 
@@ -34,7 +34,7 @@ const Burger = () => {
       y: 0,
       transition: {
         duration: 0.2,
-        easing: [0.25, 0.1, 0.25, 1],
+        ease: easeInOut,
         delayChildren: 0,
         staggerChildren: 0.18,
       },
@@ -44,7 +44,7 @@ const Burger = () => {
       y: -10,
       transition: {
         duration: 0.15,
-        easing: [0.42, 0, 1, 1],
+        ease: easeInOut,
         staggerChildren: 0.03,
         staggerDirection: -1,
       },
@@ -59,7 +59,7 @@ const Burger = () => {
       x: 0,
       transition: {
         duration: 0.15,
-        easing: [0.25, 0.1, 0.25, 1], // easeOut
+        ease: easeInOut,
       },
     },
     exit: {
@@ -67,7 +67,7 @@ const Burger = () => {
       x: -20,
       transition: {
         duration: 0.1,
-        easing: [0.42, 0, 1, 1], // easeIn
+        ease: easeInOut,
       },
     },
   }
@@ -80,7 +80,7 @@ const Burger = () => {
       opacity: 1,
       transition: {
         duration: 0.15,
-        easing: [0.25, 0.1, 0.25, 1], // easeOut
+        ease: easeInOut,
       },
     },
     open: (index: number) => ({
@@ -89,7 +89,7 @@ const Burger = () => {
       opacity: index === 1 ? 0 : 1,
       transition: {
         duration: 0.15,
-        easing: [0.25, 0.1, 0.25, 1],
+        ease: easeInOut,
       },
     }),
   }

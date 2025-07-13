@@ -1,5 +1,5 @@
 'use client'
-import { motion } from 'motion/react'
+import { easeInOut, motion } from 'motion/react'
 import useScrollVelocity from '../../lib/useScrollVelocity'
 import { useEffect, useState } from 'react'
 import { MarqueItem } from '@/payload-types'
@@ -113,7 +113,7 @@ function MarqueeTrack({
       style={{ skewX: skew / 20 }}
       transition={{
         duration: 25,
-        easing: 'linear',
+        ease: easeInOut,
         repeat: Infinity,
       }}
     >
