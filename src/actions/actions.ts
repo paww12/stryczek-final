@@ -1,13 +1,10 @@
 'use server'
-// import config from '@/payload.config'
+
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 
 export async function SendMail(prevState: unknown, formData: FormData) {
-  // const payloadConfig = await config
-  // const payload = await getPayload({ config: payloadConfig })
   const payload = await getPayload({ config: configPromise })
-  //   await new Promise((resolve) => setTimeout(resolve, 1000))
   const subject = formData.get('subject')
   const textBody = formData.get('text')
   const adresee = formData.get('adresee')

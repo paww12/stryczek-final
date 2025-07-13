@@ -1,6 +1,5 @@
 'use client'
 import { FaArrowAltCircleUp } from 'react-icons/fa'
-// import { motion, useScroll } from 'framer-motion'
 import { useScroll, motion } from 'motion/react'
 import { useEffect, useState } from 'react'
 

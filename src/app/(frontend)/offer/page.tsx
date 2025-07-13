@@ -7,8 +7,9 @@ import Overlay from '../Components/Overlay'
 import PaginationControls from './PaginationControls'
 import SearchBar from './SearchBar'
 import { Category, Product } from '@/payload-types'
+import type { Where } from 'payload'
 
-// Pomocnicze typy
+
 interface CategoryOption {
   label: string
   value: string
@@ -29,13 +30,11 @@ interface PayloadResponse {
   totalPages: number
 }
 
-// Metadata
 export const metadata = {
   title: "Nasze Wypieki | Oferta Ciast i Deserów - Słodka Pętelka",
   description: "Świeże ciasta, pyszne desery i słodkie przekąski. Sprawdź naszą pełną ofertę, ceny i skontaktuj się z nami!",
 }
 
-// Komponent dla produktu bez zdjęcia
 const ProductPlaceholder = ({ title }: { title: string }) => (
   <div className="w-full h-full bg-amber-50 flex flex-col items-center justify-center p-4">
     <svg
@@ -71,7 +70,6 @@ const ProductPlaceholder = ({ title }: { title: string }) => (
   </div>
 )
 
-// Komponent dla cen produktu
 const ProductPricing = ({ prices }: { prices?: Product['prices'] }) => {
   if (!prices) return null
 
@@ -91,21 +89,20 @@ const ProductPricing = ({ prices }: { prices?: Product['prices'] }) => {
   )
 }
 
-// Komponent dla karty produktu
 const ProductCard = ({ product }: { product: Product }) => {
   const imageUrl = typeof product.image === 'object' && product.image?.url
     ? product.image.url
     : null
 
-  // Bezpieczne pobieranie nazwy kategorii
-  const getCategoryName = (category: any) => {
-    if (!category) return null
-    if (typeof category === 'string') return category
-    if (typeof category === 'object' && category.title) return category.title
-    return null
+  const getCategoryName = (category: number | Category): string => {
+    if (typeof category === 'number') {
+      return `Category ${category}`
+    }
+    return category.title
   }
 
-  const categoryName = getCategoryName(product.category)
+  const firstCategory = product.category?.[0]
+  const categoryName = firstCategory ? getCategoryName(firstCategory) : null
 
   return (
     <Link
@@ -126,7 +123,6 @@ const ProductCard = ({ product }: { product: Product }) => {
             <ProductPlaceholder title={product.title} />
           )}
 
-          {/* Kategoria jako badge */}
           {categoryName && (
             <div className="absolute top-2 left-2">
               <span className="bg-amber-500 text-white px-2 py-1 rounded-full text-xs font-medium">
@@ -146,7 +142,6 @@ const ProductCard = ({ product }: { product: Product }) => {
   )
 }
 
-// Komponent dla filtrów kategorii
 const CategoryFilters = ({
   categories,
   selectedCategory
@@ -181,16 +176,14 @@ const CategoryFilters = ({
   </div>
 )
 
-// Główny komponent
 export default async function Offer({ searchParams }: OfferProps) {
   const { page = '1', category, search } = await searchParams
-  const currentPage = Number(page) || 1 // Dodaj fallback dla NaN
+  const currentPage = Number(page) || 1
   const selectedCategory = category
   const searchQuery = search
 
   const payload = await getPayload({ config: configPromise })
 
-  // Pobieranie wszystkich kategorii
   const categoriesData = await payload.find({
     collection: 'categories',
     limit: 100,
@@ -204,17 +197,16 @@ export default async function Offer({ searchParams }: OfferProps) {
     })),
   ]
 
-  // Znajdź kategorię po slug, aby uzyskać ID
   const categoryData = selectedCategory && selectedCategory !== 'all'
     ? categoriesData.docs.find((cat: Category) => cat.slug === selectedCategory)
     : null
 
-  // Budowanie zapytania do bazy
-  const whereClause: Record<string, any> = {}
+
+  const whereClause: Where = {}
 
   if (categoryData) {
     whereClause.category = {
-      equals: categoryData.id // Używaj ID zamiast slug
+      equals: categoryData.id
     }
   }
 
@@ -225,19 +217,17 @@ export default async function Offer({ searchParams }: OfferProps) {
     ]
   }
 
-  // Pobieranie produktów
   const { docs: products, totalPages }: PayloadResponse = await payload.find({
     collection: 'product',
     limit: 6,
     page: currentPage,
     where: Object.keys(whereClause).length > 0 ? whereClause : undefined,
-    depth: 1, // Dodaj depth żeby pobrać pełne dane relacji
+    depth: 1,
   })
 
   return (
     <div className="bg-gray-50 py-12 mb-12 rounded-lg mt-32">
       <div className="container mx-auto px-4">
-        {/* Header */}
         <div className="text-center mb-12">
           <Overlay delay={0.3}>
             <h1 className="text-4xl font-bold text-gray-900 mb-4">Nasze Wypieki</h1>
@@ -257,7 +247,6 @@ export default async function Offer({ searchParams }: OfferProps) {
           </Overlay>
         </div>
 
-        {/* Wyszukiwarka */}
         <Overlay delay={1}>
           <div className="mb-8 max-w-md mx-auto">
             <Suspense fallback={<div>Ładowanie wyszukiwarki...</div>}>
@@ -270,7 +259,6 @@ export default async function Offer({ searchParams }: OfferProps) {
           </div>
         </Overlay>
 
-        {/* Filtry kategorii */}
         <Overlay delay={1.25}>
           <CategoryFilters
             categories={categoryOptions}
@@ -278,7 +266,6 @@ export default async function Offer({ searchParams }: OfferProps) {
           />
         </Overlay>
 
-        {/* Lista produktów */}
         <Overlay delay={1.5}>
           {products.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
@@ -301,7 +288,6 @@ export default async function Offer({ searchParams }: OfferProps) {
           )}
         </Overlay>
 
-        {/* Paginacja */}
         {products.length > 0 && totalPages > 1 && (
           <PaginationControls
             currentPage={currentPage}

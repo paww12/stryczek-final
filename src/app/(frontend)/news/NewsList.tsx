@@ -1,13 +1,10 @@
 import { getPayload } from 'payload'
-// import config from '@/payload.config'
 import PaginationControls from './PaginationControls'
 import NewsCard, { NewsData } from './NewsCard'
 import configPromise from '@payload-config'
 
 
 export default async function NewsList({ currentPage }: { currentPage: number }) {
-  // const payloadConfig = await config
-  // const payload = await getPayload({ config: payloadConfig })
   const payload = await getPayload({ config: configPromise })
 
   const news = await payload.find({

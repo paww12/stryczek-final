@@ -1,8 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { FaLongArrowAltLeft, FaLongArrowAltRight } from "react-icons/fa";
-
+import { FaLongArrowAltLeft, FaLongArrowAltRight } from "react-icons/fa"
 
 interface PaginationControlsProps {
   currentPage: number
@@ -19,7 +18,6 @@ const PaginationControls = ({
 }: PaginationControlsProps) => {
   if (totalPages <= 1) return null
 
-  // Funkcja do budowania URL z parametrami
   const buildUrl = (page: number) => {
     const params = new URLSearchParams()
 
@@ -27,7 +25,7 @@ const PaginationControls = ({
       params.set('category', category)
     }
 
-    if (search && search.trim()) {
+    if (search?.trim()) {
       params.set('search', search.trim())
     }
 
@@ -39,63 +37,52 @@ const PaginationControls = ({
     return `/offer${queryString ? `?${queryString}` : ''}`
   }
 
-  // Generowanie numerów stron do wyświetlenia
-  const getPageNumbers = () => {
+  const getVisiblePages = () => {
     const pages: (number | string)[] = []
-    const maxVisiblePages = 5
+    const maxVisible = 5
 
-    if (totalPages <= maxVisiblePages) {
-      // Jeśli mało stron, pokaż wszystkie
-      for (let i = 1; i <= totalPages; i++) {
-        pages.push(i)
-      }
-    } else {
-      // Logika dla większej liczby stron
-      const startPage = Math.max(1, currentPage - 2)
-      const endPage = Math.min(totalPages, currentPage + 2)
+    if (totalPages <= maxVisible) {
+      return Array.from({ length: totalPages }, (_, i) => i + 1)
+    }
 
-      if (startPage > 1) {
-        pages.push(1)
-        if (startPage > 2) {
-          pages.push('...')
-        }
-      }
+    const start = Math.max(1, currentPage - 2)
+    const end = Math.min(totalPages, currentPage + 2)
 
-      for (let i = startPage; i <= endPage; i++) {
-        pages.push(i)
-      }
+    if (start > 1) {
+      pages.push(1)
+      if (start > 2) pages.push('...')
+    }
 
-      if (endPage < totalPages) {
-        if (endPage < totalPages - 1) {
-          pages.push('...')
-        }
-        pages.push(totalPages)
-      }
+    for (let i = start; i <= end; i++) {
+      pages.push(i)
+    }
+
+    if (end < totalPages) {
+      if (end < totalPages - 1) pages.push('...')
+      pages.push(totalPages)
     }
 
     return pages
   }
 
-  const pageNumbers = getPageNumbers()
+  const visiblePages = getVisiblePages()
 
   return (
     <div className="flex justify-center items-center space-x-2 mt-8">
-      {/* Przycisk poprzednia strona */}
+      {/* Previous button */}
       {currentPage > 1 && (
         <Link
           href={buildUrl(currentPage - 1)}
-          className="flex items-center px-3 py-2 text-sm font-medium text-gray-500 
-                     bg-white border border-gray-300 rounded-lg hover:bg-gray-50 
-                     hover:text-gray-700 transition-colors"
+          className="flex items-center px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 hover:text-gray-700 transition-colors"
         >
           <FaLongArrowAltLeft className="h-4 w-4 mr-1" />
           Poprzednia
         </Link>
       )}
 
-      {/* Numery stron */}
+      {/* Page numbers */}
       <div className="flex space-x-1">
-        {pageNumbers.map((pageNumber, index) => {
+        {visiblePages.map((pageNumber, index) => {
           if (pageNumber === '...') {
             return (
               <span
@@ -108,16 +95,13 @@ const PaginationControls = ({
           }
 
           const page = pageNumber as number
-          const isCurrentPage = page === currentPage
+          const isActive = page === currentPage
 
           return (
             <Link
               key={page}
               href={buildUrl(page)}
-              className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors ${isCurrentPage
-                ? 'bg-amber-500 text-white'
-                : 'text-gray-700 bg-white border border-gray-300 hover:bg-gray-50'
-                }`}
+              className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors ${isActive ? 'bg-amber-500 text-white' : 'text-gray-700 bg-white border border-gray-300 hover:bg-gray-50'}`}
             >
               {page}
             </Link>
@@ -125,20 +109,16 @@ const PaginationControls = ({
         })}
       </div>
 
-      {/* Przycisk następna strona */}
       {currentPage < totalPages && (
         <Link
           href={buildUrl(currentPage + 1)}
-          className="flex items-center px-3 py-2 text-sm font-medium text-gray-500 
-                     bg-white border border-gray-300 rounded-lg hover:bg-gray-50 
-                     hover:text-gray-700 transition-colors"
+          className="flex items-center px-3 py-2 text-sm font-medium text-gray-500  bg-white border border-gray-300 rounded-lg hover:bg-gray-50 hover:text-gray-700 transition-colors"
         >
           Następna
           <FaLongArrowAltRight className="h-4 w-4 ml-1" />
         </Link>
       )}
 
-      {/* Informacja o stronach */}
       <div className="hidden sm:flex items-center space-x-2 ml-4">
         <span className="text-sm text-gray-700">
           Strona {currentPage} z {totalPages}

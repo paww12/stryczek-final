@@ -1,10 +1,7 @@
 import { getPayload } from 'payload'
-// import config from '@/payload.config'
 import configPromise from '@payload-config'
 
 const Description = async () => {
-  // const payloadConfig = await config
-  // const payload = await getPayload({ config: payloadConfig })
   const payload = await getPayload({ config: configPromise })
   const data = await payload.find({
     collection: 'hero-description',

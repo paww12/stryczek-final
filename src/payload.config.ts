@@ -1,9 +1,5 @@
-// storage-adapter-import-placeholder
 import 'dotenv/config'
-// import 'dotenv'
 import { postgresAdapter } from '@payloadcms/db-postgres'
-// import { vercelPostgresAdapter } from '@payloadcms/db-vercel-postgres'
-// import { payloadCloudPlugin } from '@payloadcms/payload-cloud'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { buildConfig } from 'payload'
@@ -23,7 +19,6 @@ import GalleryTop from './collections/GalleryTop'
 import { GalleryMain } from './collections/GalleryMain'
 import { MarqueItems } from './collections/MarqueItems'
 import { Categories } from './collections/Categories'
-// import { migrations } from './migrations/index'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -31,7 +26,6 @@ const dirname = path.dirname(filename)
 export default buildConfig({
   endpoints: [testAPI],
   email: emailAdapter,
-  // email: undefined,
   routes: {
     admin: '/dupa',
   },
@@ -68,17 +62,12 @@ export default buildConfig({
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
-  // db: vercelPostgresAdapter(),
   db: postgresAdapter({
     pool: {
       connectionString: process.env.DATABASE_URI || '',
     },
-    // migrationDir: './src/migrations',
-    // prodMigrations: migrations,
   }),
   sharp,
   plugins: [
-    // payloadCloudPlugin(),
-    // storage-adapter-placeholder
   ],
 })

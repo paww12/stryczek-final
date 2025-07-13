@@ -1,7 +1,5 @@
-// import { AnimatePresence } from 'framer-motion'
 import { AnimatePresence } from 'motion/react'
 import { FiCheck, FiLoader, FiX } from 'react-icons/fi'
-// import { motion } from 'framer-motion'
 import { motion } from 'motion/react'
 import { useEffect, useState } from 'react'
 
@@ -36,29 +34,29 @@ const ButtonSubmit = ({ isPending, state }: { isPending: boolean; state: StateTy
   }
 
   return (
-  <motion.button
-    type="submit"
-    disabled={isPending}
-    className={`relative rounded-md px-6 py-3 font-medium text-white transition-colors w-full mt-2
+    <motion.button
+      type="submit"
+      disabled={isPending}
+      className={`relative rounded-md px-6 py-3 font-medium text-white transition-colors w-full mt-2
       ${getButtonColor()} 
       ${!isPending ? 'hover:scale-105 active:scale-95' : ''}
     `}
-    whileHover={!isPending ? { scale: 1.05 } : undefined}
-    whileTap={!isPending ? { scale: 0.95 } : undefined}
-    transition={{
-      type: "spring",
-      stiffness: 400,
-      damping: 17,
-      duration: 0.3
-    }}
-  >
-    <div className="flex items-center gap-2 justify-center">
-      <AnimatePresence mode="wait">
-        <StatusIcon key={String(localState?.success)} isPending={isPending} state={localState} />
-      </AnimatePresence>
-      <span>{getButtonText()}</span>
-    </div>
-  </motion.button>
+      whileHover={!isPending ? { scale: 1.05 } : undefined}
+      whileTap={!isPending ? { scale: 0.95 } : undefined}
+      transition={{
+        type: "spring",
+        stiffness: 400,
+        damping: 17,
+        duration: 0.3
+      }}
+    >
+      <div className="flex items-center gap-2 justify-center">
+        <AnimatePresence mode="wait">
+          <StatusIcon key={String(localState?.success)} isPending={isPending} state={localState} />
+        </AnimatePresence>
+        <span>{getButtonText()}</span>
+      </div>
+    </motion.button>
   )
 }
 

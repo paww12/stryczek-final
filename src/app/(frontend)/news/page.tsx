@@ -41,5 +41,3 @@ export default async function NewsPage({
     </>
   )
 }
-
-// export default NewsPage

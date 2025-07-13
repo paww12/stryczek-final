@@ -106,7 +106,6 @@ const News = () => {
           <motion.div
             key={slide}
             ref={el => { slideRefs.current[index] = el }}
-            // ref={(el) => slideRefs.current[index] = el}
             onDragEnd={handleDragEnd}
             drag="x"
             dragConstraints={{ left: 0, right: 0 }}

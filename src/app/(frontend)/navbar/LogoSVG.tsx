@@ -5,8 +5,6 @@ const LogoSVG = ({ className = '' }) => {
             <svg
                 className={`block ${className}`}
                 xmlns="http://www.w3.org/2000/svg"
-                // width="389" 
-                // height="298" 
                 viewBox="0 0 389 298" fill="none"
                 role="img"
                 aria-label="Słodka Pętelka - logo"
