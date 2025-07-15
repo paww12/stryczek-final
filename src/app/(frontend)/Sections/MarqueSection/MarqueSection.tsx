@@ -1,37 +1,19 @@
 'use client'
 import { easeInOut, motion } from 'motion/react'
 import useScrollVelocity from '../../lib/useScrollVelocity'
-import { useEffect, useState } from 'react'
-import { MarqueItem } from '@/payload-types'
 import Link from 'next/link'
+import { useMarqueData } from '../../lib/ReactQuery/useMarqueData'
+import { useState } from 'react'
 
 export default function MarqueeComponent({ text }: { text: string }) {
   const rawVelocity = useScrollVelocity(0.1)
-  const [data, setData] = useState<MarqueItem[]>([])
-  const [loading, setLoading] = useState(true)
+
   const [shouldAnimate, setShouldAnimate] = useState(true)
 
-  useEffect(() => {
-    const fetchMarqueeData = async () => {
-      try {
-        setLoading(true)
+  const { data, isLoading } = useMarqueData()
 
-        const res = await fetch('/api/marque-item')
-        const response = await res.json()
-        const items = response.docs || []
-        setData(items)
-      } catch (error) {
-        console.error('Marquee fetch error:', error)
-      } finally {
-        setLoading(false)
-        setShouldAnimate(true)
-      }
-    }
-    fetchMarqueeData()
-  }, [])
-
-  const processedData = data.length > 0
-    ? data.map(item => ({
+  const processedData = data && data?.length > 0
+    ? data?.map(item => ({
       text: item.text,
       href: item.link && typeof item.link === 'object' && 'title' in item.link
         ? `/product/${encodeURIComponent(item.link.title)}`
@@ -39,7 +21,7 @@ export default function MarqueeComponent({ text }: { text: string }) {
     }))
     : [{ text, href: null }]
 
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="relative py-3 my-8 overflow-hidden border-y border-gray-200/50 mx-8 md:mx-12 lg:mx-24">
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent pointer-events-none" />

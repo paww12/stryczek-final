@@ -1,34 +1,16 @@
 'use client'
-import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
 import Image from 'next/image'
 import { easeIn, motion } from 'motion/react'
 import { RichText } from '@payloadcms/richtext-lexical/react'
 import CartTop from '../Sections/NewsSection/CartTop'
 import { usePopupStore } from '../state/store'
+import { Media, News } from '@/payload-types'
 
-export interface NewsData {
-  id: number
-  title?: string | null
-  createdAt: string
-  updatedAt: string
-  content: SerializedEditorState
-  subcontent?: SerializedEditorState
-  image?: {
-    url: string
-    alt?: string
-    width: number
-    height: number
-  }
-  image2?: {
-    url: string
-    alt?: string
-    width: number
-    height: number
-  }
-}
-
-export default function NewsCard({ data }: { data: NewsData }) {
+export default function NewsCard({ data }: { data: News }) {
   const { setComponent } = usePopupStore()
+
+  const image = data.image as Media | null
+  const image2 = data.image2 as Media | null
 
   const handleImageClick = (imageSrc: string) => {
     setComponent(
@@ -41,16 +23,16 @@ export default function NewsCard({ data }: { data: NewsData }) {
       >
         <Image
           alt="Enlarged content preview"
-          className="object-contain rounded-md aspect-auto w-full h-full
-              pointer-events-none max-w-[90vw] max-h-[90vh]"
+          className="object-contain rounded-md aspect-auto w-full h-full pointer-events-none max-w-[90vw] max-h-[90vh]"
           src={imageSrc}
-          width={data?.image?.width}
-          height={data?.image?.height}
+          width={image?.width ?? 1200}
+          height={image?.height ?? 800}
           priority
         />
       </motion.div>,
     )
   }
+
   return (
     <article className="mx-2 my-2 h-fit w-full p-4 bg-white rounded-lg shadow-lg">
       <CartTop data={data.createdAt} />
@@ -67,35 +49,35 @@ export default function NewsCard({ data }: { data: NewsData }) {
         </div>
 
         <div className="flex flex-col gap-4 md:flex-row md:items-start md:gap-6 md:flex-none">
-          {data.image?.url && (
+          {image?.url && image.width && image.height && (
             <motion.div
               transition={{ duration: 0.25, ease: easeIn }}
               className="cursor-pointer flex-1"
-              onClick={() => data.image?.url && handleImageClick(data.image.url)}
+              onClick={() => handleImageClick(image.url!)}
             >
               <Image
-                alt={data.image.alt || 'News image'}
-                className={`object-cover w-full ${data.image2 ? 'h-80' : 'h-[24rem]'} rounded-md shadow-lg hover:shadow-xl transition-shadow duration-200`}
-                src={data.image.url}
-                width={data.image.width}
-                height={data.image.height}
+                alt={image.alt || 'News image'}
+                className={`object-cover w-full ${image2 ? 'h-80' : 'h-[24rem]'} rounded-md shadow-lg hover:shadow-xl transition-shadow duration-200`}
+                src={image.url}
+                width={image.width}
+                height={image.height}
                 priority
               />
             </motion.div>
           )}
 
-          {data.image2?.url && (
+          {image2?.url && image2.width && image2.height && (
             <motion.div
               transition={{ duration: 0.25, ease: easeIn }}
               className="cursor-pointer flex-1"
-              onClick={() => data.image2?.url && handleImageClick(data.image2.url)}
+              onClick={() => handleImageClick(image2.url!)}
             >
               <Image
-                alt={data.image2.alt || 'Secondary news image'}
+                alt={image2.alt || 'Secondary news image'}
                 className="object-cover w-full h-80 rounded-md shadow-lg hover:shadow-xl transition-shadow duration-200"
-                src={data.image2.url}
-                width={data.image2.width}
-                height={data.image2.height}
+                src={image2.url}
+                width={image2.width}
+                height={image2.height}
               />
             </motion.div>
           )}

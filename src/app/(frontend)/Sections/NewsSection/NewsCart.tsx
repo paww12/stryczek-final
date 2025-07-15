@@ -1,60 +1,25 @@
 'use client'
 
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
 import { easeIn, motion } from 'motion/react'
 import { RichText } from '@payloadcms/richtext-lexical/react'
-import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical'
 import { usePopupStore } from '../../state/store'
 import CartTop from './CartTop'
+import { useNewsData } from '../../lib/ReactQuery/useNewsData'
+import { Media } from '@/payload-types'
 
 interface NewsCartProps {
   slide: string
 }
-interface NewsData {
-  title: string
-  createdAt: string
-  id: number
-  updatedAt: string
-  content: SerializedEditorState
-  subcontent?: SerializedEditorState
-  image?: {
-    url: string
-    alt?: string
-    width: number
-    height: number
-  }
-  image2?: {
-    url: string
-    alt?: string
-    width: number
-    height: number
-  }
-}
+
 
 const NewsCart: React.FC<NewsCartProps> = ({ slide }) => {
-  const [data, setData] = useState<NewsData | null>(null)
-  const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
   const { setComponent } = usePopupStore()
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setIsLoading(true)
-        const res = await fetch(`/api/news?limit=1&sort=-createdAt&page=${slide}`)
-        if (!res.ok) throw new Error('Failed to fetch data')
-        const responseData = await res.json()
-        setData(responseData.docs[0])
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Unknown error occurred')
-      } finally {
-        setIsLoading(false)
-      }
-    }
+  const { data, isLoading, error } = useNewsData(slide)
 
-    fetchData()
-  }, [slide])
+  const image = data?.image as Media | null
+  const image2 = data?.image2 as Media | null
 
   const handleImageClick = (imageSrc: string) => {
     setComponent(
@@ -70,8 +35,8 @@ const NewsCart: React.FC<NewsCartProps> = ({ slide }) => {
           className={`object-contain rounded-md aspect-auto w-full h-full
           pointer-events-none max-w-[90vw] max-h-[90vh] `}
           src={imageSrc}
-          width={data?.image?.width}
-          height={data?.image?.height}
+          width={image?.width ?? 1200}
+          height={image?.height ?? 800}
           priority
         />
       </motion.div>,
@@ -95,7 +60,7 @@ const NewsCart: React.FC<NewsCartProps> = ({ slide }) => {
   }
 
   if (error) {
-    return <div className="mx-2 my-2 p-4 bg-red-100 text-red-700 rounded-lg">Error: {error}</div>
+    return <div className="mx-2 my-2 p-4 bg-red-100 text-red-700 rounded-lg">wystąpił błąd</div>
   }
 
   if (!data) return null
@@ -116,38 +81,38 @@ const NewsCart: React.FC<NewsCartProps> = ({ slide }) => {
         </div>
 
         <div className="flex flex-col gap-4 md:flex-row md:items-start md:gap-6 md:flex-none">
-          {data.image?.url && (
+          {image?.url && (
             <motion.div
               transition={{ duration: 0.25, ease: easeIn }}
               className="cursor-pointer flex-1"
-              onClick={() => data.image?.url && handleImageClick(data.image.url)}
+              onClick={() => image?.url && handleImageClick(image.url)}
             >
               <Image
-                alt={data.image.alt || 'News image'}
+                alt={image.alt || 'News image'}
                 className={`object-cover w-full md:h-64
                   ${data.image2 && data.image ? 'h-40' : 'h-80'}
                   rounded-md shadow-lg hover:shadow-xl transition-shadow duration-200`}
-                src={data.image.url}
-                width={data.image.width}
-                height={data.image.height}
+                src={image.url}
+                width={image.width ?? 1200}
+                height={image.height ?? 800}
                 priority
               />
             </motion.div>
           )}
 
-          {data.image2?.url && (
+          {image2?.url && (
             <motion.div
               transition={{ duration: 0.25, ease: easeIn }}
               className="cursor-pointer flex-1"
-              onClick={() => data.image2?.url && handleImageClick(data.image2.url)}
+              onClick={() => image2?.url && handleImageClick(image2.url)}
             >
               <Image
-                alt={data.image2.alt || 'Secondary news image'}
+                alt={image2.alt || 'Secondary news image'}
                 className={`object-cover w-full ${data.image2 && data.image ? 'h-40' : 'h-80'} 
                 rounded-md shadow-lg hover:shadow-xl transition-shadow duration-200 md:h-64`}
-                src={data.image2.url}
-                width={data.image2.width}
-                height={data.image2.height}
+                src={image2.url}
+                width={image2.width ?? 1200}
+                height={image2.height ?? 800}
               />
             </motion.div>
           )}

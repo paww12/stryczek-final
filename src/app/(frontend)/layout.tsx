@@ -4,6 +4,7 @@ import ReactLenis from './lib/ReactLenis'
 import Footer from './footer/Footer'
 import Navbar from './navbar/Navbar'
 import Script from 'next/script'
+import Providers from './lib/ReactQuery/Providers'
 
 export const metadata = {
   title: 'Słodka Pętelka – Ciasta i wypieki z Tychów',
@@ -77,12 +78,13 @@ export default async function FrontendLayout(props: { children: React.ReactNode 
             strategy="beforeInteractive"
             dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
           />
-
-          <Navbar />
-          <main>
-            <div className="container mx-auto min-h-screen">{children}</div>
-            <Footer />
-          </main>
+          <Providers>
+            <Navbar />
+            <main>
+              <div className="container mx-auto min-h-screen">{children}</div>
+              <Footer />
+            </main>
+          </Providers>
           <ReactLenis />
         </>
       </body>
