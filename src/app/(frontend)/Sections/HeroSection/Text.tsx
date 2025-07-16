@@ -1,81 +1,36 @@
 'use client'
+
 import { useEffect, useState } from 'react'
+import { useNavbarTexts } from '../../lib/ReactQuery/useNavbarText'
 
 const SPEED = 250
 
-interface NavbarTextDoc {
-  id: number
-  text: string
-  createdAt: string
-  updatedAt: string
-}
-
-interface ApiResponse {
-  docs: NavbarTextDoc[]
-  hasNextPage: boolean
-  hasPrevPage: boolean
-  limit: number
-  nextPage: null | number
-  page: number
-  pagingCounter: number
-  prevPage: null | number
-  totalDocs: number
-  totalPages: number
-}
-
 const Text = () => {
+  const { data: phrases = [] } = useNavbarTexts()
   const [text, setText] = useState('')
-  const [phrases, setPhrases] = useState<string[] | null>(null)
   const [index, setIndex] = useState(0)
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch('/api/navbar-text')
-        const data: ApiResponse = await res.json()
-        const texts = data.docs.map((doc) => doc.text)
-        setPhrases(texts)
-      } catch (error) {
-        console.error('Error fetching navbar texts:', error)
-        setPhrases(['słodkości', 'torty', 'ciasteczka'])
-      }
-    }
-
-    fetchData()
-  }, [])
-
-  useEffect(() => {
     let cancelled = false
-
     const animate = async () => {
-      if (!phrases || phrases.length === 0) return
+      if (!phrases.length) return
 
-      const currentPhrase = phrases[index]
-
-      for (let i = 0; i <= currentPhrase.length; i++) {
+      const current = phrases[index].text
+      for (let i = 0; i <= current.length; i++) {
         if (cancelled) return
-        setText(currentPhrase.slice(0, i))
-        await new Promise((r) => setTimeout(r, SPEED))
+        setText(current.slice(0, i))
+        await new Promise(r => setTimeout(r, SPEED))
       }
-
-      await new Promise((r) => setTimeout(r, SPEED * 4))
-
-      for (let i = currentPhrase.length; i >= 0; i--) {
+      await new Promise(r => setTimeout(r, SPEED * 4))
+      for (let i = current.length; i >= 0; i--) {
         if (cancelled) return
-        setText(currentPhrase.slice(0, i))
-        await new Promise((r) => setTimeout(r, SPEED / 2))
+        setText(current.slice(0, i))
+        await new Promise(r => setTimeout(r, SPEED / 2))
       }
-
-      if (!cancelled) {
-        setIndex((prev) => (prev + 1) % phrases.length)
-      }
+      if (!cancelled) setIndex((idx) => (idx + 1) % phrases.length)
     }
-
     animate()
-
-    return () => {
-      cancelled = true
-    }
+    return () => void (cancelled = true)
   }, [index, phrases])
 
   return (
