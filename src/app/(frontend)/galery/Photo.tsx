@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { motion } from 'motion/react'
 import { GalleryMain, Media } from '@/payload-types'
 import { usePopupStoreGalery } from '../state/store'
+import { useAllGalleryImages } from '../lib/ReactQuery/useGallery'
 import Link from 'next/link'
 
 interface PhotoProps {
@@ -13,41 +14,26 @@ interface PhotoProps {
   onAnimationComplete: () => void
 }
 
-interface ApiResponse {
-  docs: GalleryMain[]
-}
-
 interface ProductLink {
   title: string
 }
 
 const Photo = ({ image, index, shouldAnimate, onAnimationComplete }: PhotoProps) => {
   const { setComponent, setImages: setStoreImages } = usePopupStoreGalery()
+  const { fetchAllImages } = useAllGalleryImages()
 
   const handleImageClick = async (clickedImage: Media, clickedIndex: number) => {
-    const fetchImages = async (endpoint: string): Promise<Media[]> => {
-      try {
-        const res = await fetch(endpoint)
-        const data: ApiResponse = await res.json()
-        return data.docs
-          .map(doc => typeof doc.image !== 'number' ? doc.image : null)
-          .filter((img): img is Media => img !== null)
-      } catch (error) {
-        console.error(`Error fetching from ${endpoint}:`, error)
-        return []
-      }
+    try {
+      const allImages = await fetchAllImages()
+      const globalIndex = allImages.findIndex(img => img.url === clickedImage.url)
+
+      setStoreImages(allImages, globalIndex !== -1 ? globalIndex : clickedIndex)
+      setComponent(<div />)
+    } catch (error) {
+      console.error('Error fetching gallery images:', error)
+      setStoreImages([clickedImage], 0)
+      setComponent(<div />)
     }
-
-    const [topImages, mainImages] = await Promise.all([
-      fetchImages('/api/gallery-top?limit=1000'),
-      fetchImages('/api/gallery-main?limit=1000&depth=1')
-    ])
-
-    const allImages = [...topImages, ...mainImages]
-    const globalIndex = allImages.findIndex(img => img.url === clickedImage.url)
-
-    setStoreImages(allImages, globalIndex !== -1 ? globalIndex : topImages.length + clickedIndex)
-    setComponent(<div />)
   }
 
   if (typeof image.image === 'number' || !image.image?.url) {

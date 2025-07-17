@@ -1,59 +1,36 @@
 'use client'
+
 import { useInView, motion } from 'motion/react'
 import Photo from './Photo'
-import { useEffect, useState, useRef, useCallback } from 'react'
-import { GalleryMain } from '@/payload-types'
+import { useEffect, useRef, useMemo } from 'react'
+import { useGalleryMainInfinite } from '../lib/ReactQuery/useGallery'
 
 const GalleryMainPage = () => {
-  const [images, setImages] = useState<GalleryMain[]>([])
-  const [loading, setLoading] = useState(false)
-  const [page, setPage] = useState(1)
-  const [hasMore, setHasMore] = useState(true)
-  const animatedIds = useRef(new Set<string>())
   const sentinelRef = useRef(null)
+  const animatedIds = useRef(new Set<string>())
+
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isLoading,
+    error
+  } = useGalleryMainInfinite()
 
   const isInView = useInView(sentinelRef, {
     once: false,
   })
 
-  const loadImages = useCallback(async (pageNumber: number) => {
-    if (loading) return
-    try {
-      setLoading(true)
-      const res = await fetch(`/api/gallery-main?page=${pageNumber}&limit=5&depth=1`)
-      const newData = await res.json()
-
-      if (newData.docs.length === 0) {
-        setHasMore(false)
-        return
-      }
-
-      setImages((prev) => {
-        const existingIds = new Set(prev.map((img) => img.id))
-        const filtered = newData.docs.filter((doc: GalleryMain) => !existingIds.has(doc.id))
-        return [...prev, ...filtered]
-      })
-    } finally {
-      setLoading(false)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  const images = useMemo(() => {
+    return data?.pages.flatMap(page => page.docs) || []
+  }, [data])
 
   useEffect(() => {
-    if (isInView && hasMore && !loading) {
-      const nextPage = page + 1
-      setPage(nextPage)
-      loadImages(nextPage)
+    if (isInView && hasNextPage && !isFetchingNextPage) {
+      fetchNextPage()
     }
-  }, [isInView, hasMore, loading, page, loadImages])
-
-  useEffect(() => {
-    setImages([])
-    setPage(1)
-    setHasMore(true)
-    animatedIds.current.clear()
-    loadImages(1)
-  }, [loadImages])
+  }, [isInView, hasNextPage, isFetchingNextPage, fetchNextPage])
 
   const getSizeClass = (i: number) => {
     const pattern = [
@@ -68,6 +45,14 @@ const GalleryMainPage = () => {
 
   const handleAnimationComplete = (id: string) => {
     animatedIds.current.add(id)
+  }
+
+  if (error) {
+    return (
+      <div className="text-center p-4 text-red-500">
+        Wystąpił błąd podczas ładowania galerii
+      </div>
+    )
   }
 
   return (
@@ -87,8 +72,17 @@ const GalleryMainPage = () => {
 
       <div ref={sentinelRef} className="h-[1px] w-full bg-transparent" />
 
-      {loading && <div className="text-center p-4 text-gray-500">Ładowanie...</div>}
-      {!hasMore && <div className="text-center p-4 text-gray-500">To już wszystkie zdjęcia</div>}
+      {isFetchingNextPage && (
+        <div className="text-center p-4 text-gray-500">
+          Ładowanie kolejnych zdjęć...
+        </div>
+      )}
+
+      {!hasNextPage && !isLoading && images.length > 0 && (
+        <div className="text-center p-4 text-gray-500">
+          To już wszystkie zdjęcia
+        </div>
+      )}
     </>
   )
 }
