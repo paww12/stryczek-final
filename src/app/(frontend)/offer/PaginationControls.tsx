@@ -69,7 +69,6 @@ const PaginationControls = ({
 
   return (
     <div className="flex justify-center items-center space-x-2 mt-8">
-      {/* Previous button */}
       {currentPage > 1 && (
         <Link
           href={buildUrl(currentPage - 1)}
@@ -80,7 +79,6 @@ const PaginationControls = ({
         </Link>
       )}
 
-      {/* Page numbers */}
       <div className="flex space-x-1">
         {visiblePages.map((pageNumber, index) => {
           if (pageNumber === '...') {

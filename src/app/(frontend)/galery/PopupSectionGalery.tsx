@@ -1,5 +1,5 @@
 'use client'
-import { useRef, useEffect, useCallback, useState } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import { usePopupStoreGalery } from '../state/store'
 import useOutsideClick from '../lib/useOutsideClick'
 import { AnimatePresence, motion } from 'motion/react'
@@ -18,17 +18,19 @@ const PopupSectionGalery = () => {
     setImageLoaded(false)
   }, [currentIndex])
 
-  const handleKeyPress = useCallback((e: KeyboardEvent) => {
-    if (!component || !imageLoaded) return
-    if (e.key === 'ArrowRight') nextImage()
-    if (e.key === 'ArrowLeft') prevImage()
-    if (e.key === 'Escape') setComponent(null)
-  }, [component, imageLoaded, nextImage, prevImage, setComponent])
-
   useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      if (!component || !imageLoaded) return
+
+      const key = e.key.toLowerCase()
+      if (key === 'arrowright' || key === 'd') nextImage()
+      if (key === 'arrowleft' || key === 'a') prevImage()
+      if (key === 'escape') setComponent(null)
+    }
+
     document.addEventListener('keydown', handleKeyPress)
     return () => document.removeEventListener('keydown', handleKeyPress)
-  }, [handleKeyPress])
+  }, [component, imageLoaded, nextImage, prevImage, setComponent])
 
   const currentImage = images[currentIndex]
 

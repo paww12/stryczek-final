@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { BiSearch, BiX } from 'react-icons/bi'
 
@@ -20,7 +20,8 @@ const SearchBar = ({
     const router = useRouter()
     const searchParams = useSearchParams()
 
-    const updateUrl = useCallback((searchQuery: string) => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const updateUrl = (searchQuery: string) => {
         const params = new URLSearchParams(searchParams.toString())
 
         if (searchQuery.trim()) {
@@ -37,7 +38,7 @@ const SearchBar = ({
 
         const newUrl = `/offer?${params.toString()}`
         router.push(newUrl)
-    }, [searchParams, category, router])
+    }
 
     useEffect(() => {
         const timeoutId = setTimeout(() => {

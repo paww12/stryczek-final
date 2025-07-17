@@ -16,7 +16,6 @@ const AboutSection = async () => {
             <div className="max-w-lg mx-auto lg:mx-0">
               <OverlayX delay={0.2}>
                 <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                  {/* Lorem ipsum dolor sit amet. */}
                   <BubbleText text="Lorem ipsum dolor sit amet consectetur adipisicing." />
                 </h2>
               </OverlayX>

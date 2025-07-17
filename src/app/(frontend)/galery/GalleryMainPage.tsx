@@ -2,7 +2,7 @@
 
 import { useInView, motion } from 'motion/react'
 import Photo from './Photo'
-import { useEffect, useRef, useMemo } from 'react'
+import { useEffect, useRef } from 'react'
 import { useGalleryMainInfinite } from '../lib/ReactQuery/useGallery'
 
 const GalleryMainPage = () => {
@@ -22,9 +22,7 @@ const GalleryMainPage = () => {
     once: false,
   })
 
-  const images = useMemo(() => {
-    return data?.pages.flatMap(page => page.docs) || []
-  }, [data])
+  const images = data?.pages.flatMap(page => page.docs) || []
 
   useEffect(() => {
     if (isInView && hasNextPage && !isFetchingNextPage) {

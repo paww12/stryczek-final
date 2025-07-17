@@ -105,7 +105,10 @@ export default async function CakePage({ params }: { params: Promise<{ cake: str
 
           <section className="grid md:grid-cols-2 gap-8 mb-12">
             <div className="relative aspect-square rounded-xl overflow-hidden shadow-lg">
-              <ImageComponent image={cakeRes.image} />
+              {typeof cakeRes.image === 'object' && cakeRes.image !== null && (
+                <ImageComponent image={cakeRes.image} />
+              )}
+
             </div>
 
             <article className="space-y-6">

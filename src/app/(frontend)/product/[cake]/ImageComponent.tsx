@@ -3,8 +3,9 @@
 import Image from 'next/image'
 import { usePopupStore } from '../../state/store'
 import { motion } from 'motion/react'
+import { Media } from '@/payload-types'
 
-const ImageComponent = ({ image }: { image: any }) => {
+const ImageComponent = ({ image }: { image: Media }) => {
   const { setComponent } = usePopupStore()
 
   const handleClick = (url: string) => {
@@ -29,9 +30,9 @@ const ImageComponent = ({ image }: { image: any }) => {
     )
   }
 
-  return image?.url ? (
+  return image.url ? (
     <Image
-      onClick={() => handleClick(image.url)}
+      onClick={() => handleClick(image.url!)}
       src={image.url}
       fill
       className="object-cover"

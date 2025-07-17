@@ -51,7 +51,7 @@ const ContactForm = () => {
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="adresee" className="block text-gray-700 my-1">
-            Adres email
+            Adres e-mail
           </label>
           <input
             type="email"

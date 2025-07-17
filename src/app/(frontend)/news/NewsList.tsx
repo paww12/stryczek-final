@@ -1,7 +1,8 @@
 import { getPayload } from 'payload'
 import PaginationControls from './PaginationControls'
-import NewsCard, { NewsData } from './NewsCard'
+import NewsCard from './NewsCard'
 import configPromise from '@payload-config'
+import { News } from '@/payload-types'
 
 
 export default async function NewsList({ currentPage }: { currentPage: number }) {
@@ -13,7 +14,7 @@ export default async function NewsList({ currentPage }: { currentPage: number })
     page: currentPage,
   })
 
-  const newsItems = news.docs as NewsData[]
+  const newsItems = news.docs as News[]
 
   return (
     <>

@@ -16,11 +16,7 @@ const GalleryClient = () => {
   const { refetch: refetchMainGallery } = useGalleryMain()
 
   const handleImageClick = async (clickedImage: Media, clickedIndex: number) => {
-    console.log(clickedImage, clickedIndex)
-
-    const topImages = images?.map(img =>
-      typeof img.image !== 'number' ? img.image : null
-    ).filter(Boolean) as Media[] || []
+    const topImages = (images ?? []).map(img => img.image as Media)
 
     try {
       const { data: mainImages } = await refetchMainGallery()
@@ -32,7 +28,6 @@ const GalleryClient = () => {
     } catch (error) {
       console.error('Error fetching main gallery:', error)
 
-      // Fallback to just top images if main gallery fails
       setStoreImages(topImages, clickedIndex)
       setComponent(<div />)
     }
