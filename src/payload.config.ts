@@ -27,7 +27,7 @@ export default buildConfig({
   endpoints: [testAPI],
   email: emailAdapter,
   routes: {
-    admin: '/dupa',
+    admin: '/adminSite',
   },
   admin: {
     user: Users.slug,
