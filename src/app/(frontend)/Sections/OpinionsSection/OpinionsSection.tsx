@@ -2,16 +2,27 @@ import Image from 'next/image';
 import BubbleText from '../../contact/components/BubbleText'
 
 type Review = {
-  rating: number;
-  originalText: {
-    text: string;
-  };
   authorAttribution: {
     displayName: string;
     photoUri?: string;
+    uri: string
   };
+  flagContentUri: string
+  googleMapsUri: string
+  name: string
+  originalText: {
+    languageCode: string
+    text: string;
+  };
+  publishTime: string;
+  rating: number;
   relativePublishTimeDescription?: string;
+  text: {
+    languageCode: string,
+    text: string
+  }
 };
+
 
 type ReviewsResponse = {
   rating: number;
@@ -45,6 +56,34 @@ const renderStars = (rating: number) => {
     </svg>
   ));
 };
+
+function getRelativeTimePolish(dateString: string) {
+  const date = new Date(dateString)
+  const now = new Date()
+  const seconds = Math.floor((now.getTime() - date.getTime()) / 1000)
+
+  const rtf = new Intl.RelativeTimeFormat('pl', { numeric: 'auto' })
+
+  const intervals: [number, Intl.RelativeTimeFormatUnit][] = [
+    [60, 'second'],
+    [60, 'minute'],
+    [24, 'hour'],
+    [30, 'day'],
+    [12, 'month'],
+    [Infinity, 'year']
+  ]
+
+  let value = seconds
+  let unit: Intl.RelativeTimeFormatUnit = 'second'
+
+  for (const [interval, nextUnit] of intervals) {
+    if (value < interval) break
+    value /= interval
+    unit = nextUnit
+  }
+
+  return rtf.format(Math.floor(-value), unit)
+}
 
 const OpinionsSection = async () => {
   const data = await fetchData();
@@ -98,7 +137,7 @@ const OpinionsSection = async () => {
                   </p>
                   {review.relativePublishTimeDescription && (
                     <p className="text-sm text-gray-500">
-                      {review.relativePublishTimeDescription}
+                      {getRelativeTimePolish(review.publishTime)}
                     </p>
                   )}
                 </div>

@@ -22,26 +22,26 @@ export default function MarqueeComponent({ text }: { text: string }) {
     : [{ text, href: null }]
 
   if (isLoading) {
+    const placeholders = Array.from({ length: 12 }, (_, i) => (
+      <div
+        key={i}
+        className="flex-shrink-0 rounded-xl px-4 my-2 py-3 bg-gray-100 text-transparent animate-pulse whitespace-nowrap"
+        style={{ minWidth: 'max-content' }}
+      >
+        Ładowanie…
+      </div>
+    ))
+
     return (
-      <div className="relative py-3 my-8 overflow-hidden border-y border-gray-200/50 mx-8 md:mx-12 lg:mx-24">
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent pointer-events-none" />
+      <div className="relative py-3 my-8 overflow-hidden border-y border-gray-200/50 mx-8 md:mx-12 lg:mx-24 group">
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent pointer-events-none group-hover:via-white/10 transition-all duration-300" />
         <div className="flex gap-6 [mask:linear-gradient(90deg,transparent,white_5%,white_95%,transparent)]">
-          <MarqueeTrack
-            items={Array(12).fill({ text: 'Ładowanie...', href: null })}
-            skew={rawVelocity}
-            isLoading={true}
-            shouldAnimate={shouldAnimate}
-          />
-          <MarqueeTrack
-            items={Array(12).fill({ text: 'Ładowanie...', href: null })}
-            skew={rawVelocity}
-            isLoading={true}
-            shouldAnimate={shouldAnimate}
-          />
+          {placeholders}
         </div>
       </div>
     )
   }
+
 
   return (
     <motion.div
@@ -101,13 +101,7 @@ function MarqueeTrack({
     >
       {duplicatedItems.map(({ text, href, id }) => {
         const itemContent = (
-          <div className={`
-            flex-shrink-0 
-            rounded-xl 
-            px-4 py-2.5 
-            text-lg font-medium 
-            whitespace-nowrap 
-            transition-all duration-200 
+          <div className={`flex-shrink-0 rounded-xl px-4 py-2.5 text-lg font-medium whitespace-nowrap transition-all duration-200 
             ${isLoading
               ? 'bg-gray-100 text-gray-400 animate-pulse'
               : href
