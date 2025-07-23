@@ -1,0 +1,11 @@
+# Include .env file for build args
+!.env
+
+# Exclude development files
+node_modules
+.git
+.github
+.next
+dist
+build
+*.log

@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  color: #0a0a0a;
+  background: #ffffff;
+  font-family: var(--font-shantell-sans);
+}
+
+@keyframes fade {
+  0% {
+    transform: translateX(50px);
+    opacity: 0;
+    scale: 0.8;
+    transition-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+  }
+  100% {
+    scale: 1;
+    transform: translateX(0);
+    transition-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+    opacity: 1;
+  }
+}
+.animate-fade-in {
+  animation: fade 0.5s forwards ease-in 0.75s;
+}
+.animate-fade-in-delay {
+  animation: fade 0.5s forwards ease-in 1s;
+}
+.animate-fade-in-delay-long {
+  animation: fade 0.5s forwards ease-in 1.25s;
+}
+@media screen and (max-height: 700px){
+  .tooHeight{
+    display: none;
+  }
+}
+@media screen and (max-height: 600px){
+  .tooHeightMin{
+    display: none;
+  }
+}
+
+@media screen and (max-height: 801px) and (min-width: 768px) and (max-width: 1280px){
+  .tooHeightBtn{
+    margin-top: 1rem !important;
+  }
+  .tooHeightText{
+    margin-bottom: 0 !important;
+  }
+}
+@media screen and (max-height: 701px) and (min-width: 768px) and (max-width: 1280px){
+  .tooHeightBtn{
+    margin-top: 1rem !important;
+  }
+  .tooHeightText{
+    margin-bottom: 0 !important;
+    display: none;
+  }
+}
+@media screen and (max-height: 800px) and (min-width: 1280px) {
+  .tooHeightBtn{
+    margin-top: 1rem !important;
+    display: none;
+  }
+  .tooHeightText{
+    margin-bottom: 0 !important;
+    display: none;
+  }
+}
+.transform-gpu {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
