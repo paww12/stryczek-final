@@ -15,7 +15,7 @@ export default async function HomePage() {
       <Hero />
       <News />
       <div className="hidden md:block">
-        <MarqueSection text="Słodka Pętelka" />
+        <MarqueSection />
       </div>
       <AboutSection />
       <CombinedSection />
