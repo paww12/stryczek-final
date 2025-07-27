@@ -70,15 +70,21 @@ const News = () => {
     startAutoSlide()
   }
 
-  const handleDragEnd = () => {
-    const x = dragX.get()
-    if ((x < .1 * window.innerWidth) && currentIndex < ARRAY.length - 1) {
-      handleManualChange(currentIndex + 1)
-    }
-    if ((x > - .08 * window.innerWidth) && currentIndex > 0) {
-      handleManualChange(currentIndex - 1)
-    }
+const handleDragEnd = () => {
+  const x = dragX.get()
+  const threshold = 0.03 * window.innerWidth
+  console.log(x, threshold)
+  if (x < -threshold && currentIndex < ARRAY.length - 1) {
+    handleManualChange(currentIndex + 1)
+  } else if (x > threshold && currentIndex > 0) {
+    handleManualChange(currentIndex - 1)
+  } else {
+    handleManualChange(currentIndex)
   }
+
+  dragX.set(0)
+}
+
 
   const easeTransition = {
     ease: easeInOut,
