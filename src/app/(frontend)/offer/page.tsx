@@ -35,7 +35,7 @@ export const metadata = {
   description: "Świeże ciasta, pyszne desery i słodkie przekąski. Sprawdź naszą pełną ofertę, ceny i skontaktuj się z nami!",
 }
 
-const ProductPlaceholder = ({ title }: { title: string }) => (
+export const ProductPlaceholder = ({ title }: { title: string }) => (
   <div className="w-full h-full bg-amber-50 flex flex-col items-center justify-center p-4">
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -75,14 +75,14 @@ const ProductPricing = ({ prices }: { prices?: Product['prices'] }) => {
 
   return (
     <div className="flex justify-between items-start flex-col">
-      {prices.half && (
-        <span className="text-lg font-bold text-amber-600">
-          pół porcji {prices.half} zł
-        </span>
-      )}
       {prices.full && (
         <span className="text-lg font-bold text-amber-500">
-          cała porcja {prices.full} zł
+          Porcja {prices.full} zł
+        </span>
+      )}
+      {prices.half && (
+        <span className="text-lg font-bold text-amber-600">
+          Pół porcji {prices.half} zł
         </span>
       )}
     </div>
@@ -106,7 +106,7 @@ const ProductCard = ({ product }: { product: Product }) => {
 
   return (
     <Link
-      href={`/product/${product.slug}`}
+      href={`/product/${product.title}`}
       className="hover:scale-[.98] transition-all shadow-md hover:shadow-xl"
     >
       <div className="bg-white rounded-xl overflow-hidden h-full transition-shadow">

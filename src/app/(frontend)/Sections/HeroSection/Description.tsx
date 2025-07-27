@@ -14,7 +14,11 @@ const Description = async () => {
       <span>
         {text
           ? text
+<<<<<<< HEAD:src/app/(frontend)/Sections/HeroSection/Description.tsx
           : 'Witamy w naszej słodkiej krainie! Tu każdy dzień smakuje lepiej — od pierwszego kęsa. Zapraszamy do świata wypieków tworzonych z pasją, według domowych receptur i z najlepszych składników. Czy masz ochotę na puszysty sernik, chrupiącą tartę, a może tort, który spełni marzenie? U nas znajdziesz coś na każdą okazję — i bez okazji też.'}
+=======
+          : 'Witamy w naszej słodkiej krainie! Tu każdy dzień smakuje lepiej — od pierwszego kęsa. Zapraszamy do świata wypieków tworzonych z pasją, według domowych receptur i z najlepszych składników. Czy masz ochotę na puszysty sernik, chrupiącą tartę, a może tort, który spełni marzenie? U nas znajdziesz coś na każdą okazję — i bez okazji też'}
+>>>>>>> 70b3768 (another final fixes):stryczek-deploy/src/app/(frontend)/Sections/HeroSection/Description.tsx
       </span>
     </div>
   )

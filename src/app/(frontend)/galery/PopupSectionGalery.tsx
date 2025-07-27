@@ -65,7 +65,7 @@ const PopupSectionGalery = () => {
                     exit={{ x: -20, opacity: 0 }}
                     transition={{ duration: 0.5, delay: 0.5 }}
                     className="absolute left-4 top-1/2 -translate-y-1/2 text-4xl z-30 text-white hover:text-gray-300 transition-colors bg-black/30 rounded-full w-12 h-12 flex items-center justify-center"
-                    onClick={nextImage}
+                    onClick={prevImage}
                     aria-label="Poprzednie zdjęcie"
                   >
                     ←

@@ -3,8 +3,8 @@ import nodemailer from 'nodemailer'
 import 'dotenv/config'
 
 export const emailAdapter = nodemailerAdapter({
-  defaultFromAddress: 'qparanormal@gmail.com',
-  defaultFromName: 'Q_Paranormall',
+  defaultFromAddress: 'paww91@gmail.com',
+  defaultFromName: 'Słodka Pętelka formularz',
   transport: nodemailer.createTransport({
     host: process.env.SMTP_HOST,
     port: 587,

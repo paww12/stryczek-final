@@ -6,6 +6,7 @@ import ImageComponent from './ImageComponent'
 import PopupSection from '../../Sections/popupSection/PopupSection'
 import configPromise from '@payload-config'
 import { notFound } from 'next/navigation'
+import { ProductPlaceholder } from '../../offer/page'
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
@@ -117,25 +118,42 @@ export default async function CakePage({ params }: { params: Promise<{ cake: str
           </nav>
 
           <section className="grid md:grid-cols-2 gap-8 mb-12">
-            <div className="relative aspect-square rounded-xl overflow-hidden shadow-lg">
-              {typeof cakeRes.image === 'object' && cakeRes.image !== null && (
+            <div className="relative aspect-square rounded-xl overflow-hidden shadow-lg cursor-pointer">
+              {typeof cakeRes.image === 'object' && cakeRes.image !== null ? (
                 <ImageComponent image={cakeRes.image} />
-              )}
-
+              ): <ProductPlaceholder title={cakeRes.title} /> }
+              
             </div>
 
             <article className="space-y-6">
-              <header>
+              <header className='bg-gray-200 rounded-lg p-2'>
                 <h1 className="text-3xl font-bold text-gray-900 mb-2">{cakeRes.title}</h1>
                 <p className="text-lg text-gray-600">{cakeRes.description}</p>
               </header>
-
+              {(cakeRes.category[0] as { title: string }).title === 'ciasta' &&
+              <div className='bg-gray-100 rounded-lg p-2'>
+                <span className='test-2xl font-bold text-gray-800'>
+                  Wymiary blachy: 
+                </span>
+                <ul>
+                  <li className='list-disc ml-6'>Pełna porcja: 22cm x 36cm</li>
+                  <li className='list-disc ml-6'>Pół porcji: 11cm x 18cm</li>
+                </ul>
+              </div>
+              }
+              {(cakeRes.category[0] as { title: string }).title === 'desery' &&
+              <div className='bg-gray-100 rounded-lg p-2'>
+                <span className='test-2xl font-bold text-gray-800'>
+                  Minimalna liczba to 5 sztuk
+                </span>
+              </div>
+              }
               <div className="space-y-4">
                 {(cakeRes.prices?.full || cakeRes.prices?.half) && (
                   <div className="flex items-center gap-4">
                     <div className="bg-indigo-50 px-4 py-2 rounded-lg flex flex-col gap-4">
                       <span className="text-2xl font-bold text-indigo-700">
-                        {cakeRes.prices.full && <span> Cała porcja: {cakeRes.prices.full} zł</span>}
+                        {cakeRes.prices.full && <span> Porcja: {cakeRes.prices.full} zł</span>}
                       </span>
                       <span className="text-2xl font-bold text-indigo-700">
                         {cakeRes.prices.half && <span> Pół porcji: {cakeRes.prices.half} zł</span>}
