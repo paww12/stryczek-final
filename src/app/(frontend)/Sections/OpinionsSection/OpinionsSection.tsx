@@ -37,7 +37,7 @@ const fetchData = async (): Promise<ReviewsResponse> => {
     throw new Error('GOOGLE_URL environment variable is not defined');
   }
 
-  const res = await fetch(url, { cache: 'force-cache' });
+  const res = await fetch(url, { cache: 'no-store' });
   const data = await res.json();
 
   return data;
@@ -56,34 +56,6 @@ const renderStars = (rating: number) => {
     </svg>
   ));
 };
-
-function getRelativeTimePolish(dateString: string) {
-  const date = new Date(dateString)
-  const now = new Date()
-  const seconds = Math.floor((now.getTime() - date.getTime()) / 1000)
-
-  const rtf = new Intl.RelativeTimeFormat('pl', { numeric: 'auto' })
-
-  const intervals: [number, Intl.RelativeTimeFormatUnit][] = [
-    [60, 'second'],
-    [60, 'minute'],
-    [24, 'hour'],
-    [30, 'day'],
-    [12, 'month'],
-    [Infinity, 'year']
-  ]
-
-  let value = seconds
-  let unit: Intl.RelativeTimeFormatUnit = 'second'
-
-  for (const [interval, nextUnit] of intervals) {
-    if (value < interval) break
-    value /= interval
-    unit = nextUnit
-  }
-
-  return rtf.format(Math.floor(-value), unit)
-}
 
 const OpinionsSection = async () => {
   const data = await fetchData();
@@ -137,7 +109,7 @@ const OpinionsSection = async () => {
                   </p>
                   {review.relativePublishTimeDescription && (
                     <p className="text-sm text-gray-500">
-                      {getRelativeTimePolish(review.publishTime)}
+                      {review.relativePublishTimeDescription}
                     </p>
                   )}
                 </div>
@@ -153,4 +125,3 @@ const OpinionsSection = async () => {
 
 export default OpinionsSection;
 
-export const revlidate = 3600

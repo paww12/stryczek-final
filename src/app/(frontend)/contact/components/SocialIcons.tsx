@@ -30,7 +30,8 @@ const SocialIcons = () => {
             href={item.href}
             data-name={item.name}
             aria-label={item.name}
-            rel="noopener noreferrer"
+            // rel="noopener noreferrer"
+            rel="external noopener noreferrer" 
             target="_blank"
             className="p-x-2 bg-gray-100 rounded-full hover:bg-blue-100
             transition-colors text-gray-600 hover:text-blue-600

@@ -13,14 +13,12 @@ const AboutSection = async () => {
             <div className="max-w-xl mx-auto lg:mx-0">
               <OverlayX delay={0.2}>
                 <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                  <BubbleText text="Lorem ipsum dolor sit amet consectetur adipisicing." />
+                  <BubbleText text="Każdy wypiek to osobna historia — opowiedziana w warstwach ciasta, kremu i dekoracji." />
                 </h2>
               </OverlayX>
               <OverlayX delay={0.3}>
                 <p className="text-lg text-gray-600 mb-10">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, neque dolores cum
-                  error illum inventore, unde deserunt nisi doloribus, quos suscipit quibusdam
-                  temporibus ea ducimus minima architecto dicta quia atque?
+                  Wierzymy, że dobre ciasto potrafi poprawić humor, przywołać wspomnienia i sprawić, że zwykły dzień stanie się wyjątkowy. Dlatego w naszej cukierni nie ma miejsca na kompromisy — tylko prawdziwe masło, świeże owoce i sprawdzone receptury
                 </p>
               </OverlayX>
               <div className="flex flex-col lg:flex-row items-center lg:justify-start gap-8">

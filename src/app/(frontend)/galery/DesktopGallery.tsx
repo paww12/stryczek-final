@@ -81,7 +81,7 @@ export const DesktopGallery = ({ images, loading, handleImageClick }: {
                 }}
                 className="text-xl text-gray-600 fixed left-0 w-full text-center top-1/2 -translate-y-1/2 py-8 mt-16"
             >
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores, nisi?
+                Jedno zdjęcie jest warte więcej niż tysiąc słów. Zapraszamy do obejrzenia naszych słodkości
             </motion.h2>
 
             {loading ? (

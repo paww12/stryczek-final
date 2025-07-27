@@ -19,21 +19,21 @@ interface CategoryTypes {
 const categories: CategoryTypes[] = [
   {
     icon: <CakeSVG className='aspect-auto w-1/2' />,
-    title: 'Torty Artystyczne',
+    title: 'Torty',
     desc: 'Unikalne kompozycje na specjalne okazje',
-    href: '/offer?category=Ciasta',
+    href: '/offer?category=torty',
   },
   {
     icon: <BunSVG className='aspect-auto w-1/2' />,
-    title: 'Desery Sezonowe',
-    desc: 'Słodkości inspirowane porami roku',
-    href: '/offer?category=Desery',
+    title: 'Desery',
+    desc: 'Małe dzieła sztuki cukierniczej na każdą okazję',
+    href: '/offer?category=desery',
   },
   {
     icon: <BakingSVG className='aspect-auto w-1/2 ' />,
-    title: 'Wypieki Domowe',
+    title: 'Ciasta',
     desc: 'Elegancja i lekkość w każdym kęsie',
-    href: '/offer?category=Wypieki',
+    href: '/offer?category=ciasta',
   },
 ]
 

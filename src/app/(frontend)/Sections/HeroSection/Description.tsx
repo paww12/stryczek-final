@@ -14,7 +14,7 @@ const Description = async () => {
       <span>
         {text
           ? text
-          : 'Jesteśmy małą fimą Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odit iste minus temporibus quasi asperiores praesentium possimus! Architecto ad vel ipsa accusamus asperiores sint sunt recusandae illo est omnis, neque praesentium!'}
+          : 'Witamy w naszej słodkiej krainie! Tu każdy dzień smakuje lepiej — od pierwszego kęsa. Zapraszamy do świata wypieków tworzonych z pasją, według domowych receptur i z najlepszych składników. Czy masz ochotę na puszysty sernik, chrupiącą tartę, a może tort, który spełni marzenie? U nas znajdziesz coś na każdą okazję — i bez okazji też.'}
       </span>
     </div>
   )

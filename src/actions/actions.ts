@@ -14,7 +14,7 @@ export async function SendMail(prevState: unknown, formData: FormData) {
   try {
     await payload.sendEmail({
       // to: adresee,
-      to: 'aleks3650@interia.pl',
+      to: 'zamowienia@slodkapetelka.pl',
       subject: subject as string,
       html: `
         <!DOCTYPE html>

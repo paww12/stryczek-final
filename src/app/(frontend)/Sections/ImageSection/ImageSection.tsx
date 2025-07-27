@@ -87,11 +87,11 @@ const ImageSection = ({ scrollYProgress }: { scrollYProgress: MotionValue<number
 
       <div className="mx-auto px-4 h-full relative flex items-center justify-center">
         <motion.div className="text-center space-y-2" style={{ y: yPos, opacity }}>
-          <h2 className="text-4xl font-bold text-slate-800 tooHeightMin">Lorem ipsum dolor sit amet.</h2>
-          <p className="text-slate-600 max-w-md mx-auto tooHeight">
+          <h2 className="text-4xl font-bold text-slate-800 mb-4 tooHeightMin">W przypadku wątpliwości, zapraszamy do kontaktu</h2>
+          {/* <p className="text-slate-600 max-w-md mx-auto tooHeight">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem quisquam commodi
             amet incidunt officiis enim accusamus consequatur, sint natus qui.
-          </p>
+          </p> */}
           <ContactForm />
         </motion.div>
         {dots.length > 0 && (

@@ -14,7 +14,7 @@ export const MobileGallery = ({ images, loading, handleImageClick }: {
             <div className="text-center mb-8">
                 <h1 className="text-3xl font-bold text-gray-800 mb-4">Galeria</h1>
                 <h2 className="text-lg text-gray-600">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores, nisi?
+                    Jedno zdjęcie jest warte więcej niż tysiąc słów. Zapraszamy do obejrzenia naszych słodkości
                 </h2>
             </div>
 
