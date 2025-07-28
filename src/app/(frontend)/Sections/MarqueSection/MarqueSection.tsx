@@ -7,40 +7,39 @@ import { Product } from '@/payload-types';
 export default function MarqueeComponent() {
   const { data, isLoading } = useMarqueData();
 
-  const targetLength = 20;
-  const repeatedData = data && data.length > 0
-    ? Array.from({ length: Math.ceil(targetLength / data.length) }, () => data).flat()
-    : [];
-
-if (isLoading) {
-  const placeholderItems = Array.from({ length: targetLength }, (_, i) => (
-    <div key={i} className="my-2">
-      <div
-        className="flex-shrink-0 rounded-xl px-4 py-2.5 text-lg font-medium whitespace-nowrap transition-all duration-200 bg-gradient-to-r from-amber-50 to-orange-50 text-gray-800 border hover:from-amber-100 hover:to-orange-100 border-amber-200/50 animate-pulse opacity-60"
-      >
-        Ładowanie…
+  if (isLoading) {
+    const placeholderItems = Array.from({ length: 20 }, (_, i) => (
+      <div key={i} className="my-2">
+        <div
+          className="flex-shrink-0 rounded-xl px-4 py-2.5 text-lg font-medium whitespace-nowrap transition-all duration-200 bg-gradient-to-r from-amber-50 to-orange-50 text-gray-800 border hover:from-amber-100 hover:to-orange-100 border-amber-200/50 animate-pulse opacity-60"
+        >
+          Ładowanie…
+        </div>
       </div>
-    </div>
-  ));
+    ));
+
+    return (
+      <div className="my-14 relative py-3 my-8 overflow-hidden border-y border-gray-200/50 mx-8 md:mx-12 lg:mx-24 group [mask:linear-gradient(90deg,transparent,white_5%,white_95%,transparent)]">
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent pointer-events-none group-hover:via-white/10 transition-all duration-300" />
+        <div className="flex gap-6 animate-marquee whitespace-nowrap hover:[animation-play-state:paused]">
+          {placeholderItems}
+        </div>
+      </div>
+    );
+  }
+  
+  if (!data || data.length === 0) return null;
+
+  const targetLength = 20;
+  const repeatedData = Array.from({ length: Math.ceil(targetLength / data.length) }, () => data).flat();
 
   return (
     <div className="my-14 relative py-3 my-8 overflow-hidden border-y border-gray-200/50 mx-8 md:mx-12 lg:mx-24 group [mask:linear-gradient(90deg,transparent,white_5%,white_95%,transparent)]">
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent pointer-events-none group-hover:via-white/10 transition-all duration-300" />
-      <div className="flex gap-6 animate-marquee whitespace-nowrap hover:[animation-play-state:paused]">
-        {placeholderItems}
-      </div>
-    </div>
-  );
-}
-
-
-  return (
-    <div className={`my-14 relative py-3 my-8 overflow-hidden border-y border-gray-200/50 mx-8 md:mx-12 lg:mx-24 group [mask:linear-gradient(90deg,transparent,white_5%,white_95%,transparent)] ${data ? 'hidden' : null}`}>
       <div className="flex gap-6 animate-marquee whitespace-nowrap hover:[animation-play-state:paused]">
         {repeatedData.map((item, idx) => {
           const text = item.text;
           const product = item.link as Product;
-          const linkTitle = product?.title 
+          const linkTitle = product?.title;
           const baseClasses = `flex-shrink-0 rounded-xl px-4 py-2.5 text-lg font-medium whitespace-nowrap transition-all duration-200`;
 
           const finalClass = linkTitle

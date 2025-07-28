@@ -116,13 +116,12 @@ export default async function CakePage({ params }: { params: Promise<{ cake: str
               <li className="font-medium text-gray-900">{cakeName}</li>
             </ol>
           </nav>
-
           <section className="grid md:grid-cols-2 gap-8 mb-12">
             <div className="relative aspect-square rounded-xl overflow-hidden shadow-lg cursor-pointer">
               {typeof cakeRes.image === 'object' && cakeRes.image !== null ? (
                 <ImageComponent image={cakeRes.image} />
               ): <ProductPlaceholder title={cakeRes.title} /> }
-              
+
             </div>
 
             <article className="space-y-6">
@@ -133,7 +132,7 @@ export default async function CakePage({ params }: { params: Promise<{ cake: str
               {(cakeRes.category[0] as { title: string }).title === 'ciasta' &&
               <div className='bg-gray-100 rounded-lg p-2'>
                 <span className='test-2xl font-bold text-gray-800'>
-                  Wymiary blachy: 
+                  Wymiary blachy:
                 </span>
                 <ul>
                   <li className='list-disc ml-6'>Pełna porcja: 22cm x 36cm</li>
@@ -195,3 +194,4 @@ export default async function CakePage({ params }: { params: Promise<{ cake: str
     </>
   )
 }
+

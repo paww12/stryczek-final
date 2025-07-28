@@ -5,6 +5,7 @@ import Footer from './footer/Footer'
 import Navbar from './navbar/Navbar'
 import Script from 'next/script'
 import Providers from './lib/ReactQuery/Providers'
+import { GoogleAnalytics } from '@next/third-parties/google';
 
 export const metadata = {
   title: 'Słodka Pętelka – Ciasta i wypieki z Tychów',
@@ -67,6 +68,10 @@ const schemaData = {
 
 export default async function FrontendLayout(props: { children: React.ReactNode }) {
   const { children } = props
+  const GA_ID = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID;
+  if (!GA_ID) {
+    throw new Error('Brakuje NEXT_PUBLIC_GOOGLE_ANALYTICS_ID – uzupełnij plik .env');
+  }
 
   return (
     <html lang='pl'>
@@ -78,6 +83,7 @@ export default async function FrontendLayout(props: { children: React.ReactNode 
             strategy="beforeInteractive"
             dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
           />
+          <GoogleAnalytics gaId={GA_ID} />
           <Providers>
             <Navbar />
             <main>

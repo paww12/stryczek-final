@@ -65,7 +65,7 @@ export const ProductPlaceholder = ({ title }: { title: string }) => (
     <p className="text-amber-600 text-center mt-2 font-medium">
       {title}
       <br />
-      <span className="text-sm text-amber-500">(brak zdjęcia)</span>
+       <span className="text-sm text-amber-500">(brak zdjęcia)</span>
     </p>
   </div>
 )
@@ -188,7 +188,6 @@ export default async function Offer({ searchParams }: OfferProps) {
     collection: 'categories',
     limit: 100,
   })
-
   const categoryOptions: CategoryOption[] = [
     { label: 'Wszystkie', value: 'all' },
     ...categoriesData.docs.map((category: Category) => ({
@@ -246,7 +245,6 @@ export default async function Offer({ searchParams }: OfferProps) {
             </Link>
           </Overlay>
         </div>
-
         <Overlay delay={1}>
           <div className="mb-8 max-w-md mx-auto">
             <Suspense fallback={<div>Ładowanie wyszukiwarki...</div>}>

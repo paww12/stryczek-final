@@ -56,7 +56,6 @@ const PopupSectionGalery = () => {
               >
                 ✕
               </motion.button>
-
               {imageLoaded && images.length > 1 && (
                 <>
                   <motion.button

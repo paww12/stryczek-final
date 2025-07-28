@@ -8,13 +8,13 @@ const ContactInfo = () => {
       title: 'Słodka Pętelka',
       content: 'ul. Mąkołowska 150, 43-100 Tychy',
       href: `https://www.google.com/maps/search/Słodka+Pętelka`,
-      target: '_blank', 
+      target: '_blank',
     },
     {
       icon: <FiPhone className="text-2xl" />,
       title: 'Telefon',
       content: '+48 789 741 964',
-      href: 'tel:+48789741964', 
+      href: 'tel:+48789741964',
     },
     {
       icon: <FiMail className="text-2xl" />,
@@ -35,7 +35,7 @@ const ContactInfo = () => {
             {item.href ? (
               <a
                 href={item.href}
-                target={item.target || '_self'} 
+                target={item.target || '_self'}
                 rel={item.target === '_blank' ? 'noopener noreferrer' : undefined}
                 className="text-gray-600 break-all transition-colors duration-300 hover:text-blue-600"
               >
@@ -53,3 +53,4 @@ const ContactInfo = () => {
 }
 
 export default ContactInfo
+

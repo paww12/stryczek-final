@@ -17,6 +17,7 @@
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start"
   },
   "dependencies": {
+    "@next/third-parties": "^15.4.4",
     "@payloadcms/db-postgres": "3.48.0",
     "@payloadcms/email-nodemailer": "3.48.0",
     "@payloadcms/next": "3.48.0",
