@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import OverlayX from '../../Components/OverlayX'
+import Overlay from '../../Components/Overlay' 
 import BubbleText from '../../contact/components/BubbleText'
 import BakingSVG from '../../Components/BakingSVG'
 
@@ -8,42 +8,42 @@ const AboutSection = async () => {
     <section className="relative pt-12 pb-24 md:pt-16 md:pb-32 rounded-lg bg-white ">
       <div className="container mx-auto px-4">
         <div className="flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-16">
-          
+
           <div className="lg:w-1/2 text-center lg:text-left">
             <div className="max-w-xl mx-auto lg:mx-0">
-              <OverlayX delay={0.2}>
+              <Overlay delay={0.2}>
                 <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
                   <BubbleText text="Każdy wypiek to osobna historia — opowiedziana w warstwach ciasta, kremu i dekoracji." />
                 </h2>
-              </OverlayX>
-              <OverlayX delay={0.3}>
+              </Overlay>
+              <Overlay delay={0.3}>
                 <p className="text-lg text-gray-600 mb-10">
                   Wierzymy, że dobre ciasto potrafi poprawić humor, przywołać wspomnienia i sprawić, że zwykły dzień stanie się wyjątkowy. Dlatego w naszej cukierni nie ma miejsca na kompromisy — tylko prawdziwe masło, świeże owoce i sprawdzone receptury
                 </p>
-              </OverlayX>
+              </Overlay>
               <div className="flex flex-col lg:flex-row items-center lg:justify-start gap-8">
-                <OverlayX delay={0.5} left={true}>
+                <Overlay delay={0.5}>
                   <Link
                     href="/galery"
                     className="px-6 py-3 bg-amber-600 text-white font-semibold rounded-full hover:bg-amber-700 transition-all duration-300 transform hover:scale-105"
                   >
                     Sprawdź nasze wypieki
                   </Link>
-                </OverlayX>
-                <OverlayX delay={0.5} left={false}>
+                </Overlay>
+                <Overlay delay={0.5} >
                   <Link
                     href="/contact"
                     className="px-6 py-3 border-2 border-amber-600 text-amber-600 font-semibold rounded-full hover:bg-amber-50 transition-all duration-300 transform hover:scale-105"
                   >
                     Zadaj mi pytanie
                   </Link>
-                </OverlayX>
+                </Overlay>
               </div>
             </div>
           </div>
 
           <div className="lg:w-1/2 w-full max-w-md">
-            <OverlayX delay={0.4} left={false}>
+            <Overlay delay={0.4} >
               <div className="bg-amber-50/70 rounded-2xl p-8 shadow-lg border border-amber-100/80 transform transition-all duration-300 ease-in-out hover:shadow-2xl hover:scale-[106%] hover:-translate-y-2">
                 <div className="flex items-start gap-6">
                   <div className="text-amber-600 flex-shrink-0 pt-1">
@@ -68,7 +68,7 @@ const AboutSection = async () => {
                   </div>
                 </div>
               </div>
-            </OverlayX>
+            </Overlay>
           </div>
         </div>
       </div>

@@ -74,3 +74,9 @@ body {
   backface-visibility: hidden;
   perspective: 1000px;
 }
+
+@media (min-width: 1024px) and (max-height: 750px) {
+  .heightItem {
+    display: none !important;
+  }
+}

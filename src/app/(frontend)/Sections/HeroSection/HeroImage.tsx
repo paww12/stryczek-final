@@ -8,7 +8,7 @@ const HeroImage = () => {
   const { data: imageData, isLoading, error } = useNavbarImage()
 
   const containerClasses = "w-full h-full relative container mx-auto"
-  const imageClasses = "w-[80vw] max-h-[475px] h-full top-1/4 right-4 absolute md:w-[calc(75vw)] md:max-h-[600px] md:right-8 max-w-[1300px]"
+  const imageClasses = "w-[80vw] h-[72.5vh] top-1/4 right-4 absolute md:right-8"
 
   if (error) {
     console.error('Error fetching navbar image:', error)
@@ -30,7 +30,7 @@ const HeroImage = () => {
   }
 
   return (
-    <div className={containerClasses}>
+    <div className={containerClasses}> 
       <AnimatedImage
         imageData={imageData}
         className={imageClasses}

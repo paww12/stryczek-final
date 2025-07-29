@@ -20,6 +20,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const productResults = await payload.find({
     collection: 'product',
+    limit: 0
   })
 
   const productPages = productResults.docs.map((product) => ({
