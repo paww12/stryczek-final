@@ -5,37 +5,6 @@ import Overlay from '../../Components/Overlay'
 import Title from '../../Components/Title'
 import { MotionValue, useTransform, motion } from 'motion/react'
 import { useIsMobile } from '../../lib/useIsMobile'
-import CakeSVG from '../../Components/CakeSVG'
-import { ReactNode } from 'react'
-import BunSVG from '../../Components/BunSVG'
-import BakingSVG from '../../Components/BakingSVG'
-
-interface CategoryTypes {
-  title: string
-  href: string
-  icon: ReactNode
-  desc: string
-}
-const categories: CategoryTypes[] = [
-  {
-    icon: <CakeSVG className='aspect-auto w-1/2' />,
-    title: 'Torty',
-    desc: 'Unikalne kompozycje na specjalne okazje',
-    href: '/offer?category=torty',
-  },
-  {
-    icon: <BunSVG className='aspect-auto w-1/2' />,
-    title: 'Desery',
-    desc: 'Małe dzieła sztuki cukierniczej na każdą okazję',
-    href: '/offer?category=desery',
-  },
-  {
-    icon: <BakingSVG className='aspect-auto w-1/2 ' />,
-    title: 'Ciasta',
-    desc: 'Elegancja i lekkość w każdym kęsie',
-    href: '/offer?category=ciasta',
-  },
-]
 
 const HomeGallerySection = ({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) => {
   const isMobile = useIsMobile()
@@ -74,7 +43,7 @@ const HomeGallerySection = ({ scrollYProgress }: { scrollYProgress: MotionValue<
         </div>
         <Overlay delay={0.75}>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <SweetBox categories={categories} />
+            <SweetBox />
           </div>
         </Overlay>
 

@@ -8,18 +8,20 @@ import configPromise from '@payload-config'
 import { notFound } from 'next/navigation'
 import { ProductPlaceholder } from '../../offer/page'
 
-export async function generateStaticParams() {
-  const payload = await getPayload({ config: configPromise })
+// export async function generateStaticParams() {
+//   const payload = await getPayload({ config: configPromise })
 
-  const cakes = await payload.find({
-    collection: 'product',
-    limit: 100,
-  })
+//   const cakes = await payload.find({
+//     collection: 'product',
+//     limit: 100,
+//   })
 
-  return cakes.docs.map(cake => ({
-    cake: encodeURIComponent(cake.title),
-  }))
-}
+//   return cakes.docs.map(cake => ({
+//     cake: encodeURIComponent(cake.title),
+//   }))
+// }
+
+export const revalidate = 3600
 
 export async function generateMetadata({ params }: { params: Promise<{ cake: string }> }) {
   const { cake } = await params

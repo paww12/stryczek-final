@@ -109,7 +109,7 @@ const ProductCard = ({ product }: { product: Product }) => {
       href={`/product/${product.title}`}
       className="hover:scale-[.98] transition-all shadow-md hover:shadow-xl"
     >
-      <div className="bg-white rounded-xl overflow-hidden h-full transition-shadow">
+      <div className="bg-white rounded-xl overflow-hidden h-full transition-shadow flex flex-col min-h-[450px] md:min-h-[500px]">
         <div className="relative h-64">
           {imageUrl ? (
             <Image
@@ -125,16 +125,16 @@ const ProductCard = ({ product }: { product: Product }) => {
 
           {categoryName && (
             <div className="absolute top-2 left-2">
-              <span className="bg-amber-500 text-white px-2 py-1 rounded-full text-xs font-medium">
+              <span className="bg-amber-500 text-white px-2 py-1 rounded-lg text-lg font-medium">
                 {categoryName}
               </span>
             </div>
           )}
         </div>
 
-        <div className="p-6">
-          <h2 className="text-xl font-bold text-gray-900 mb-2">{product.title}</h2>
-          <p className="text-gray-600 mb-4 line-clamp-2">{product.description}</p>
+        <div className="p-6 flex flex-col flex-grow">
+          <h2 className="text-xl font-bold text-gray-900 mb-3 leading-tight">{product.title}</h2>
+          <p className="text-gray-600 mb-4 line-clamp-3 flex-grow leading-relaxed">{product.description}</p>
           <ProductPricing prices={product.prices} />
         </div>
       </div>

@@ -12,6 +12,9 @@ export async function SendMail(prevState: unknown, formData: FormData) {
     throw new Error('Podaj adres email')
   }
   try {
+    console.log('Wysyłam maila do:', adresee)
+    console.log('Temat:', subject)
+    console.log('Treść:', textBody)
     await payload.sendEmail({
       // to: adresee,
       to: 'zamowienia@slodkapetelka.pl',
@@ -42,6 +45,7 @@ export async function SendMail(prevState: unknown, formData: FormData) {
       message: 'Email wysłany pomyślnie',
     }
   } catch (error) {
+    console.error('Błąd przy wysyłce maila:', error)
     return {
       success: false,
       message: error,
