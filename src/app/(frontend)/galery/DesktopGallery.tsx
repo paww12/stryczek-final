@@ -3,6 +3,7 @@ import { useScroll, motion, useTransform } from 'motion/react'
 import { useState, useEffect, useRef } from 'react'
 import SVGComponent from './SVGComponent'
 import { GalleryTop, Media } from '@/payload-types'
+import ScrollHint from './ScrollHint'
 
 
 export const DesktopGallery = ({ images, loading, handleImageClick }: {
@@ -57,6 +58,7 @@ export const DesktopGallery = ({ images, loading, handleImageClick }: {
             style={{ height: `${containerHeight}px` }}
         >
             <SVGComponent scrollYProgress={scrollYProgress} />
+            <ScrollHint scrollYProgress={scrollYProgress} />
 
             <motion.h1
                 style={{

@@ -15,19 +15,19 @@ interface CategoryTypes {
 
 const categories: CategoryTypes[] = [
   {
-    icon: <CakeSVG className='aspect-auto w-40' />,
+    icon: <CakeSVG className='aspect-auto h-52' />,
     title: 'Torty',
     desc: 'Unikalne kompozycje na specjalne okazje',
     href: '/offer?category=torty',
   },
   {
-    icon: <BunSVG className='aspect-auto w-40' />,
+    icon: <BunSVG className='aspect-auto h-52' />,
     title: 'Desery',
     desc: 'Małe dzieła sztuki cukierniczej na każdą okazję',
     href: '/offer?category=desery',
   },
   {
-    icon: <BakingSVG className='aspect-auto w-40' />,
+    icon: <BakingSVG className='aspect-auto h-52' />,
     title: 'Ciasta',
     desc: 'Elegancja i lekkość w każdym kęsie',
     href: '/offer?category=ciasta',

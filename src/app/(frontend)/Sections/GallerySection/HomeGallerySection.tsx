@@ -43,7 +43,7 @@ const HomeGallerySection = ({ scrollYProgress }: { scrollYProgress: MotionValue<
         </div>
         <Overlay delay={0.75}>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <SweetBox />
+            <SweetBox/>
           </div>
         </Overlay>
 

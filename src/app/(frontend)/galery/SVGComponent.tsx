@@ -10,7 +10,7 @@ const SVGComponent = ({ scrollYProgress }: { scrollYProgress: MotionValue<number
     <motion.svg
       style={{ opacity, translateY }}
       className="w-full fixed top-1/4 left-0 h-full pointer-events-none overflow-hidden"
-      viewBox="0 0 566 307"
+      viewBox="-10 -10 576 317"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
