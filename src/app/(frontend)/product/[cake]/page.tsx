@@ -119,7 +119,7 @@ export default async function CakePage({ params }: { params: Promise<{ cake: str
             <article className="space-y-6">
               <header className='bg-gray-200 rounded-lg p-2'>
                 <h1 className="text-3xl font-bold text-gray-900 mb-2">{cakeRes.title}</h1>
-                <p className="text-lg text-gray-600">{cakeRes.description}</p>
+                <p className="text-lg text-gray-600 whitespace-break-spaces">{cakeRes.description}</p>
               </header>
               {(cakeRes.category[0] as { title: string }).title === 'ciasta' &&
               <div className='bg-gray-100 rounded-lg p-2'>
