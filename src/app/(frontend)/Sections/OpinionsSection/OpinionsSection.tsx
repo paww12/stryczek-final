@@ -36,7 +36,6 @@ const fetchData = async (): Promise<ReviewsResponse> => {
   if (!url) {
     throw new Error('GOOGLE_URL environment variable is not defined');
   }
-
   const res = await fetch(url, {next: {revalidate: 1209600 }});
   const data = await res.json();
 

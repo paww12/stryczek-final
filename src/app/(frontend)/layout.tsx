@@ -68,10 +68,10 @@ const schemaData = {
 
 export default async function FrontendLayout(props: { children: React.ReactNode }) {
   const { children } = props
-  const GA_ID = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID;
-  if (!GA_ID) {
-    throw new Error('Brakuje NEXT_PUBLIC_GOOGLE_ANALYTICS_ID – uzupełnij plik .env');
-  }
+  // const GA_ID = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID;
+  // if (!GA_ID) {
+  //   throw new Error('Brakuje NEXT_PUBLIC_GOOGLE_ANALYTICS_ID – uzupełnij plik .env');
+  // }
 
   return (
     <html lang='pl'>
@@ -83,7 +83,7 @@ export default async function FrontendLayout(props: { children: React.ReactNode 
             strategy="beforeInteractive"
             dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
           />
-          <GoogleAnalytics gaId={GA_ID} />
+          {/* <GoogleAnalytics gaId={GA_ID} /> */}
           <Providers>
             <Navbar />
             <main>
